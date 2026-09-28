@@ -11,13 +11,13 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/contacts")({
   head: () => ({
     meta: [
-      { title: "Контакты — Studymaxxing" },
+      { title: "Контакты — Join&Acquire" },
       {
         name: "description",
-        content: "Свяжитесь с командой Studymaxxing: +7 778 005 40 70, farestfps@gmail.com, Атырау.",
+        content: "Свяжитесь с командой Join&Acquire: +7 778 005 40 70, farestfps@gmail.com, Атырау.",
       },
-      { property: "og:title", content: "Контакты Studymaxxing" },
-      { property: "og:description", content: "Телефон, email и форма обратной связи Studymaxxing." },
+      { property: "og:title", content: "Контакты Join&Acquire" },
+      { property: "og:description", content: "Телефон, email и форма обратной связи Join&Acquire." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

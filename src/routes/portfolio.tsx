@@ -21,13 +21,13 @@ import {
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Портфолио и AP-экзамены — Studymaxxing" },
+      { title: "Портфолио и AP-экзамены — Join&Acquire" },
       {
         name: "description",
         content:
           "Заполните GPA, целевой мейджор, AP-экзамены, олимпиады и внеклассные активности для ИИ-оценки.",
       },
-      { property: "og:title", content: "Портфолио & AP — Studymaxxing" },
+      { property: "og:title", content: "Портфолио & AP — Join&Acquire" },
       {
         property: "og:description",
         content: "Конструктор портфолио абитуриента: GPA, AP, олимпиады, активности и лидерство.",

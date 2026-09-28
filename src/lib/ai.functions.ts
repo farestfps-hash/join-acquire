@@ -65,7 +65,7 @@ function bundleText(bundle: Awaited<ReturnType<typeof loadBundle>>) {
   return JSON.stringify(bundle, null, 2);
 }
 
-const EVAL_SYSTEM = `Ты — элитный консультант по международным поступлениям (Studymax AI, на базе Gemini).
+const EVAL_SYSTEM = `Ты — элитный консультант по международным поступлениям (Join&Acquire AI, на базе Gemini).
 В оценке учитывай стандартизированные тесты из профиля: SAT (200-1600), ACT (1-36), ЕНТ/UNT (0-140), NUET, а также годовой бюджет (annual_budget, budget_currency) и флаг needs_full_aid (если true — оценивай только реалистичные варианты с полной финансовой помощью или грантом). Высокие баллы SAT/ACT повышают шансы для USA и Hong Kong, ЕНТ — для Казахстана.
 Оцениваешь профиль школьника по странам: USA (холистическая оценка: строгость AP, глубина лидерства, соответствие активностей мейджору, уникальный нарратив), Hong Kong (количественная строгость: GPA, соответствие AP профилю, минимум 3-4 AP с баллами 4-5, английский), Kazakhstan (олимпиады, GPA, шансы на грант и топ-вузы РК), Europe (эквивалентность AP, пороги GPA, соответствие пререквизитам бакалавриата).
 Отвечай СТРОГО валидным JSON без markdown, на русском языке.
@@ -133,7 +133,7 @@ export const generateRoadmap = createServerFn({ method: "POST" })
     const raw = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI. Составляешь персональную дорожную карту поступления. Сегодня ${today}.
+        content: `Ты — Join&Acquire AI. Составляешь персональную дорожную карту поступления. Сегодня ${today}.
 Отвечай СТРОГО валидным JSON без markdown, на русском.
 Схема: {"steps":[{"title":"...","due_date":"YYYY-MM-DD","category":"Академика|Тесты|Активности|Документы|Дедлайн","description":"1-2 предложения","priority":"high|medium|low"}]}
 От 8 до 14 шагов, отсортированных по дате.`,
@@ -153,7 +153,7 @@ export const generateRoadmap = createServerFn({ method: "POST" })
     return data;
   });
 
-export const studymaxChat = createServerFn({ method: "POST" })
+export const joinAcquireChat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) =>
     z
@@ -174,7 +174,7 @@ export const studymaxChat = createServerFn({ method: "POST" })
     const reply = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI, дружелюбный, но требовательный консультант по поступлению в зарубежные университеты (на базе Gemini).
+        content: `Ты — Join&Acquire AI, дружелюбный, но требовательный консультант по поступлению в зарубежные университеты (на базе Gemini).
 У тебя есть доступ к профилю пользователя. Помогай писать эссе и personal statement, давай стратегические советы по усилению слабых мест портфолио, отвечай на вопросы о поступлении в вузы США, Гонконга, Казахстана и Европы.
 Отвечай кратко и по делу, на языке пользователя. Используй markdown-списки, когда это уместно.
 Профиль пользователя (JSON):\n${bundleText(bundle)}`,
@@ -197,7 +197,7 @@ export const matchUniversities = createServerFn({ method: "POST" })
     const raw = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI, эксперт по международным поступлениям.
+        content: `Ты — Join&Acquire AI, эксперт по международным поступлениям.
 Учитывай GPA, AP, олимпиады, активности, стандартизированные тесты (SAT 200-1600, ACT 1-36, ЕНТ/UNT 0-140, NUET) и годовой бюджет на обучение (annual_budget, budget_currency, needs_full_aid — если true, приоритет вузам с полной финансовой помощью или грантом).
 Отвечай СТРОГО валидным JSON без markdown, на русском.
 Схема: {"matches":[{"university":"точное название из списка","country":"USA|Hong Kong|Kazakhstan|Europe","probability": число 0-100,"classification":"Safety|Match|Reach","reason":"1-2 предложения","budget_fit":"комментарий по бюджету и финпомощи"}],"advice":"2-3 предложения общей стратегии"}

@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Studymaxxing — ИИ-оценка шансов поступления" },
+      { title: "Join&Acquire — ИИ-оценка шансов поступления" },
       {
         name: "description",
         content:
           "Join&Acquire: оценка профиля ИИ, портфолио и AP, дорожная карта поступления в США, Гонконг, Европу и Казахстан.",
       },
-      { property: "og:title", content: "Studymaxxing — Join&Acquire" },
+      { property: "og:title", content: "Join&Acquire — ИИ-платформа для поступления" },
       {
         property: "og:description",
         content:
@@ -82,7 +82,7 @@ function Home() {
               ["600+", "профилей в базе"],
               ["4", "региона поступления"],
               ["0-100", "холистический балл"],
-              ["24/7", "Studymax AI"],
+              ["24/7", "Join&Acquire AI"],
             ].map(([v, l]) => (
               <div key={l} className="surface-card px-4 py-5">
                 <p className="font-display text-2xl font-bold text-primary">{v}</p>

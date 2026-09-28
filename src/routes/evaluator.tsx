@@ -23,13 +23,13 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/evaluator")({
   head: () => ({
     meta: [
-      { title: "ИИ-оценка шансов поступления — Studymaxxing" },
+      { title: "ИИ-оценка шансов поступления — Join&Acquire" },
       {
         name: "description",
         content:
           "Холистический балл, вероятности поступления по странам и стратегическая обратная связь от ИИ.",
       },
-      { property: "og:title", content: "AI Admissions Evaluator — Studymaxxing" },
+      { property: "og:title", content: "AI Admissions Evaluator — Join&Acquire" },
       {
         property: "og:description",
         content: "Оценка профиля для США, Гонконга, Казахстана и Европы на базе Gemini.",

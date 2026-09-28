@@ -15,7 +15,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { StudymaxChat } from "@/components/studymax-chat";
+import { JoinAcquireChat } from "@/components/join-acquire-chat";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -83,13 +83,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Studymaxxing — Join&Acquire" },
+      { title: "Join&Acquire — ИИ-платформа для поступления" },
       {
         name: "description",
         content:
           "ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта.",
       },
-      { property: "og:title", content: "Studymaxxing — Join&Acquire" },
+      { property: "og:title", content: "Join&Acquire — ИИ-платформа для поступления" },
       {
         property: "og:description",
         content: "ИИ-оценка шансов поступления, портфолио и персональная дорожная карта.",
@@ -148,7 +148,7 @@ function RootComponent() {
             </main>
             <SiteFooter />
           </div>
-          <StudymaxChat />
+          <JoinAcquireChat />
           <Toaster position="top-center" richColors />
         </AuthProvider>
       </ThemeProvider>
