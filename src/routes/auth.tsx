@@ -12,13 +12,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Вход и регистрация — Studymaxxing" },
+      { title: "Вход и регистрация — Join&Acquire" },
       {
         name: "description",
-        content: "Войдите в Studymaxxing, чтобы сохранить портфолио и получить ИИ-оценку профиля.",
+        content: "Войдите в Join&Acquire, чтобы сохранить портфолио и получить ИИ-оценку профиля.",
       },
-      { property: "og:title", content: "Вход в Studymaxxing" },
-      { property: "og:description", content: "Аккаунт Studymaxxing: портфолио, ИИ-оценка, дорожная карта." },
+      { property: "og:title", content: "Вход в Join&Acquire" },
+      { property: "og:description", content: "Аккаунт Join&Acquire: портфолио, ИИ-оценка, дорожная карта." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -85,7 +85,7 @@ function AuthPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-16">
       <div className="surface-card p-8">
-        <h1 className="text-2xl font-bold">Studymaxxing</h1>
+        <h1 className="text-2xl font-bold">Join&amp;Acquire</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Войдите, чтобы сохранять портфолио и получать ИИ-оценку.
         </p>

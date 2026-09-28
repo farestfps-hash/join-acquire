@@ -4,13 +4,13 @@ import { Target, ShieldCheck, Globe2, Rocket } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "О проекте — Studymaxxing" },
+      { title: "О проекте — Join&Acquire" },
       {
         name: "description",
         content:
-          "Миссия Studymaxxing: дать каждому школьнику доступ к элитному ИИ-консультированию по поступлению.",
+          "Миссия Join&Acquire: дать каждому школьнику доступ к элитному ИИ-консультированию по поступлению.",
       },
-      { property: "og:title", content: "О проекте Studymaxxing" },
+      { property: "og:title", content: "О проекте Join&Acquire" },
       {
         property: "og:description",
         content: "Элитное ИИ-консультирование по международным поступлениям для школьников.",
@@ -34,7 +34,7 @@ function About() {
     <div className="mx-auto max-w-5xl px-4 py-16">
       <h1 className="text-4xl font-extrabold">О проекте</h1>
       <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-        Studymaxxing создан, чтобы школьник из любого города имел тот же уровень поддержки, что и
+        Join&amp;Acquire создан, чтобы школьник из любого города имел тот же уровень поддержки, что и
         ученик дорогой международной школы с личным admissions-консультантом. Мы объединяем
         подробное портфолио, глубокую ИИ-аналитику на базе Gemini и живой календарь дедлайнов в
         одном инструменте.
@@ -58,7 +58,7 @@ function About() {
           <li>1. Заполняете портфолио: GPA, целевой мейджор, AP-экзамены, олимпиады, активности.</li>
           <li>2. Получаете холистический балл и вероятности поступления по каждой стране.</li>
           <li>3. ИИ строит дорожную карту с датами и добавляет задачи в календарь.</li>
-          <li>4. Studymax AI помогает с эссе и стратегией в любой момент.</li>
+          <li>4. Join&amp;Acquire AI помогает с эссе и стратегией в любой момент.</li>
         </ol>
       </div>
     </div>

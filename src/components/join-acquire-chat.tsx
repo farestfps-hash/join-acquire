@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { MessageCircle, X, Send, Loader2, GraduationCap } from "lucide-react";
-import { studymaxChat } from "@/lib/ai.functions";
+import { joinAcquireChat } from "@/lib/ai.functions";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,15 +9,15 @@ import { Badge } from "@/components/ui/badge";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-export function StudymaxChat() {
+export function JoinAcquireChat() {
   const { user } = useAuth();
-  const send = useServerFn(studymaxChat);
+  const send = useServerFn(joinAcquireChat);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
       content:
-        "Привет! Я Studymax AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?",
+        "Привет! Я Join&Acquire AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -61,7 +61,7 @@ export function StudymaxChat() {
               <GraduationCap className="size-5" />
             </span>
             <div className="flex-1">
-              <p className="text-sm font-bold">Studymax AI</p>
+              <p className="text-sm font-bold">Join&amp;Acquire AI</p>
               <Badge className="mt-0.5 rounded-full bg-lime text-[10px] text-lime-foreground hover:bg-lime">
                 на базе Gemini
               </Badge>
@@ -90,7 +90,7 @@ export function StudymaxChat() {
             ))}
             {busy && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="size-4 animate-spin" /> Studymax AI думает...
+                <Loader2 className="size-4 animate-spin" /> Join&amp;Acquire AI думает...
               </div>
             )}
             <div ref={endRef} />
@@ -118,7 +118,7 @@ export function StudymaxChat() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Studymax AI"
+        aria-label="Join&Acquire AI"
         className="fixed bottom-5 right-5 z-50 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lift transition-transform hover:scale-105"
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}

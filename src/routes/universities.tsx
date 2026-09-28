@@ -22,13 +22,13 @@ import {
 export const Route = createFileRoute("/universities")({
   head: () => ({
     meta: [
-      { title: "Университеты: подбор и база данных — Studymaxxing" },
+      { title: "Университеты: подбор и база данных — Join&Acquire" },
       {
         name: "description",
         content:
           "ИИ-подбор университетов США, Гонконга, Казахстана и Европы: рейтинги QS, шансы поступления, требования, дедлайны и стоимость.",
       },
-      { property: "og:title", content: "University Match & Database — Studymaxxing" },
+      { property: "og:title", content: "University Match & Database — Join&Acquire" },
       {
         property: "og:description",
         content: "Персональный список вузов с шансами поступления и дедлайнами в один клик.",

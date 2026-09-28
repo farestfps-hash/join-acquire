@@ -41,7 +41,7 @@ export function SiteHeader() {
           <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
             <GraduationCap className="size-5" />
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">Studymaxxing</span>
+          <span className="font-display text-lg font-bold tracking-tight">Join&amp;Acquire</span>
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 lg:flex">

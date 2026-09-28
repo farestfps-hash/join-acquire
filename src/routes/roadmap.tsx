@@ -17,13 +17,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 export const Route = createFileRoute("/roadmap")({
   head: () => ({
     meta: [
-      { title: "Дорожная карта и календарь — Studymaxxing" },
+      { title: "Дорожная карта и календарь — Join&Acquire" },
       {
         name: "description",
         content:
           "Персональная ИИ-дорожная карта поступления и живой календарь дедлайнов, интервью и задач.",
       },
-      { property: "og:title", content: "AI Roadmap & Calendar — Studymaxxing" },
+      { property: "og:title", content: "AI Roadmap & Calendar — Join&Acquire" },
       {
         property: "og:description",
         content: "Пошаговый план поступления с датами и управлением событиями.",
