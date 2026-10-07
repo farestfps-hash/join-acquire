@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -12,13 +13,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Вход и регистрация — Join&Acquire" },
+      { title: t("Вход и регистрация — Join&Acquire") },
       {
         name: "description",
-        content: "Войдите в Join&Acquire, чтобы сохранить портфолио и получить ИИ-оценку профиля.",
+        content: t("Войдите в Join&Acquire, чтобы сохранить портфолио и получить ИИ-оценку профиля."),
       },
-      { property: "og:title", content: "Вход в Join&Acquire" },
-      { property: "og:description", content: "Аккаунт Join&Acquire: портфолио, ИИ-оценка, дорожная карта." },
+      { property: "og:title", content: t("Вход в Join&Acquire") },
+      { property: "og:description", content: t("Аккаунт Join&Acquire: портфолио, ИИ-оценка, дорожная карта.") },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [email, setEmail] = useState("");
@@ -47,7 +49,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("С возвращением!");
+    toast.success(t("С возвращением!"));
     navigate({ to: "/portfolio" });
   }
 
@@ -67,7 +69,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("Аккаунт создан. Проверьте почту, если требуется подтверждение.");
+    toast.success(t("Аккаунт создан. Проверьте почту, если требуется подтверждение."));
   }
 
   async function google() {
@@ -75,7 +77,7 @@ function AuthPage() {
       redirect_uri: window.location.origin,
     });
     if (result.error) {
-      toast.error("Не удалось войти через Google");
+      toast.error(t("Не удалось войти через Google"));
       return;
     }
     if (result.redirected) return;
@@ -87,17 +89,14 @@ function AuthPage() {
       <div className="surface-card p-8">
         <h1 className="text-2xl font-bold">Join&amp;Acquire</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Войдите, чтобы сохранять портфолио и получать ИИ-оценку.
-        </p>
+          {t("Войдите, чтобы сохранять портфолио и получать ИИ-оценку.")}</p>
 
         <Tabs defaultValue="signin" className="mt-6">
           <TabsList className="grid w-full grid-cols-2 rounded-full">
             <TabsTrigger value="signin" className="rounded-full">
-              Вход
-            </TabsTrigger>
+              {t("Вход")}</TabsTrigger>
             <TabsTrigger value="signup" className="rounded-full">
-              Регистрация
-            </TabsTrigger>
+              {t("Регистрация")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="signin">
@@ -113,7 +112,7 @@ function AuthPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Пароль</Label>
+                <Label htmlFor="password">{t("Пароль")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -123,15 +122,14 @@ function AuthPage() {
                 />
               </div>
               <Button type="submit" className="rounded-full" disabled={busy}>
-                Войти
-              </Button>
+                {t("Войти")}</Button>
             </form>
           </TabsContent>
 
           <TabsContent value="signup">
             <form onSubmit={signUp} className="mt-5 grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="name">Имя и фамилия</Label>
+                <Label htmlFor="name">{t("Имя и фамилия")}</Label>
                 <Input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
               </div>
               <div className="grid gap-2">
@@ -145,7 +143,7 @@ function AuthPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password2">Пароль</Label>
+                <Label htmlFor="password2">{t("Пароль")}</Label>
                 <Input
                   id="password2"
                   type="password"
@@ -156,18 +154,16 @@ function AuthPage() {
                 />
               </div>
               <Button type="submit" className="rounded-full" disabled={busy}>
-                Создать аккаунт
-              </Button>
+                {t("Создать аккаунт")}</Button>
             </form>
           </TabsContent>
         </Tabs>
 
         <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="h-px flex-1 bg-border" /> или <span className="h-px flex-1 bg-border" />
+          <span className="h-px flex-1 bg-border" /> {t("или")}<span className="h-px flex-1 bg-border" />
         </div>
         <Button variant="outline" className="w-full rounded-full" onClick={google}>
-          Продолжить с Google
-        </Button>
+          {t("Продолжить с Google")}</Button>
       </div>
     </div>
   );

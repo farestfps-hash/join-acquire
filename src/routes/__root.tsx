@@ -1,3 +1,4 @@
+import { t, useLanguage, restoreLanguage } from "@/lib/language";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -19,6 +20,7 @@ import { JoinAcquireChat } from "@/components/join-acquire-chat";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
+  const { t } = useLanguage();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -40,7 +42,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error: caught, reset }: { error: unknown; reset: () => void }) {
+  const { t } = useLanguage();
+  const error = caught instanceof Error ? caught : new Error(String(caught));
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -83,16 +87,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Join&Acquire — ИИ-платформа для поступления" },
+      { title: t("Join&Acquire — ИИ-платформа для поступления") },
       {
         name: "description",
         content:
-          "ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта.",
+          t("ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта."),
       },
-      { property: "og:title", content: "Join&Acquire — ИИ-платформа для поступления" },
+      { property: "og:title", content: t("Join&Acquire — ИИ-платформа для поступления") },
       {
         property: "og:description",
-        content: "ИИ-оценка шансов поступления, портфолио и персональная дорожная карта.",
+        content: t("ИИ-оценка шансов поступления, портфолио и персональная дорожная карта."),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -115,8 +119,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const { t } = useLanguage();
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -134,6 +139,10 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  const { language, t } = useLanguage();
+  const router = useRouter();
+  useEffect(() => { restoreLanguage(); }, []);
+  useEffect(() => { void router.invalidate(); }, [language, router]);
   const { queryClient } = Route.useRouteContext();
 
   return (

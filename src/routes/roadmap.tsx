@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
@@ -17,16 +18,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 export const Route = createFileRoute("/roadmap")({
   head: () => ({
     meta: [
-      { title: "Дорожная карта и календарь — Join&Acquire" },
+      { title: t("Дорожная карта и календарь — Join&Acquire") },
       {
         name: "description",
         content:
-          "Персональная ИИ-дорожная карта поступления и живой календарь дедлайнов, интервью и задач.",
+          t("Персональная ИИ-дорожная карта поступления и живой календарь дедлайнов, интервью и задач."),
       },
       { property: "og:title", content: "AI Roadmap & Calendar — Join&Acquire" },
       {
         property: "og:description",
-        content: "Пошаговый план поступления с датами и управлением событиями.",
+        content: t("Пошаговый план поступления с датами и управлением событиями."),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -52,6 +53,7 @@ const MONTHS = [
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 function RoadmapPage() {
+  const { locale, language, t } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(generateRoadmap);
   const [steps, setSteps] = useState<any[]>([]);
@@ -94,12 +96,12 @@ function RoadmapPage() {
   async function generate() {
     setBusy(true);
     try {
-      const result: any = await run();
+      const result: any = await run({ data: { language } });
       const newSteps: any[] = result?.steps ?? [];
       setSteps(newSteps);
-      toast.success("Дорожная карта готова");
+      toast.success(t("Дорожная карта готова"));
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Не удалось построить карту");
+      toast.error(err instanceof Error ? err.message : t("Не удалось построить карту"));
     } finally {
       setBusy(false);
     }
@@ -123,7 +125,7 @@ function RoadmapPage() {
       return;
     }
     setEvents((prev) => [...prev, data]);
-    toast.success("Добавлено в календарь");
+    toast.success(t("Добавлено в календарь"));
   }
 
   async function addEvent(e: React.FormEvent) {
@@ -140,7 +142,7 @@ function RoadmapPage() {
     }
     setEvents((prev) => [...prev, data]);
     setForm({ ...form, title: "", description: "" });
-    toast.success("Событие добавлено");
+    toast.success(t("Событие добавлено"));
   }
 
   async function toggleEvent(id: string, completed: boolean) {
@@ -172,9 +174,9 @@ function RoadmapPage() {
   if (!user) {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold">Дорожная карта доступна после входа</h1>
+        <h1 className="text-2xl font-bold">{t("Дорожная карта доступна после входа")}</h1>
         <Button asChild className="mt-6 rounded-full">
-          <Link to="/auth">Войти / Регистрация</Link>
+          <Link to="/auth">{t("Войти / Регистрация")}</Link>
         </Button>
       </div>
     );
@@ -201,38 +203,35 @@ function RoadmapPage() {
     <div className="mx-auto max-w-6xl px-4 py-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-extrabold">Дорожная карта &amp; календарь</h1>
+          <h1 className="text-4xl font-extrabold">{t("Дорожная карта & календарь")}</h1>
           <p className="mt-2 flex items-center gap-2 text-muted-foreground">
             <Clock className="size-4" />
-            {now.toLocaleDateString("ru-RU", {
+            {now.toLocaleDateString(locale, {
               weekday: "long",
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
-            , {now.toLocaleTimeString("ru-RU")}
+            , {now.toLocaleTimeString(locale)}
           </p>
         </div>
         <Button className="rounded-full" onClick={generate} disabled={busy}>
           {busy ? (
             <>
-              <Loader2 className="mr-2 size-4 animate-spin" /> ИИ строит план...
-            </>
+              <Loader2 className="mr-2 size-4 animate-spin" /> {t("ИИ строит план...")}</>
           ) : (
             <>
-              <Sparkles className="mr-2 size-4" /> Сгенерировать дорожную карту
-            </>
+              <Sparkles className="mr-2 size-4" /> {t("Сгенерировать дорожную карту")}</>
           )}
         </Button>
       </div>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <section className="surface-card p-7">
-          <h2 className="text-lg font-bold">Персональный план</h2>
+          <h2 className="text-lg font-bold">{t("Персональный план")}</h2>
           {steps.length === 0 && (
             <p className="mt-3 text-sm text-muted-foreground">
-              План ещё не создан. Заполните портфолио и нажмите «Сгенерировать дорожную карту».
-            </p>
+              {t("План ещё не создан. Заполните портфолио и нажмите «Сгенерировать дорожную карту».")}</p>
           )}
           <ol className="mt-5 grid gap-4">
             {steps.map((s, i) => (
@@ -260,8 +259,7 @@ function RoadmapPage() {
                   className="mt-2 rounded-full text-primary"
                   onClick={() => addStepToCalendar(s)}
                 >
-                  <Plus className="mr-1 size-4" /> В календарь
-                </Button>
+                  <Plus className="mr-1 size-4" /> {t("В календарь")}</Button>
               </li>
             ))}
           </ol>
@@ -272,7 +270,7 @@ function RoadmapPage() {
             <div className="flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-lg font-bold">
                 <CalendarDays className="size-5 text-primary" />
-                {MONTHS[month]} {year}
+                {t(MONTHS[month])} {year}
               </h2>
               <div className="flex gap-1">
                 <Button
@@ -295,8 +293,8 @@ function RoadmapPage() {
             </div>
             <div className="mt-5 grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
               {WEEKDAYS.map((d) => (
-                <div key={d} className="py-1 font-semibold">
-                  {d}
+                <div key={t(d)} className="py-1 font-semibold">
+                  {t(d)}
                 </div>
               ))}
               {cells.map((day, i) => {
@@ -325,9 +323,9 @@ function RoadmapPage() {
           </div>
 
           <form onSubmit={addEvent} className="surface-card grid gap-3 p-7">
-            <h2 className="text-lg font-bold">Новое событие</h2>
+            <h2 className="text-lg font-bold">{t("Новое событие")}</h2>
             <div className="grid gap-2">
-              <Label>Название</Label>
+              <Label>{t("Название")}</Label>
               <Input
                 required
                 value={form.title}
@@ -336,7 +334,7 @@ function RoadmapPage() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-2">
-                <Label>Дата</Label>
+                <Label>{t("Дата")}</Label>
                 <Input
                   type="date"
                   required
@@ -345,21 +343,21 @@ function RoadmapPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label>Тип</Label>
+                <Label>{t("Тип")}</Label>
                 <select
                   className="h-9 rounded-md border border-input bg-background px-3 text-sm"
                   value={form.event_type}
                   onChange={(e) => setForm({ ...form, event_type: e.target.value })}
                 >
-                  <option value="deadline">Дедлайн</option>
-                  <option value="interview">Интервью</option>
-                  <option value="task">Задача</option>
-                  <option value="exam">Экзамен</option>
+                  <option value="deadline">{t("Дедлайн")}</option>
+                  <option value="interview">{t("Интервью")}</option>
+                  <option value="task">{t("Задача")}</option>
+                  <option value="exam">{t("Экзамен")}</option>
                 </select>
               </div>
             </div>
             <div className="grid gap-2">
-              <Label>Описание</Label>
+              <Label>{t("Описание")}</Label>
               <Textarea
                 rows={2}
                 value={form.description}
@@ -367,15 +365,14 @@ function RoadmapPage() {
               />
             </div>
             <Button type="submit" className="w-fit rounded-full">
-              Добавить событие
-            </Button>
+              {t("Добавить событие")}</Button>
           </form>
 
           <div className="surface-card p-7">
-            <h2 className="text-lg font-bold">Ближайшие события</h2>
+            <h2 className="text-lg font-bold">{t("Ближайшие события")}</h2>
             <div className="mt-4 grid gap-2">
               {events.length === 0 && (
-                <p className="text-sm text-muted-foreground">Событий пока нет.</p>
+                <p className="text-sm text-muted-foreground">{t("Событий пока нет.")}</p>
               )}
               {events.map((ev) => (
                 <div
@@ -403,7 +400,7 @@ function RoadmapPage() {
                     size="icon"
                     variant="ghost"
                     onClick={() => removeEvent(ev.id)}
-                    aria-label="Удалить"
+                    aria-label={t("Удалить")}
                   >
                     <Trash2 className="size-4 text-destructive" />
                   </Button>
