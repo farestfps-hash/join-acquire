@@ -68,7 +68,7 @@ function benchmarkCloud() {
 const CLOUD = benchmarkCloud();
 
 function Evaluator() {
-  useLanguage();
+  const { language } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(evaluateProfile);
   const [evaluation, setEvaluation] = useState<any>(null);
@@ -98,7 +98,7 @@ function Evaluator() {
   async function evaluate() {
     setBusy(true);
     try {
-      const result = await run();
+      const result = await run({ data: { language } });
       setEvaluation(result);
       toast.success(t("Оценка готова"));
     } catch (err) {

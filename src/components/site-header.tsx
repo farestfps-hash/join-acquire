@@ -28,7 +28,7 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
-  useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -38,15 +38,15 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-3 sm:gap-4 sm:px-4">
+        <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
             <GraduationCap className="size-5" />
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">Join&amp;Acquire</span>
+          <span className="font-display text-sm font-bold sm:text-lg">Join&amp;Acquire</span>
         </Link>
 
-        <nav className="ml-4 hidden items-center gap-1 lg:flex">
+        <nav className="ml-4 hidden items-center gap-1 min-[1440px]:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -60,7 +60,11 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+          <div role="group" aria-label="Language / Язык" className="flex shrink-0 rounded-full border border-border bg-secondary p-0.5">
+            <Button size="sm" variant={language === "en" ? "default" : "ghost"} className="h-7 rounded-full px-2 text-xs" aria-label="English" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>EN</Button>
+            <Button size="sm" variant={language === "ru" ? "default" : "ghost"} className="h-7 rounded-full px-2 text-xs" aria-label="Русский" aria-pressed={language === "ru"} onClick={() => setLanguage("ru")}>RU</Button>
+          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -108,7 +112,7 @@ export function SiteHeader() {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="min-[1440px]:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label={t("Меню")}
           >
@@ -117,7 +121,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className={cn("border-t border-border lg:hidden", open ? "block" : "hidden")}>
+      <div className={cn("border-t border-border min-[1440px]:hidden", open ? "block" : "hidden")}>
         <nav className="mx-auto grid max-w-7xl gap-1 px-4 py-3">
           {NAV.map((item) => (
             <Link

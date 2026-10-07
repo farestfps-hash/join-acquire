@@ -53,7 +53,7 @@ const MONTHS = [
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 function RoadmapPage() {
-  const { locale } = useLanguage();
+  const { locale, language } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(generateRoadmap);
   const [steps, setSteps] = useState<any[]>([]);
@@ -96,7 +96,7 @@ function RoadmapPage() {
   async function generate() {
     setBusy(true);
     try {
-      const result: any = await run();
+      const result: any = await run({ data: { language } });
       const newSteps: any[] = result?.steps ?? [];
       setSteps(newSteps);
       toast.success(t("Дорожная карта готова"));

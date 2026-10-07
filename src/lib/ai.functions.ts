@@ -7,7 +7,7 @@ const MODEL = "google/gemini-3.8-flash";
 
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
-async function callGemini(messages: ChatMessage[]): Promise<string> {
+async function callGemini(messages: ChatMessage[], language: "en" | "ru" = "en"): Promise<string> {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured yet.");
 
@@ -17,7 +17,7 @@ async function callGemini(messages: ChatMessage[]): Promise<string> {
       "Content-Type": "application/json",
       "Lovable-API-Key": apiKey,
     },
-    body: JSON.stringify({ model: MODEL, messages }),
+    body: JSON.stringify({ model: MODEL, messages: messages.map((message) => message.role === "system" ? { ...message, content: `${message.content}\nIMPORTANT: All human-readable output must be in ${language === "ru" ? "Russian" : "English"}, overriding earlier language instructions. Preserve JSON keys, enum values and exact university names.` } : message) }),
   });
 
   if (!res.ok) {
@@ -82,7 +82,8 @@ const EVAL_SYSTEM = `Ты — элитный консультант по меж�
 
 export const evaluateProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((input: unknown) => z.object({ language: z.enum(["en", "ru"]).default("en") }).parse(input))
+  .handler(async ({ context, data: input }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
     const bundle = await loadBundle(supabase, userId);
 
@@ -92,7 +93,7 @@ export const evaluateProfile = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль абитуриента:\n${bundleText(bundle)}\n\nОцени профиль по каждой из выбранных целевых стран (если страны не указаны — оцени все четыре).`,
       },
-    ]);
+    ], input.language);
 
     const parsed = parseJson<{
       holistic_score: number;
@@ -125,7 +126,8 @@ export const evaluateProfile = createServerFn({ method: "POST" })
 
 export const generateRoadmap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((input: unknown) => z.object({ language: z.enum(["en", "ru"]).default("en") }).parse(input))
+  .handler(async ({ context, data: input }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
     const bundle = await loadBundle(supabase, userId);
     const today = new Date().toISOString().slice(0, 10);
@@ -142,7 +144,7 @@ export const generateRoadmap = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль:\n${bundleText(bundle)}\n\nСоставь дорожную карту с учётом пробелов в профиле и целевых стран.`,
       },
-    ]);
+    ], input.language);
 
     const parsed = parseJson<{ steps: unknown[] }>(raw);
     const { data, error } = await (supabase.from("roadmaps") as any)
@@ -158,6 +160,7 @@ export const joinAcquireChat = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) =>
     z
       .object({
+        language: z.enum(["en", "ru"]).default("en"),
         messages: z.array(
           z.object({
             role: z.enum(["user", "assistant"]),
@@ -180,7 +183,7 @@ export const joinAcquireChat = createServerFn({ method: "POST" })
 Профиль пользователя (JSON):\n${bundleText(bundle)}`,
       },
       ...(data.messages as ChatMessage[]),
-    ]);
+    ], data.language);
 
     return { reply };
   });
@@ -188,7 +191,7 @@ export const joinAcquireChat = createServerFn({ method: "POST" })
 export const matchUniversities = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) =>
-    z.object({ catalog: z.array(z.string()).max(60) }).parse(input),
+    z.object({ catalog: z.array(z.string()).max(60), language: z.enum(["en", "ru"]).default("en") }).parse(input),
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
@@ -207,7 +210,7 @@ export const matchUniversities = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль:\n${bundleText(bundle)}\n\nДоступный каталог вузов:\n${data.catalog.join("\n")}`,
       },
-    ]);
+    ], data.language);
 
     const parsed = parseJson<{ matches: Array<Record<string, string | number>>; advice: string }>(
       raw,

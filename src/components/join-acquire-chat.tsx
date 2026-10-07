@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 type Msg = { role: "user" | "assistant"; content: string };
 
 export function JoinAcquireChat() {
-  useLanguage();
+  const { language } = useLanguage();
   const { user } = useAuth();
   const send = useServerFn(joinAcquireChat);
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ export function JoinAcquireChat() {
     setInput("");
     setBusy(true);
     try {
-      const res = await send({ data: { messages: next.filter((m) => m.content) } });
+      const res = await send({ data: { language, messages: next.filter((m) => m.content) } });
       setMessages([...next, { role: "assistant", content: res.reply }]);
     } catch (err) {
       setMessages([

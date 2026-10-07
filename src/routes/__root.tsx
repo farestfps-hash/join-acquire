@@ -120,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   useLanguage();
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -138,7 +138,10 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  useLanguage();
+  const { language } = useLanguage();
+  const router = useRouter();
+  useEffect(() => { restoreLanguage(); }, []);
+  useEffect(() => { void router.invalidate(); }, [language, router]);
   const { queryClient } = Route.useRouteContext();
 
   return (

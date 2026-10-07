@@ -48,7 +48,7 @@ const CLS_STYLE: Record<Odds["classification"], string> = {
 };
 
 function UniversitiesPage() {
-  useLanguage();
+  const { language } = useLanguage();
   const { user } = useAuth();
   const run = useServerFn(matchUniversities);
   const [country, setCountry] = useState<Country | "Все">("Все");
@@ -93,7 +93,7 @@ function UniversitiesPage() {
     setBusy(true);
     try {
       const catalog = UNIVERSITIES.map((u) => `${u.name} (${u.country}, QS ${u.qs})`);
-      const res: any = await run({ data: { catalog } });
+      const res: any = await run({ data: { catalog, language } });
       setAi({ matches: res?.matches ?? [], advice: res?.advice ?? "" });
       toast.success(t("Персональный список готов"));
     } catch (err) {
