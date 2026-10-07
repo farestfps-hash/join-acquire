@@ -1,3 +1,4 @@
+import { t, useLanguage, restoreLanguage } from "@/lib/language";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -19,6 +20,7 @@ import { JoinAcquireChat } from "@/components/join-acquire-chat";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
+  useLanguage();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -41,6 +43,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  useLanguage();
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -83,16 +86,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Join&Acquire — ИИ-платформа для поступления" },
+      { title: t("Join&Acquire — ИИ-платформа для поступления") },
       {
         name: "description",
         content:
-          "ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта.",
+          t("ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта."),
       },
-      { property: "og:title", content: "Join&Acquire — ИИ-платформа для поступления" },
+      { property: "og:title", content: t("Join&Acquire — ИИ-платформа для поступления") },
       {
         property: "og:description",
-        content: "ИИ-оценка шансов поступления, портфолио и персональная дорожная карта.",
+        content: t("ИИ-оценка шансов поступления, портфолио и персональная дорожная карта."),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -115,6 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  useLanguage();
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
@@ -134,6 +138,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  useLanguage();
   const { queryClient } = Route.useRouteContext();
 
   return (

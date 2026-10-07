@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, GraduationCap, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
 import { useState } from "react";
@@ -27,6 +28,7 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
+  useLanguage();
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export function SiteHeader() {
               activeProps={{ className: "bg-secondary text-foreground" }}
               activeOptions={{ exact: item.to === "/" }}
             >
-              {item.label}
+              {t(item.label)}
             </Link>
           ))}
         </nav>
@@ -63,8 +65,8 @@ export function SiteHeader() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
-            title={theme === "dark" ? "Светлая тема" : "Тёмная тема"}
+            aria-label={theme === "dark" ? t("Включить светлую тему") : t("Включить тёмную тему")}
+            title={theme === "dark" ? t("Светлая тема") : t("Тёмная тема")}
           >
             {theme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
           </Button>
@@ -85,23 +87,21 @@ export function SiteHeader() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate({ to: "/portfolio" })}>
-                  <UserIcon className="mr-2 size-4" /> Моё портфолио
-                </DropdownMenuItem>
+                  <UserIcon className="mr-2 size-4" /> {t("Моё портфолио")}</DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={async () => {
                     await signOut();
                     navigate({ to: "/" });
                   }}
                 >
-                  <LogOut className="mr-2 size-4" /> Выйти
-                </DropdownMenuItem>
+                  <LogOut className="mr-2 size-4" /> {t("Выйти")}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Button asChild className="rounded-full">
               <Link to="/auth">
-                <span className="sm:hidden">Войти</span>
-                <span className="hidden sm:inline">Войти / Регистрация</span>
+                <span className="sm:hidden">{t("Войти")}</span>
+                <span className="hidden sm:inline">{t("Войти / Регистрация")}</span>
               </Link>
             </Button>
           )}
@@ -110,7 +110,7 @@ export function SiteHeader() {
             size="icon"
             className="lg:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Меню"
+            aria-label={t("Меню")}
           >
             <Menu className="size-5" />
           </Button>
@@ -128,7 +128,7 @@ export function SiteHeader() {
               activeProps={{ className: "bg-secondary text-foreground" }}
               activeOptions={{ exact: item.to === "/" }}
             >
-              {item.label}
+              {t(item.label)}
             </Link>
           ))}
         </nav>

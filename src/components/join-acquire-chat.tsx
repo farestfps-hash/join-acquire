@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 import { useState, useRef, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { MessageCircle, X, Send, Loader2, GraduationCap } from "lucide-react";
@@ -10,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 type Msg = { role: "user" | "assistant"; content: string };
 
 export function JoinAcquireChat() {
+  useLanguage();
   const { user } = useAuth();
   const send = useServerFn(joinAcquireChat);
   const [open, setOpen] = useState(false);
@@ -17,7 +19,7 @@ export function JoinAcquireChat() {
     {
       role: "assistant",
       content:
-        "Привет! Я Join&Acquire AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?",
+        t("Привет! Я Join&Acquire AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?"),
     },
   ]);
   const [input, setInput] = useState("");
@@ -44,7 +46,7 @@ export function JoinAcquireChat() {
         ...next,
         {
           role: "assistant",
-          content: err instanceof Error ? `Ошибка: ${err.message}` : "Что-то пошло не так.",
+          content: err instanceof Error ? `Ошибка: ${err.message}` : t("Что-то пошло не так."),
         },
       ]);
     } finally {
@@ -63,10 +65,9 @@ export function JoinAcquireChat() {
             <div className="flex-1">
               <p className="text-sm font-bold">Join&amp;Acquire AI</p>
               <Badge className="mt-0.5 rounded-full bg-lime text-[10px] text-lime-foreground hover:bg-lime">
-                на базе Gemini
-              </Badge>
+                {t("на базе Gemini")}</Badge>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Закрыть">
+            <button onClick={() => setOpen(false)} aria-label={t("Закрыть")}>
               <X className="size-5" />
             </button>
           </div>
@@ -84,14 +85,13 @@ export function JoinAcquireChat() {
                       : "max-w-[90%] whitespace-pre-wrap text-sm leading-relaxed text-foreground"
                   }
                 >
-                  {m.content}
+                  {m.role === "assistant" ? t(m.content) : m.content}
                 </div>
               </div>
             ))}
             {busy && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="size-4 animate-spin" /> Join&amp;Acquire AI думает...
-              </div>
+                <Loader2 className="size-4 animate-spin" /> {t("Join&Acquire AI думает...")}</div>
             )}
             <div ref={endRef} />
           </div>
@@ -100,7 +100,7 @@ export function JoinAcquireChat() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={user ? "Спросите что угодно..." : "Войдите, чтобы общаться"}
+              placeholder={user ? t("Спросите что угодно...") : t("Войдите, чтобы общаться")}
               disabled={!user || busy}
               className="rounded-full"
             />
