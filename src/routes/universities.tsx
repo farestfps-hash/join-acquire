@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -22,16 +23,16 @@ import {
 export const Route = createFileRoute("/universities")({
   head: () => ({
     meta: [
-      { title: "Университеты: подбор и база данных — Studymaxxing" },
+      { title: t("Университеты: подбор и база данных — Join&Acquire") },
       {
         name: "description",
         content:
-          "ИИ-подбор университетов США, Гонконга, Казахстана и Европы: рейтинги QS, шансы поступления, требования, дедлайны и стоимость.",
+          t("ИИ-подбор университетов США, Гонконга, Казахстана и Европы: рейтинги QS, шансы поступления, требования, дедлайны и стоимость."),
       },
-      { property: "og:title", content: "University Match & Database — Studymaxxing" },
+      { property: "og:title", content: "University Match & Database — Join&Acquire" },
       {
         property: "og:description",
-        content: "Персональный список вузов с шансами поступления и дедлайнами в один клик.",
+        content: t("Персональный список вузов с шансами поступления и дедлайнами в один клик."),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,6 +48,7 @@ const CLS_STYLE: Record<Odds["classification"], string> = {
 };
 
 function UniversitiesPage() {
+  const { language, t } = useLanguage();
   const { user } = useAuth();
   const run = useServerFn(matchUniversities);
   const [country, setCountry] = useState<Country | "Все">("Все");
@@ -91,11 +93,11 @@ function UniversitiesPage() {
     setBusy(true);
     try {
       const catalog = UNIVERSITIES.map((u) => `${u.name} (${u.country}, QS ${u.qs})`);
-      const res: any = await run({ data: { catalog } });
+      const res: any = await run({ data: { catalog, language } });
       setAi({ matches: res?.matches ?? [], advice: res?.advice ?? "" });
-      toast.success("Персональный список готов");
+      toast.success(t("Персональный список готов"));
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Не удалось подобрать вузы");
+      toast.error(err instanceof Error ? err.message : t("Не удалось подобрать вузы"));
     } finally {
       setBusy(false);
     }
@@ -103,13 +105,13 @@ function UniversitiesPage() {
 
   async function addDeadline(uni: University, d: { label: string; date: string }) {
     if (!user) {
-      toast.error("Войдите, чтобы добавить дедлайн в календарь");
+      toast.error(t("Войдите, чтобы добавить дедлайн в календарь"));
       return;
     }
     const { error } = await supabase.from("calendar_events").insert({
       user_id: user.id,
-      title: `${uni.name} — ${d.label}`,
-      description: `Дедлайн подачи. ${uni.city}, QS ${uni.qs}.`,
+      title: `${uni.name} — ${t(d.label)}`,
+      description: `${t("Дедлайн подачи.")} ${t(uni.city)}, QS ${uni.qs}.`,
       event_date: d.date,
       event_type: "deadline",
       color: "red",
@@ -118,36 +120,32 @@ function UniversitiesPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("Дедлайн добавлен в календарь");
+    toast.success(t("Дедлайн добавлен в календарь"));
   }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12">
       <h1 className="text-4xl font-extrabold">University Match &amp; Database</h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        ИИ подбирает вузы под ваш профиль, тесты и бюджет, а база данных показывает рейтинг QS,
-        требования, дедлайны и шансы поступления.
-      </p>
+        {t("ИИ подбирает вузы под ваш профиль, тесты и бюджет, а база данных показывает рейтинг QS, требования, дедлайны и шансы поступления.")}</p>
 
       {/* AI match */}
       <section className="surface-card mt-8 p-7">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="flex items-center gap-2 text-lg font-bold">
-            <Sparkles className="size-5 text-primary" /> Персональный подбор
-          </h2>
+            <Sparkles className="size-5 text-primary" /> {t("Персональный подбор")}</h2>
           {user ? (
             <Button className="rounded-full" onClick={generateMatch} disabled={busy}>
               {busy ? (
                 <>
-                  <Loader2 className="mr-2 size-4 animate-spin" /> ИИ подбирает...
-                </>
+                  <Loader2 className="mr-2 size-4 animate-spin" /> {t("ИИ подбирает...")}</>
               ) : (
-                "Подобрать университеты"
+                t("Подобрать университеты")
               )}
             </Button>
           ) : (
             <Button asChild className="rounded-full">
-              <Link to="/auth">Войти для подбора</Link>
+              <Link to="/auth">{t("Войти для подбора")}</Link>
             </Button>
           )}
         </div>
@@ -180,9 +178,7 @@ function UniversitiesPage() {
         )}
         {!ai && (
           <p className="mt-4 text-sm text-muted-foreground">
-            Заполните портфолио (GPA, AP, тесты, бюджет) — и ИИ соберёт список вузов с наибольшими
-            шансами.
-          </p>
+            {t("Заполните портфолио (GPA, AP, тесты, бюджет) — и ИИ соберёт список вузов с наибольшими шансами.")}</p>
         )}
       </section>
 
@@ -190,7 +186,7 @@ function UniversitiesPage() {
       <div className="mt-10 flex flex-wrap gap-2">
         {(["Все", ...COUNTRY_LIST] as const).map((c) => (
           <button
-            key={c}
+            key={t(c)}
             onClick={() => setCountry(c as Country | "Все")}
             className={
               "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors " +
@@ -199,7 +195,7 @@ function UniversitiesPage() {
                 : "border-border bg-card text-muted-foreground hover:bg-secondary")
             }
           >
-            {c}
+            {t(c)}
           </button>
         ))}
       </div>
@@ -210,7 +206,7 @@ function UniversitiesPage() {
             <div className="relative h-40">
               <img
                 src={uni.photos[0]}
-                alt={`Кампус ${uni.name}`}
+                alt={`${t("Кампус")} ${uni.name}`}
                 loading="lazy"
                 className="size-full object-cover"
               />
@@ -221,21 +217,20 @@ function UniversitiesPage() {
             <div className="p-5">
               <h3 className="text-base font-bold leading-tight">{uni.name}</h3>
               <p className="mt-1 text-xs text-muted-foreground">
-                {uni.city} · {uni.country}
+                {t(uni.city)} · {uni.country}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className={"rounded-full " + CLS_STYLE[odds.classification]}>
                   {odds.classification} · {odds.probability}%
                 </Badge>
-                <span className="text-xs text-muted-foreground">GPA {uni.gpa}</span>
+                <span className="text-xs text-muted-foreground">GPA {t(uni.gpa)}</span>
               </div>
               <Button
                 variant="outline"
                 className="mt-4 w-full rounded-full"
                 onClick={() => setActive(uni)}
               >
-                Подробнее
-              </Button>
+                {t("Подробнее")}</Button>
             </div>
           </article>
         ))}
@@ -265,6 +260,7 @@ function UniDetails({
   odds: Odds;
   onAddDeadline: (d: { label: string; date: string }) => void;
 }) {
+  const { t } = useLanguage();
   return (
     <>
       <DialogHeader>
@@ -275,7 +271,7 @@ function UniDetails({
           </Badge>
         </DialogTitle>
         <DialogDescription>
-          {uni.city} · {uni.country}
+          {t(uni.city)} · {uni.country}
         </DialogDescription>
       </DialogHeader>
 
@@ -284,7 +280,7 @@ function UniDetails({
           <img
             key={i}
             src={src}
-            alt={`${uni.name} — фото кампуса ${i + 1}`}
+            alt={`${uni.name} — ${t("фото кампуса")} ${i + 1}`}
             loading="lazy"
             className="h-28 w-full rounded-xl object-cover"
           />
@@ -293,7 +289,7 @@ function UniDetails({
 
       <div className="rounded-2xl border border-border p-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold">Шансы поступления</span>
+          <span className="text-sm font-semibold">{t("Шансы поступления")}</span>
           <Badge variant="outline" className={"rounded-full " + CLS_STYLE[odds.classification]}>
             {odds.classification} · {odds.probability}%
           </Badge>
@@ -302,60 +298,57 @@ function UniDetails({
           <div className="h-full rounded-full bg-primary" style={{ width: `${odds.probability}%` }} />
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
-          Расчёт по вашему GPA, тестам, AP, олимпиадам, активностям и бюджету.
-        </p>
+          {t("Расчёт по вашему GPA, тестам, AP, олимпиадам, активностям и бюджету.")}</p>
       </div>
 
       <section>
         <h4 className="flex items-center gap-2 text-sm font-bold">
-          <GraduationCap className="size-4 text-primary" /> Требования и средние баллы
-        </h4>
+          <GraduationCap className="size-4 text-primary" /> {t("Требования и средние баллы")}</h4>
         <dl className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
           <Row k="GPA" v={uni.gpa} />
           <Row k="SAT" v={uni.sat} />
           <Row k="ACT" v={uni.act} />
-          <Row k="AP" v={uni.ap} />
-          <Row k="ЕНТ (UNT)" v={uni.unt} />
+          <Row k="AP" v={t(uni.ap)} />
+          <Row k={t("ЕНТ (UNT)")} v={uni.unt} />
           <Row k="NUET" v={uni.nuet} />
-          <Row k="Язык" v={uni.english} />
-          <Row k="Стоимость" v={uni.tuition} />
-          <Row k="Финансовая помощь" v={uni.aid} />
+          <Row k={t("Язык")} v={uni.english} />
+          <Row k={t("Стоимость")} v={uni.tuition} />
+          <Row k={t("Финансовая помощь")} v={uni.aid} />
         </dl>
       </section>
 
       <section>
-        <h4 className="text-sm font-bold">Дедлайны и чек-лист</h4>
+        <h4 className="text-sm font-bold">{t("Дедлайны и чек-лист")}</h4>
         <div className="mt-2 grid gap-2">
           {uni.deadlines.map((d) => (
             <div
-              key={d.label}
+              key={t(d.label)}
               className="flex items-center justify-between gap-3 rounded-xl border border-border px-4 py-2"
             >
               <div>
-                <p className="text-sm font-medium">{d.label}</p>
+                <p className="text-sm font-medium">{t(d.label)}</p>
                 <p className="text-xs text-muted-foreground">{d.date}</p>
               </div>
               <Button size="sm" variant="ghost" className="rounded-full text-primary" onClick={() => onAddDeadline(d)}>
-                <CalendarPlus className="mr-1 size-4" /> В календарь
-              </Button>
+                <CalendarPlus className="mr-1 size-4" /> {t("В календарь")}</Button>
             </div>
           ))}
         </div>
       </section>
 
       <section>
-        <h4 className="text-sm font-bold">Об университете</h4>
-        <p className="mt-2 text-sm text-muted-foreground">{uni.overview}</p>
+        <h4 className="text-sm font-bold">{t("Об университете")}</h4>
+        <p className="mt-2 text-sm text-muted-foreground">{t(uni.overview)}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {uni.programs.map((p) => (
-            <Badge key={p} variant="secondary" className="rounded-full">
-              {p}
+            <Badge key={t(p)} variant="secondary" className="rounded-full">
+              {t(p)}
             </Badge>
           ))}
         </div>
         <p className="mt-3 text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">Стратегия подачи: </span>
-          {uni.strategy}
+          <span className="font-semibold text-foreground">{t("Стратегия подачи:")}</span>
+          {t(uni.strategy)}
         </p>
       </section>
     </>
@@ -363,11 +356,12 @@ function UniDetails({
 }
 
 function Row({ k, v }: { k: string; v: string | undefined }) {
+  const { t } = useLanguage();
   if (!v) return null;
   return (
     <div className="rounded-xl bg-secondary/60 px-3 py-2">
-      <dt className="text-xs text-muted-foreground">{k}</dt>
-      <dd className="text-sm font-medium">{v}</dd>
+      <dt className="text-xs text-muted-foreground">{t(k)}</dt>
+      <dd className="text-sm font-medium">{t(v)}</dd>
     </div>
   );
 }

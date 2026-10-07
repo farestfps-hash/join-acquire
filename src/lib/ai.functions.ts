@@ -7,7 +7,7 @@ const MODEL = "google/gemini-3.8-flash";
 
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
-async function callGemini(messages: ChatMessage[]): Promise<string> {
+async function callGemini(messages: ChatMessage[], language: "en" | "ru" = "en"): Promise<string> {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured yet.");
 
@@ -17,13 +17,13 @@ async function callGemini(messages: ChatMessage[]): Promise<string> {
       "Content-Type": "application/json",
       "Lovable-API-Key": apiKey,
     },
-    body: JSON.stringify({ model: MODEL, messages }),
+    body: JSON.stringify({ model: MODEL, messages: messages.map((message) => message.role === "system" ? { ...message, content: `${message.content}\nIMPORTANT: All human-readable output must be in ${language === "ru" ? "Russian" : "English"}, overriding earlier language instructions. Preserve JSON keys, enum values and exact university names.` } : message) }),
   });
 
   if (!res.ok) {
     const text = await res.text();
-    if (res.status === 429) throw new Error("Слишком много запросов. Попробуйте через минуту.");
-    if (res.status === 402) throw new Error("Закончились AI-кредиты рабочего пространства.");
+    if (res.status === 429) throw new Error(language === "ru" ? "Слишком много запросов. Попробуйте через минуту." : "Too many requests. Please try again in a minute.");
+    if (res.status === 402) throw new Error(language === "ru" ? "Закончились AI-кредиты рабочего пространства." : "The workspace has run out of AI credits.");
     throw new Error(`AI error ${res.status}: ${text.slice(0, 300)}`);
   }
 
@@ -65,7 +65,7 @@ function bundleText(bundle: Awaited<ReturnType<typeof loadBundle>>) {
   return JSON.stringify(bundle, null, 2);
 }
 
-const EVAL_SYSTEM = `Ты — элитный консультант по международным поступлениям (Studymax AI, на базе Gemini).
+const EVAL_SYSTEM = `Ты — элитный консультант по международным поступлениям (Join&Acquire AI, на базе Gemini).
 В оценке учитывай стандартизированные тесты из профиля: SAT (200-1600), ACT (1-36), ЕНТ/UNT (0-140), NUET, а также годовой бюджет (annual_budget, budget_currency) и флаг needs_full_aid (если true — оценивай только реалистичные варианты с полной финансовой помощью или грантом). Высокие баллы SAT/ACT повышают шансы для USA и Hong Kong, ЕНТ — для Казахстана.
 Оцениваешь профиль школьника по странам: USA (холистическая оценка: строгость AP, глубина лидерства, соответствие активностей мейджору, уникальный нарратив), Hong Kong (количественная строгость: GPA, соответствие AP профилю, минимум 3-4 AP с баллами 4-5, английский), Kazakhstan (олимпиады, GPA, шансы на грант и топ-вузы РК), Europe (эквивалентность AP, пороги GPA, соответствие пререквизитам бакалавриата).
 Отвечай СТРОГО валидным JSON без markdown, на русском языке.
@@ -82,7 +82,8 @@ const EVAL_SYSTEM = `Ты — элитный консультант по меж�
 
 export const evaluateProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((input: unknown) => z.object({ language: z.enum(["en", "ru"]).default("en") }).parse(input))
+  .handler(async ({ context, data: input }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
     const bundle = await loadBundle(supabase, userId);
 
@@ -92,7 +93,7 @@ export const evaluateProfile = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль абитуриента:\n${bundleText(bundle)}\n\nОцени профиль по каждой из выбранных целевых стран (если страны не указаны — оцени все четыре).`,
       },
-    ]);
+    ], input.language);
 
     const parsed = parseJson<{
       holistic_score: number;
@@ -125,7 +126,8 @@ export const evaluateProfile = createServerFn({ method: "POST" })
 
 export const generateRoadmap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((input: unknown) => z.object({ language: z.enum(["en", "ru"]).default("en") }).parse(input))
+  .handler(async ({ context, data: input }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
     const bundle = await loadBundle(supabase, userId);
     const today = new Date().toISOString().slice(0, 10);
@@ -133,7 +135,7 @@ export const generateRoadmap = createServerFn({ method: "POST" })
     const raw = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI. Составляешь персональную дорожную карту поступления. Сегодня ${today}.
+        content: `Ты — Join&Acquire AI. Составляешь персональную дорожную карту поступления. Сегодня ${today}.
 Отвечай СТРОГО валидным JSON без markdown, на русском.
 Схема: {"steps":[{"title":"...","due_date":"YYYY-MM-DD","category":"Академика|Тесты|Активности|Документы|Дедлайн","description":"1-2 предложения","priority":"high|medium|low"}]}
 От 8 до 14 шагов, отсортированных по дате.`,
@@ -142,7 +144,7 @@ export const generateRoadmap = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль:\n${bundleText(bundle)}\n\nСоставь дорожную карту с учётом пробелов в профиле и целевых стран.`,
       },
-    ]);
+    ], input.language);
 
     const parsed = parseJson<{ steps: unknown[] }>(raw);
     const { data, error } = await (supabase.from("roadmaps") as any)
@@ -153,11 +155,12 @@ export const generateRoadmap = createServerFn({ method: "POST" })
     return data;
   });
 
-export const studymaxChat = createServerFn({ method: "POST" })
+export const joinAcquireChat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) =>
     z
       .object({
+        language: z.enum(["en", "ru"]).default("en"),
         messages: z.array(
           z.object({
             role: z.enum(["user", "assistant"]),
@@ -174,13 +177,13 @@ export const studymaxChat = createServerFn({ method: "POST" })
     const reply = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI, дружелюбный, но требовательный консультант по поступлению в зарубежные университеты (на базе Gemini).
+        content: `Ты — Join&Acquire AI, дружелюбный, но требовательный консультант по поступлению в зарубежные университеты (на базе Gemini).
 У тебя есть доступ к профилю пользователя. Помогай писать эссе и personal statement, давай стратегические советы по усилению слабых мест портфолио, отвечай на вопросы о поступлении в вузы США, Гонконга, Казахстана и Европы.
 Отвечай кратко и по делу, на языке пользователя. Используй markdown-списки, когда это уместно.
 Профиль пользователя (JSON):\n${bundleText(bundle)}`,
       },
       ...(data.messages as ChatMessage[]),
-    ]);
+    ], data.language);
 
     return { reply };
   });
@@ -188,7 +191,7 @@ export const studymaxChat = createServerFn({ method: "POST" })
 export const matchUniversities = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) =>
-    z.object({ catalog: z.array(z.string()).max(60) }).parse(input),
+    z.object({ catalog: z.array(z.string()).max(60), language: z.enum(["en", "ru"]).default("en") }).parse(input),
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
@@ -197,7 +200,7 @@ export const matchUniversities = createServerFn({ method: "POST" })
     const raw = await callGemini([
       {
         role: "system",
-        content: `Ты — Studymax AI, эксперт по международным поступлениям.
+        content: `Ты — Join&Acquire AI, эксперт по международным поступлениям.
 Учитывай GPA, AP, олимпиады, активности, стандартизированные тесты (SAT 200-1600, ACT 1-36, ЕНТ/UNT 0-140, NUET) и годовой бюджет на обучение (annual_budget, budget_currency, needs_full_aid — если true, приоритет вузам с полной финансовой помощью или грантом).
 Отвечай СТРОГО валидным JSON без markdown, на русском.
 Схема: {"matches":[{"university":"точное название из списка","country":"USA|Hong Kong|Kazakhstan|Europe","probability": число 0-100,"classification":"Safety|Match|Reach","reason":"1-2 предложения","budget_fit":"комментарий по бюджету и финпомощи"}],"advice":"2-3 предложения общей стратегии"}
@@ -207,7 +210,7 @@ export const matchUniversities = createServerFn({ method: "POST" })
         role: "user",
         content: `Профиль:\n${bundleText(bundle)}\n\nДоступный каталог вузов:\n${data.catalog.join("\n")}`,
       },
-    ]);
+    ], data.language);
 
     const parsed = parseJson<{ matches: Array<Record<string, string | number>>; advice: string }>(
       raw,

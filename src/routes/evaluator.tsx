@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -23,16 +24,16 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/evaluator")({
   head: () => ({
     meta: [
-      { title: "ИИ-оценка шансов поступления — Studymaxxing" },
+      { title: t("ИИ-оценка шансов поступления — Join&Acquire") },
       {
         name: "description",
         content:
-          "Холистический балл, вероятности поступления по странам и стратегическая обратная связь от ИИ.",
+          t("Холистический балл, вероятности поступления по странам и стратегическая обратная связь от ИИ."),
       },
-      { property: "og:title", content: "AI Admissions Evaluator — Studymaxxing" },
+      { property: "og:title", content: "AI Admissions Evaluator — Join&Acquire" },
       {
         property: "og:description",
-        content: "Оценка профиля для США, Гонконга, Казахстана и Европы на базе Gemini.",
+        content: t("Оценка профиля для США, Гонконга, Казахстана и Европы на базе Gemini."),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,6 +68,7 @@ function benchmarkCloud() {
 const CLOUD = benchmarkCloud();
 
 function Evaluator() {
+  const { language, t } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(evaluateProfile);
   const [evaluation, setEvaluation] = useState<any>(null);
@@ -96,11 +98,11 @@ function Evaluator() {
   async function evaluate() {
     setBusy(true);
     try {
-      const result = await run();
+      const result = await run({ data: { language } });
       setEvaluation(result);
-      toast.success("Оценка готова");
+      toast.success(t("Оценка готова"));
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Не удалось выполнить оценку");
+      toast.error(err instanceof Error ? err.message : t("Не удалось выполнить оценку"));
     } finally {
       setBusy(false);
     }
@@ -117,9 +119,9 @@ function Evaluator() {
   if (!user) {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold">ИИ-оценка доступна после входа</h1>
+        <h1 className="text-2xl font-bold">{t("ИИ-оценка доступна после входа")}</h1>
         <Button asChild className="mt-6 rounded-full">
-          <Link to="/auth">Войти / Регистрация</Link>
+          <Link to="/auth">{t("Войти / Регистрация")}</Link>
         </Button>
       </div>
     );
@@ -134,18 +136,15 @@ function Evaluator() {
         <div>
           <h1 className="text-4xl font-extrabold">AI Admissions Evaluator</h1>
           <p className="mt-2 text-muted-foreground">
-            Глубокая оценка вашего профиля под каждую целевую страну.
-          </p>
+            {t("Глубокая оценка вашего профиля под каждую целевую страну.")}</p>
         </div>
         <Button className="rounded-full" onClick={evaluate} disabled={busy}>
           {busy ? (
             <>
-              <Loader2 className="mr-2 size-4 animate-spin" /> ИИ анализирует...
-            </>
+              <Loader2 className="mr-2 size-4 animate-spin" /> {t("ИИ анализирует...")}</>
           ) : (
             <>
-              <Sparkles className="mr-2 size-4" /> Запустить ИИ-оценку
-            </>
+              <Sparkles className="mr-2 size-4" /> {t("Запустить ИИ-оценку")}</>
           )}
         </Button>
       </div>
@@ -153,10 +152,9 @@ function Evaluator() {
       {!evaluation && !busy && (
         <div className="surface-card mt-10 p-10 text-center">
           <p className="text-muted-foreground">
-            Заполните портфолио и нажмите «Запустить ИИ-оценку», чтобы получить холистический балл.
-          </p>
+            {t("Заполните портфолио и нажмите «Запустить ИИ-оценку», чтобы получить холистический балл.")}</p>
           <Button asChild variant="outline" className="mt-5 rounded-full">
-            <Link to="/portfolio">Заполнить портфолио</Link>
+            <Link to="/portfolio">{t("Заполнить портфолио")}</Link>
           </Button>
         </div>
       )}
@@ -172,7 +170,7 @@ function Evaluator() {
             </div>
 
             <div className="surface-card p-7">
-              <h2 className="text-lg font-bold">Вероятность поступления по странам</h2>
+              <h2 className="text-lg font-bold">{t("Вероятность поступления по странам")}</h2>
               <div className="mt-5 grid gap-4">
                 {countries.map((c) => (
                   <div key={c.country}>
@@ -205,29 +203,29 @@ function Evaluator() {
           <div className="grid gap-6 md:grid-cols-3">
             <FeedbackCard
               icon={CheckCircle2}
-              title="Сильные стороны"
+              title={t("Сильные стороны")}
               items={evaluation.strengths ?? []}
               tone="text-lime"
             />
             <FeedbackCard
               icon={AlertTriangle}
-              title="Пробелы"
+              title={t("Пробелы")}
               items={evaluation.gaps ?? []}
               tone="text-destructive"
             />
             <FeedbackCard
               icon={TrendingUp}
-              title="Чего не хватает в профиле"
+              title={t("Чего не хватает в профиле")}
               items={evaluation.missing_items ?? []}
               tone="text-primary"
             />
           </div>
 
           <div className="surface-card p-7">
-            <h2 className="text-lg font-bold">Сравнение с 600+ кандидатами прошлых лет</h2>
+            <h2 className="text-lg font-bold">{t("Сравнение с 600+ кандидатами прошлых лет")}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               {evaluation.benchmark?.comment ??
-                "Ваша точка (зелёная) на фоне исторических профилей."}
+                t("Ваша точка (зелёная) на фоне исторических профилей.")}
             </p>
             <div className="mt-6 h-80">
               <ResponsiveContainer width="100%" height="100%">
@@ -280,10 +278,11 @@ function FeedbackCard({
   items: string[];
   tone: string;
 }) {
+  const { t } = useLanguage();
   return (
     <div className="surface-card p-6">
       <h3 className={"flex items-center gap-2 font-bold " + tone}>
-        <Icon className="size-4" /> {title}
+        <Icon className="size-4" /> {t(title)}
       </h3>
       <ul className="mt-3 grid gap-2 text-sm text-muted-foreground">
         {items.length === 0 && <li>—</li>}

@@ -1,7 +1,8 @@
+import { t, useLanguage } from "@/lib/language";
 import { useState, useRef, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { MessageCircle, X, Send, Loader2, GraduationCap } from "lucide-react";
-import { studymaxChat } from "@/lib/ai.functions";
+import { joinAcquireChat } from "@/lib/ai.functions";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,15 +10,16 @@ import { Badge } from "@/components/ui/badge";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-export function StudymaxChat() {
+export function JoinAcquireChat() {
+  const { language, t } = useLanguage();
   const { user } = useAuth();
-  const send = useServerFn(studymaxChat);
+  const send = useServerFn(joinAcquireChat);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
       content:
-        "Привет! Я Studymax AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?",
+        t("Привет! Я Join&Acquire AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?"),
     },
   ]);
   const [input, setInput] = useState("");
@@ -37,14 +39,14 @@ export function StudymaxChat() {
     setInput("");
     setBusy(true);
     try {
-      const res = await send({ data: { messages: next.filter((m) => m.content) } });
+      const res = await send({ data: { language, messages: next.filter((m) => m.content) } });
       setMessages([...next, { role: "assistant", content: res.reply }]);
     } catch (err) {
       setMessages([
         ...next,
         {
           role: "assistant",
-          content: err instanceof Error ? `Ошибка: ${err.message}` : "Что-то пошло не так.",
+          content: err instanceof Error ? `Ошибка: ${err.message}` : t("Что-то пошло не так."),
         },
       ]);
     } finally {
@@ -61,12 +63,11 @@ export function StudymaxChat() {
               <GraduationCap className="size-5" />
             </span>
             <div className="flex-1">
-              <p className="text-sm font-bold">Studymax AI</p>
+              <p className="text-sm font-bold">Join&amp;Acquire AI</p>
               <Badge className="mt-0.5 rounded-full bg-lime text-[10px] text-lime-foreground hover:bg-lime">
-                на базе Gemini
-              </Badge>
+                {t("на базе Gemini")}</Badge>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Закрыть">
+            <button onClick={() => setOpen(false)} aria-label={t("Закрыть")}>
               <X className="size-5" />
             </button>
           </div>
@@ -84,14 +85,13 @@ export function StudymaxChat() {
                       : "max-w-[90%] whitespace-pre-wrap text-sm leading-relaxed text-foreground"
                   }
                 >
-                  {m.content}
+                  {m.role === "assistant" ? t(m.content) : m.content}
                 </div>
               </div>
             ))}
             {busy && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="size-4 animate-spin" /> Studymax AI думает...
-              </div>
+                <Loader2 className="size-4 animate-spin" /> {t("Join&Acquire AI думает...")}</div>
             )}
             <div ref={endRef} />
           </div>
@@ -100,7 +100,7 @@ export function StudymaxChat() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={user ? "Спросите что угодно..." : "Войдите, чтобы общаться"}
+              placeholder={user ? t("Спросите что угодно...") : t("Войдите, чтобы общаться")}
               disabled={!user || busy}
               className="rounded-full"
             />
@@ -118,7 +118,7 @@ export function StudymaxChat() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Studymax AI"
+        aria-label="Join&Acquire AI"
         className="fixed bottom-5 right-5 z-50 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lift transition-transform hover:scale-105"
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}

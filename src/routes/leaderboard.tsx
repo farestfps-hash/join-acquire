@@ -1,3 +1,4 @@
+import { t, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { Lock, Loader2, Trophy } from "lucide-react";
@@ -16,17 +17,19 @@ import {
 export const Route = createFileRoute("/leaderboard")({
   head: () => ({
     meta: [
-      { title: "Таблица лидеров абитуриентов — Join&Acquire" },
+      { title: t("Таблица лидеров абитуриентов — Join&Acquire") },
       {
         name: "description",
         content:
-          "Рейтинг холистических баллов абитуриентов по США, Гонконгу, Казахстану и Европе. Открытые портфолио можно изучить целиком.",
+          t("Рейтинг холистических баллов абитуриентов по США, Гонконгу, Казахстану и Европе. Открытые портфолио можно изучить целиком."),
       },
-      { property: "og:title", content: "Таблица лидеров абитуриентов — Join&Acquire" },
+      { property: "og:title", content: t("Таблица лидеров абитуриентов — Join&Acquire") },
       {
         property: "og:description",
-        content: "Сравните свой холистический балл с другими абитуриентами по странам.",
+        content: t("Сравните свой холистический балл с другими абитуриентами по странам."),
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LeaderboardPage,
@@ -48,6 +51,7 @@ function medal(i: number) {
 }
 
 function LeaderboardPage() {
+  const { t } = useLanguage();
   const { user, loading: authLoading } = useAuth();
   const [country, setCountry] = useState<string | null>(null);
   const [rows, setRows] = useState<Entry[]>([]);
@@ -79,12 +83,11 @@ function LeaderboardPage() {
   if (!user) {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold">Таблица лидеров доступна участникам</h1>
+        <h1 className="text-2xl font-bold">{t("Таблица лидеров доступна участникам")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Войдите, чтобы увидеть рейтинг холистических баллов.
-        </p>
+          {t("Войдите, чтобы увидеть рейтинг холистических баллов.")}</p>
         <Button asChild className="mt-6 rounded-full">
-          <Link to="/auth">Войти / Регистрация</Link>
+          <Link to="/auth">{t("Войти / Регистрация")}</Link>
         </Button>
       </div>
     );
@@ -97,26 +100,25 @@ function LeaderboardPage() {
           <Trophy className="size-5" />
         </span>
         <div>
-          <h1 className="text-4xl font-extrabold">Таблица лидеров</h1>
+          <h1 className="text-4xl font-extrabold">{t("Таблица лидеров")}</h1>
           <p className="text-sm text-muted-foreground">
-            Топ-50 по холистическому баллу. Закрытые профили скрыты замком.
-          </p>
+            {t("Топ-50 по холистическому баллу. Закрытые профили скрыты замком.")}</p>
         </div>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2">
-        {TABS.map((t) => (
+        {TABS.map((tab) => (
           <button
-            key={t.label}
-            onClick={() => setCountry(t.key)}
+            key={t(tab.label)}
+            onClick={() => setCountry(tab.key)}
             className={
               "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors " +
-              (country === t.key
+              (country === tab.key
                 ? "border-primary bg-primary text-primary-foreground"
                 : "border-border bg-card text-muted-foreground hover:bg-secondary")
             }
           >
-            {t.label}
+            {t(tab.label)}
           </button>
         ))}
       </div>
@@ -127,9 +129,7 @@ function LeaderboardPage() {
         </div>
       ) : rows.length === 0 ? (
         <p className="mt-10 text-sm text-muted-foreground">
-          Пока никто не прошёл ИИ-оценку для этого направления. Сделайте её первым на странице
-          «ИИ-оценка».
-        </p>
+          {t("Пока никто не прошёл ИИ-оценку для этого направления. Сделайте её первым на странице «ИИ-оценка».")}</p>
       ) : (
         <ul className="mt-6 space-y-3">
           {rows.map((r: Entry, i: number) => {
@@ -146,17 +146,17 @@ function LeaderboardPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="truncate font-semibold">
-                      {r.full_name ?? "Без имени"}
+                      {r.full_name ?? t("Без имени")}
                     </span>
                     {!r.is_public && <Lock className="size-3.5 text-muted-foreground" />}
-                    {mine && <Badge className="rounded-full">Вы</Badge>}
+                    {mine && <Badge className="rounded-full">{t("Вы")}</Badge>}
                   </div>
                   <p className="truncate text-xs text-muted-foreground">
                     {r.is_public
                       ? [r.high_school, r.city, r.target_major].filter(Boolean).join(" · ") ||
-                        "Портфолио открыто"
+                        t("Портфолио открыто")
                       : [r.high_school, r.city].filter(Boolean).join(" · ") ||
-                        "Портфолио закрыто владельцем"}
+                        t("Портфолио закрыто владельцем")}
                   </p>
                 </div>
                 <span className="text-2xl font-extrabold text-primary">
@@ -169,7 +169,7 @@ function LeaderboardPage() {
                   disabled={!r.is_public}
                   onClick={() => setActive(r)}
                 >
-                  {r.is_public ? "Профиль" : "Закрыт"}
+                  {r.is_public ? t("Профиль") : t("Закрыт")}
                 </Button>
               </li>
             );
@@ -182,7 +182,7 @@ function LeaderboardPage() {
           {active && (
             <>
               <DialogHeader>
-                <DialogTitle>{active.full_name ?? "Без имени"}</DialogTitle>
+                <DialogTitle>{active.full_name ?? t("Без имени")}</DialogTitle>
                 <DialogDescription>
                   {[active.high_school, active.grade_level, active.target_major]
                     .filter(Boolean)
@@ -193,14 +193,14 @@ function LeaderboardPage() {
                 <span className="text-4xl font-extrabold text-primary">
                   {active.holistic_score ?? "—"}
                 </span>
-                <span className="text-sm text-muted-foreground">холистический балл</span>
+                <span className="text-sm text-muted-foreground">{t("холистический балл")}</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
                 {[
                   ["GPA", active.gpa_unweighted],
                   ["SAT", active.sat_score],
                   ["ACT", active.act_score],
-                  ["ЕНТ", active.unt_score],
+                  [t("ЕНТ"), active.unt_score],
                   ["NUET", active.nuet_score],
                 ]
                   .filter(([, v]) => v !== null && v !== undefined)
@@ -214,8 +214,8 @@ function LeaderboardPage() {
               {(active.target_countries ?? []).length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {(active.target_countries as string[]).map((c) => (
-                    <Badge key={c} variant="secondary" className="rounded-full">
-                      {c}
+                    <Badge key={t(c)} variant="secondary" className="rounded-full">
+                      {t(c)}
                     </Badge>
                   ))}
                 </div>
@@ -223,7 +223,7 @@ function LeaderboardPage() {
               {active.summary && <p className="text-sm text-muted-foreground">{active.summary}</p>}
               {Array.isArray(active.strengths) && active.strengths.length > 0 && (
                 <div>
-                  <p className="text-sm font-semibold">Сильные стороны</p>
+                  <p className="text-sm font-semibold">{t("Сильные стороны")}</p>
                   <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                     {(active.strengths as unknown[]).slice(0, 6).map((s, idx) => (
                       <li key={idx}>{typeof s === "string" ? s : JSON.stringify(s)}</li>
