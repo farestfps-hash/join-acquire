@@ -27,7 +27,7 @@ export const Route = createFileRoute("/contacts")({
 });
 
 function Contacts() {
-  useLanguage();
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [busy, setBusy] = useState(false);
 

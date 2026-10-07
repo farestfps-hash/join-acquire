@@ -20,7 +20,7 @@ import { JoinAcquireChat } from "@/components/join-acquire-chat";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -43,7 +43,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  useLanguage();
+  const { t } = useLanguage();
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -138,7 +138,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const router = useRouter();
   useEffect(() => { restoreLanguage(); }, []);
   useEffect(() => { void router.invalidate(); }, [language, router]);

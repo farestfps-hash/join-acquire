@@ -47,7 +47,7 @@ const FEATURES = [
 ];
 
 function Home() {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div>
       <section className="relative overflow-hidden">

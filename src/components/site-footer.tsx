@@ -2,7 +2,7 @@ import { t, useLanguage } from "@/lib/language";
 import { Link } from "@tanstack/react-router";
 
 export function SiteFooter() {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <footer className="mt-24 border-t border-border bg-card/60">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-3">

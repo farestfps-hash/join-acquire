@@ -48,7 +48,7 @@ const CLS_STYLE: Record<Odds["classification"], string> = {
 };
 
 function UniversitiesPage() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { user } = useAuth();
   const run = useServerFn(matchUniversities);
   const [country, setCountry] = useState<Country | "Все">("Все");
@@ -260,7 +260,7 @@ function UniDetails({
   odds: Odds;
   onAddDeadline: (d: { label: string; date: string }) => void;
 }) {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <>
       <DialogHeader>
@@ -356,7 +356,7 @@ function UniDetails({
 }
 
 function Row({ k, v }: { k: string; v: string | undefined }) {
-  useLanguage();
+  const { t } = useLanguage();
   if (!v) return null;
   return (
     <div className="rounded-xl bg-secondary/60 px-3 py-2">

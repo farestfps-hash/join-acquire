@@ -68,7 +68,7 @@ function benchmarkCloud() {
 const CLOUD = benchmarkCloud();
 
 function Evaluator() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(evaluateProfile);
   const [evaluation, setEvaluation] = useState<any>(null);
@@ -278,7 +278,7 @@ function FeedbackCard({
   items: string[];
   tone: string;
 }) {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="surface-card p-6">
       <h3 className={"flex items-center gap-2 font-bold " + tone}>

@@ -53,7 +53,7 @@ const MONTHS = [
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 function RoadmapPage() {
-  const { locale, language } = useLanguage();
+  const { locale, language, t } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(generateRoadmap);
   const [steps, setSteps] = useState<any[]>([]);

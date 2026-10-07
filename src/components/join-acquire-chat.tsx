@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 type Msg = { role: "user" | "assistant"; content: string };
 
 export function JoinAcquireChat() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { user } = useAuth();
   const send = useServerFn(joinAcquireChat);
   const [open, setOpen] = useState(false);

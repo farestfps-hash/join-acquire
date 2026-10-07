@@ -31,7 +31,7 @@ const VALUES = [
 ];
 
 function About() {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="mx-auto max-w-5xl px-4 py-16">
       <h1 className="text-4xl font-extrabold">{t("О проекте")}</h1>

@@ -66,7 +66,7 @@ const PLACEMENTS = ["1st place", "2nd place", "3rd place", "Honorable Mention", 
 type Row = any;
 
 function AuthGate() {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="mx-auto max-w-md px-4 py-24 text-center">
       <h1 className="text-2xl font-bold">{t("Нужен аккаунт")}</h1>
@@ -80,7 +80,7 @@ function AuthGate() {
 }
 
 function Portfolio() {
-  useLanguage();
+  const { t } = useLanguage();
   const { user, loading } = useAuth();
   const [profile, setProfile] = useState<Row>({ target_countries: [] });
   const [aps, setAps] = useState<Row[]>([]);
@@ -733,7 +733,7 @@ function Portfolio() {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="grid gap-2">
       <Label className="text-sm">{t(label)}</Label>

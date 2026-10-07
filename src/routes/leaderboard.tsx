@@ -51,7 +51,7 @@ function medal(i: number) {
 }
 
 function LeaderboardPage() {
-  useLanguage();
+  const { t } = useLanguage();
   const { user, loading: authLoading } = useAuth();
   const [country, setCountry] = useState<string | null>(null);
   const [rows, setRows] = useState<Entry[]>([]);

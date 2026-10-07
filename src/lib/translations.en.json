@@ -227,7 +227,7 @@
   "Шансы поступления": "Admission chances",
   "Расчёт по вашему GPA, тестам, AP, олимпиадам, активностям и бюджету.": "Calculated from your GPA, test scores, AP, olympiads, activities, and budget.",
   "Требования и средние баллы": "Requirements and average scores",
-  "ЕНТ (UNT)": "UNT (ЕНТ)",
+  "ЕНТ (UNT)": "UNT",
   "Язык": "Language",
   "Стоимость": "Cost",
   "Финансовая помощь": "Financial aid",
@@ -483,5 +483,12 @@
   "Ранняя сессия даёт лучший доступ к стипендиям — подавайтесь в октябре.": "The early round offers better scholarship chances — apply in October.",
   "€6 000 / год для не-ЕС": "€6,000 / year for non-EU",
   "Старейший университет Бельгии, топ по инновациям в Европе, доступная стоимость.": "Belgium's oldest university, top in Europe for innovation, affordable tuition.",
-  "Отличный Match при ограниченном бюджете и сильной академике.": "A great match for a tight budget and strong academics."
+  "Отличный Match при ограниченном бюджете и сильной академике.": "A great match for a tight budget and strong academics.",
+  "Кампус": "Campus",
+  "фото кампуса": "campus photo",
+  "Дедлайн подачи.": "Application deadline.",
+  "Ошибка:": "Error:",
+  "Академика": "Academics",
+  "Тесты": "Tests",
+  "Документы": "Documents"
 }

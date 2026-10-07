@@ -28,7 +28,7 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
