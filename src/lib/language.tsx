@@ -8,8 +8,13 @@ const listeners = new Set<() => void>();
 const normalize = (text: string) => text.replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
 const english = new Map(Object.entries(dictionary).map(([key, value]) => [normalize(key), value.replace(/&amp;/g, "&")]));
 
-export function t(text: string): string {
-  return language === "ru" ? text.replace(/&amp;/g, "&") : english.get(normalize(text)) ?? text.replace(/&amp;/g, "&");
+function translate(text: string | undefined, selected: Language): string {
+  if (text === undefined) return "";
+  return selected === "ru" ? text.replace(/&amp;/g, "&") : english.get(normalize(text)) ?? text.replace(/&amp;/g, "&");
+}
+
+export function t(text: string | undefined): string {
+  return translate(text, typeof window === "undefined" ? "en" : language);
 }
 
 export function setLanguage(next: Language) {
@@ -32,5 +37,5 @@ export function useLanguage() {
     () => language,
     () => "en" as Language,
   );
-  return { language: current, locale: current === "ru" ? "ru-RU" : "en-US", setLanguage, t };
+  return { language: current, locale: current === "ru" ? "ru-RU" : "en-US", setLanguage, t: (text: string | undefined) => translate(text, current) };
 }

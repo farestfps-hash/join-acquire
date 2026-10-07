@@ -28,6 +28,8 @@ export const Route = createFileRoute("/leaderboard")({
         property: "og:description",
         content: t("Сравните свой холистический балл с другими абитуриентами по странам."),
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LeaderboardPage,

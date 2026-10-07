@@ -111,7 +111,7 @@ function UniversitiesPage() {
     const { error } = await supabase.from("calendar_events").insert({
       user_id: user.id,
       title: `${uni.name} — ${t(d.label)}`,
-      description: `Дедлайн подачи. ${t(uni.city)}, QS ${uni.qs}.`,
+      description: `${t("Дедлайн подачи.")} ${t(uni.city)}, QS ${uni.qs}.`,
       event_date: d.date,
       event_type: "deadline",
       color: "red",
@@ -223,7 +223,7 @@ function UniversitiesPage() {
                 <Badge variant="outline" className={"rounded-full " + CLS_STYLE[odds.classification]}>
                   {odds.classification} · {odds.probability}%
                 </Badge>
-                <span className="text-xs text-muted-foreground">GPA {uni.gpa}</span>
+                <span className="text-xs text-muted-foreground">GPA {t(uni.gpa)}</span>
               </div>
               <Button
                 variant="outline"
