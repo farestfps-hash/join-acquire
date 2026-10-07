@@ -22,8 +22,8 @@ async function callGemini(messages: ChatMessage[], language: "en" | "ru" = "en")
 
   if (!res.ok) {
     const text = await res.text();
-    if (res.status === 429) throw new Error("Слишком много запросов. Попробуйте через минуту.");
-    if (res.status === 402) throw new Error("Закончились AI-кредиты рабочего пространства.");
+    if (res.status === 429) throw new Error(language === "ru" ? "Слишком много запросов. Попробуйте через минуту." : "Too many requests. Please try again in a minute.");
+    if (res.status === 402) throw new Error(language === "ru" ? "Закончились AI-кредиты рабочего пространства." : "The workspace has run out of AI credits.");
     throw new Error(`AI error ${res.status}: ${text.slice(0, 300)}`);
   }
 

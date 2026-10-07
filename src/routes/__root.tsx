@@ -42,8 +42,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error: caught, reset }: { error: unknown; reset: () => void }) {
   const { t } = useLanguage();
+  const error = caught instanceof Error ? caught : new Error(String(caught));
   console.error(error);
   const router = useRouter();
   useEffect(() => {

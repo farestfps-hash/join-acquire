@@ -569,7 +569,7 @@ function Portfolio() {
                     </SelectTrigger>
                     <SelectContent>
                       {LEVELS.map((l) => (
-                        <SelectItem key={t(l)} value={t(l)}>
+                        <SelectItem key={l} value={l}>
                           {t(l)}
                         </SelectItem>
                       ))}
@@ -584,7 +584,7 @@ function Portfolio() {
                     </SelectTrigger>
                     <SelectContent>
                       {PLACEMENTS.map((p) => (
-                        <SelectItem key={t(p)} value={t(p)}>
+                        <SelectItem key={p} value={p}>
                           {t(p)}
                         </SelectItem>
                       ))}
