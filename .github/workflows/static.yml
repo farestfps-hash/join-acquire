@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["lovable-sync"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
+      - name: Prepare static site
+        run: |
+          echo "--- build output ---"
+          ls -la dist dist/client .output .output/public 2>/dev/null || true
+          if [ -d dist/client ]; then OUT=dist/client
+          elif [ -d .output/public ]; then OUT=.output/public
+          else echo "Output dir not found"; exit 1; fi
+          if [ ! -f "$OUT/index.html" ] && [ -f "$OUT/_shell.html" ]; then
+            cp "$OUT/_shell.html" "$OUT/index.html"
+          fi
+          cp "$OUT/index.html" "$OUT/404.html"
+          echo "www.join-acquire.com" > "$OUT/CNAME"
+          touch "$OUT/.nojekyll"
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.OUT }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
