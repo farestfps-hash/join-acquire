@@ -72,6 +72,16 @@ function LeaderboardPage() {
       )
       .sort((a, b) => (b.holistic_score ?? 0) - (a.holistic_score ?? 0))
       .slice(0, 50);
+    const all = [...real, ...DEMO_LEADERBOARD]
+      .filter(
+        (r) =>
+          !country ||
+          (Array.isArray(r.target_countries) && r.target_countries.includes(country)),
+      )
+      .sort((a, b) => (b.holistic_score ?? 0) - (a.holistic_score ?? 0));
+    setTotal(all.length);
+    const idx = all.findIndex((r) => r.user_id === user.id);
+    setMyRank(idx >= 50 ? idx + 1 : null);
     setRows(merged);
     setLoading(false);
   }, [user, country]);
