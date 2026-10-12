@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Lock, Loader2, Trophy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { DEMO_LEADERBOARD } from "@/lib/demo-leaderboard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -60,7 +61,16 @@ function LeaderboardPage() {
     const { data, error } = await (supabase.rpc as any)("get_leaderboard", {
       _country: country,
     });
-    if (!error) setRows((data as Entry[]) ?? []);
+    const real = error ? [] : ((data as Entry[]) ?? []);
+    const merged = [...real, ...DEMO_LEADERBOARD]
+      .filter(
+        (r) =>
+          !country ||
+          (Array.isArray(r.target_countries) && r.target_countries.includes(country)),
+      )
+      .sort((a, b) => (b.holistic_score ?? 0) - (a.holistic_score ?? 0))
+      .slice(0, 50);
+    setRows(merged);
     setLoading(false);
   }, [user, country]);
 
