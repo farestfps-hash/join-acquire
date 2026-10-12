@@ -52,6 +52,8 @@ function LeaderboardPage() {
   const { user, loading: authLoading } = useAuth();
   const [country, setCountry] = useState<string | null>(null);
   const [rows, setRows] = useState<Entry[]>([]);
+  const [total, setTotal] = useState(0);
+  const [myRank, setMyRank] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState<Entry | null>(null);
 
