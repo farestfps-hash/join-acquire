@@ -124,6 +124,16 @@ function LeaderboardPage() {
             Топ-50 по холистическому баллу. Закрытые профили скрыты замком.
           </p>
         </div>
+        <div className="ml-auto flex flex-col items-end gap-1">
+          <Badge variant="secondary" className="rounded-full">
+            Всего участников: {total}
+          </Badge>
+          {myRank !== null && (
+            <Badge variant="outline" className="rounded-full">
+              Ваше место: #{myRank}
+            </Badge>
+          )}
+        </div>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2">
