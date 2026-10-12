@@ -52,6 +52,8 @@ function LeaderboardPage() {
   const { user, loading: authLoading } = useAuth();
   const [country, setCountry] = useState<string | null>(null);
   const [rows, setRows] = useState<Entry[]>([]);
+  const [total, setTotal] = useState(0);
+  const [myRank, setMyRank] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState<Entry | null>(null);
 
@@ -70,6 +72,16 @@ function LeaderboardPage() {
       )
       .sort((a, b) => (b.holistic_score ?? 0) - (a.holistic_score ?? 0))
       .slice(0, 50);
+    const all = [...real, ...DEMO_LEADERBOARD]
+      .filter(
+        (r) =>
+          !country ||
+          (Array.isArray(r.target_countries) && r.target_countries.includes(country)),
+      )
+      .sort((a, b) => (b.holistic_score ?? 0) - (a.holistic_score ?? 0));
+    setTotal(all.length);
+    const idx = all.findIndex((r) => r.user_id === user.id);
+    setMyRank(idx >= 50 ? idx + 1 : null);
     setRows(merged);
     setLoading(false);
   }, [user, country]);
@@ -111,6 +123,16 @@ function LeaderboardPage() {
           <p className="text-sm text-muted-foreground">
             Топ-50 по холистическому баллу. Закрытые профили скрыты замком.
           </p>
+        </div>
+        <div className="ml-auto flex flex-col items-end gap-1">
+          <Badge variant="secondary" className="rounded-full">
+            Всего участников: {total}
+          </Badge>
+          {myRank !== null && (
+            <Badge variant="outline" className="rounded-full">
+              Ваше место: #{myRank}
+            </Badge>
+          )}
         </div>
       </div>
 
