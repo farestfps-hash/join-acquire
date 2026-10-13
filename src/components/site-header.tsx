@@ -14,6 +14,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/language";
 
 const NAV = [
   { to: "/", label: "Главная" },
@@ -30,6 +31,7 @@ export function SiteHeader() {
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
 
   const initials = (user?.email ?? "S").slice(0, 2).toUpperCase();
@@ -59,6 +61,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
+          <div className="flex rounded-full border border-border p-0.5 text-xs font-semibold" translate="no">
+            {(["en", "ru"] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={cn(
+                  "rounded-full px-2.5 py-1 transition-colors",
+                  lang === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
           <Button
             variant="ghost"
             size="icon"

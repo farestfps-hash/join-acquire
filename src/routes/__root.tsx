@@ -18,6 +18,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { StudymaxChat } from "@/components/studymax-chat";
 import { Toaster } from "@/components/ui/sonner";
+import { LanguageProvider } from "@/lib/language";
 
 function NotFoundComponent() {
   return (
@@ -117,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -140,6 +141,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+        <LanguageProvider>
         <AuthProvider>
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
@@ -152,6 +154,7 @@ function RootComponent() {
           <StudymaxChat />
           <Toaster position="top-center" richColors />
         </AuthProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
