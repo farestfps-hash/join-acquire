@@ -1,3 +1,5 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { useState, useRef, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { MessageCircle, X, Send, Loader2, GraduationCap } from "lucide-react";
@@ -10,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 type Msg = { role: "user" | "assistant"; content: string };
 
 export function StudymaxChat() {
+  const { t, lang } = useLanguage();
   const { user } = useAuth();
   const send = useServerFn(studymaxChat);
   const [open, setOpen] = useState(false);
@@ -17,7 +20,7 @@ export function StudymaxChat() {
     {
       role: "assistant",
       content:
-        "Привет! Я Studymax AI. Вижу твоё портфолио и помогу с эссе, стратегией и вопросами о поступлении. С чего начнём?",
+        t("text.254"),
     },
   ]);
   const [input, setInput] = useState("");
@@ -44,7 +47,7 @@ export function StudymaxChat() {
         ...next,
         {
           role: "assistant",
-          content: err instanceof Error ? `Ошибка: ${err.message}` : "Что-то пошло не так.",
+          content: err instanceof Error ? t("text.255", { message: err.message }) : t("text.256"),
         },
       ]);
     } finally {
@@ -63,10 +66,11 @@ export function StudymaxChat() {
             <div className="flex-1">
               <p className="text-sm font-bold">Studymax AI</p>
               <Badge className="mt-0.5 rounded-full bg-lime text-[10px] text-lime-foreground hover:bg-lime">
-                на базе Gemini
+                
+                {t("text.257")}
               </Badge>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Закрыть">
+            <button onClick={() => setOpen(false)} aria-label={t("text.258")}>
               <X className="size-5" />
             </button>
           </div>
@@ -84,13 +88,13 @@ export function StudymaxChat() {
                       : "max-w-[90%] whitespace-pre-wrap text-sm leading-relaxed text-foreground"
                   }
                 >
-                  {m.content}
+                  {i === 0 && m.role === "assistant" ? t("text.254") : m.content}
                 </div>
               </div>
             ))}
             {busy && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="size-4 animate-spin" /> Studymax AI думает...
+                <Loader2 className="size-4 animate-spin" />  {t("text.259")}
               </div>
             )}
             <div ref={endRef} />
@@ -100,7 +104,7 @@ export function StudymaxChat() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={user ? "Спросите что угодно..." : "Войдите, чтобы общаться"}
+              placeholder={user ? t("text.260") : t("text.261")}
               disabled={!user || busy}
               className="rounded-full"
             />

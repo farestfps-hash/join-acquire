@@ -1,3 +1,5 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { Plus, Trash2, Loader2 } from "lucide-react";
@@ -21,16 +23,16 @@ import {
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Портфолио и AP-экзамены — Studymaxxing" },
+      { title: translate("en", "text.107") },
       {
         name: "description",
         content:
-          "Заполните GPA, целевой мейджор, AP-экзамены, олимпиады и внеклассные активности для ИИ-оценки.",
+          translate("en", "text.108"),
       },
-      { property: "og:title", content: "Портфолио & AP — Studymaxxing" },
+      { property: "og:title", content: translate("en", "text.109") },
       {
         property: "og:description",
-        content: "Конструктор портфолио абитуриента: GPA, AP, олимпиады, активности и лидерство.",
+        content: translate("en", "text.110"),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -65,20 +67,23 @@ const PLACEMENTS = ["1st place", "2nd place", "3rd place", "Honorable Mention", 
 type Row = any;
 
 function AuthGate() {
+  const { t, lang } = useLanguage();
   return (
     <div className="mx-auto max-w-md px-4 py-24 text-center">
-      <h1 className="text-2xl font-bold">Нужен аккаунт</h1>
+      <h1 className="text-2xl font-bold">{t("text.111")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Войдите, чтобы сохранить портфолио и получить ИИ-оценку.
+        
+        {t("text.112")}
       </p>
       <Button asChild className="mt-6 rounded-full">
-        <Link to="/auth">Войти / Регистрация</Link>
+        <Link to="/auth">{t("text.056")}</Link>
       </Button>
     </div>
   );
 }
 
 function Portfolio() {
+  const { t, lang } = useLanguage();
   const { user, loading } = useAuth();
   const [profile, setProfile] = useState<Row>({ target_countries: [] });
   const [aps, setAps] = useState<Row[]>([]);
@@ -142,9 +147,9 @@ function Portfolio() {
     const { error } = await supabase.from("profiles").upsert(payload);
     setSaving(false);
     if (error) {
-      toast.error("Не удалось сохранить: " + error.message);
+      toast.error(t("text.113") + error.message);
     } else {
-      toast.success("Академический профиль сохранён");
+      toast.success(t("text.114"));
     }
   }
 
@@ -196,55 +201,59 @@ function Portfolio() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-4xl font-extrabold">Портфолио &amp; AP</h1>
+      <h1 className="text-4xl font-extrabold">{t("text.115")}</h1>
       <p className="mt-2 text-muted-foreground">
-        Чем подробнее данные, тем точнее ИИ-оценка шансов поступления.
+        
+        {t("text.116")}
       </p>
 
       <Tabs defaultValue="academics" className="mt-8">
         <TabsList className="rounded-full">
           <TabsTrigger value="academics" className="rounded-full">
-            Академика &amp; AP
+            
+            {t("text.117")}
           </TabsTrigger>
           <TabsTrigger value="honors" className="rounded-full">
-            Олимпиады
+            
+            {t("text.118")}
           </TabsTrigger>
           <TabsTrigger value="ecs" className="rounded-full">
-            Активности
+            
+            {t("text.119")}
           </TabsTrigger>
         </TabsList>
 
         {/* Academics */}
         <TabsContent value="academics" className="mt-6 grid gap-6">
           <section className="surface-card grid gap-4 p-7">
-            <h2 className="text-lg font-bold">Академический профиль</h2>
+            <h2 className="text-lg font-bold">{t("text.120")}</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Имя и фамилия">
+              <Field label={t("text.033")}>
                 <Input
                   value={profile.full_name ?? ""}
                   onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
                 />
               </Field>
-              <Field label="Школа">
+              <Field label={t("text.121")}>
                 <Input
                   value={profile.high_school ?? ""}
                   onChange={(e) => setProfile({ ...profile, high_school: e.target.value })}
                 />
               </Field>
-              <Field label="Город">
+              <Field label={t("text.122")}>
                 <Input
-                  placeholder="Атырау"
+                  placeholder={t("text.123")}
                   value={profile.city ?? ""}
                   onChange={(e) => setProfile({ ...profile, city: e.target.value })}
                 />
               </Field>
-              <Field label="Класс / Grade">
+              <Field label={t("text.124")}>
                 <Input
                   value={profile.grade_level ?? ""}
                   onChange={(e) => setProfile({ ...profile, grade_level: e.target.value })}
                 />
               </Field>
-              <Field label="Целевой мейджор">
+              <Field label={t("text.125")}>
                 <Input
                   placeholder="Computer Science, Robotics, Finance..."
                   value={profile.target_major ?? ""}
@@ -267,7 +276,7 @@ function Portfolio() {
                   onChange={(e) => setProfile({ ...profile, gpa_weighted: e.target.value })}
                 />
               </Field>
-              <Field label="Шкала GPA">
+              <Field label={t("text.126")}>
                 <Select
                   value={profile.gpa_scale ?? "4.0"}
                   onValueChange={(v) => setProfile({ ...profile, gpa_scale: v })}
@@ -281,14 +290,14 @@ function Portfolio() {
                   </SelectContent>
                 </Select>
               </Field>
-              <Field label="Экзамен по английскому">
+              <Field label={t("text.127")}>
                 <Input
                   placeholder="IELTS / TOEFL / Duolingo"
                   value={profile.english_test ?? ""}
                   onChange={(e) => setProfile({ ...profile, english_test: e.target.value })}
                 />
               </Field>
-              <Field label="Балл по английскому">
+              <Field label={t("text.128")}>
                 <Input
                   value={profile.english_score ?? ""}
                   onChange={(e) => setProfile({ ...profile, english_score: e.target.value })}
@@ -297,9 +306,10 @@ function Portfolio() {
             </div>
 
             <div>
-              <Label className="text-sm font-semibold">Стандартизированные тесты</Label>
+              <Label className="text-sm font-semibold">{t("text.129")}</Label>
               <p className="mt-1 text-xs text-muted-foreground">
-                Все поля необязательны — заполняйте только сданные экзамены.
+                
+                {t("text.130")}
               </p>
               <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <Field label="SAT (200–1600)">
@@ -322,7 +332,7 @@ function Portfolio() {
                     onChange={(e) => setProfile({ ...profile, act_score: e.target.value })}
                   />
                 </Field>
-                <Field label="ЕНТ / UNT (0–140)">
+                <Field label={t("text.131")}>
                   <Input
                     type="number"
                     min={0}
@@ -335,7 +345,7 @@ function Portfolio() {
                 <Field label="NUET">
                   <Input
                     type="number"
-                    placeholder="Балл"
+                    placeholder={t("text.132")}
                     value={profile.nuet_score ?? ""}
                     onChange={(e) => setProfile({ ...profile, nuet_score: e.target.value })}
                   />
@@ -344,12 +354,13 @@ function Portfolio() {
             </div>
 
             <div>
-              <Label className="text-sm font-semibold">Бюджет на обучение</Label>
+              <Label className="text-sm font-semibold">{t("text.133")}</Label>
               <p className="mt-1 text-xs text-muted-foreground">
-                Годовой бюджет — ИИ подберёт вузы с подходящей финансовой помощью.
+                
+                {t("text.134")}
               </p>
               <div className="mt-3 grid gap-4 sm:grid-cols-[1fr_140px]">
-                <Field label="Сумма в год">
+                <Field label={t("text.135")}>
                   <Input
                     type="number"
                     min={0}
@@ -358,7 +369,7 @@ function Portfolio() {
                     onChange={(e) => setProfile({ ...profile, annual_budget: e.target.value })}
                   />
                 </Field>
-                <Field label="Валюта">
+                <Field label={t("text.136")}>
                   <Select
                     value={profile.budget_currency ?? "USD"}
                     onValueChange={(v) => setProfile({ ...profile, budget_currency: v })}
@@ -378,7 +389,8 @@ function Portfolio() {
                   checked={Boolean(profile.needs_full_aid)}
                   onCheckedChange={(v) => setProfile({ ...profile, needs_full_aid: v === true })}
                 />
-                Нужна полная финансовая помощь / грант
+                
+                {t("text.137")}
               </label>
             </div>
 
@@ -388,16 +400,17 @@ function Portfolio() {
                   checked={profile.portfolio_public ?? true}
                   onCheckedChange={(v) => setProfile({ ...profile, portfolio_public: v === true })}
                 />
-                Открытое портфолио в таблице лидеров
+                
+                {t("text.138")}
               </label>
               <p className="mt-1.5 pl-7 text-xs text-muted-foreground">
-                Имя, школа, город и общий балл видны всегда. Если выключено — остальные результаты
-                скрыты, а профиль отмечен замком.
+                
+                {t("text.139")}
               </p>
             </div>
 
             <div>
-              <Label className="text-sm">Целевые страны</Label>
+              <Label className="text-sm">{t("profile.targetCountries")}</Label>
               <div className="mt-2 flex flex-wrap gap-2">
                 {COUNTRIES.map((c) => {
                   const active = (profile.target_countries ?? []).includes(c);
@@ -420,7 +433,7 @@ function Portfolio() {
               </div>
             </div>
 
-            <Field label="О себе / нарратив">
+            <Field label={t("text.141")}>
               <Textarea
                 rows={4}
                 value={profile.bio ?? ""}
@@ -429,13 +442,13 @@ function Portfolio() {
             </Field>
 
             <Button className="w-fit rounded-full" onClick={saveProfile} disabled={saving}>
-              {saving ? "Сохранение..." : "Сохранить профиль"}
+              {saving ? t("text.142") : t("text.143")}
             </Button>
           </section>
 
           <section className="surface-card p-7">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">AP-экзамены</h2>
+              <h2 className="text-lg font-bold">{t("text.144")}</h2>
               <Button
                 size="sm"
                 variant="outline"
@@ -449,12 +462,12 @@ function Portfolio() {
                   })
                 }
               >
-                <Plus className="mr-1 size-4" /> Добавить
+                <Plus className="mr-1 size-4" />  {t("text.145")}
               </Button>
             </div>
             <div className="mt-4 grid gap-3">
               {aps.length === 0 && (
-                <p className="text-sm text-muted-foreground">Пока нет AP-экзаменов.</p>
+                <p className="text-sm text-muted-foreground">{t("text.146")}</p>
               )}
               {aps.map((row) => (
                 <div
@@ -480,7 +493,7 @@ function Portfolio() {
                     type="number"
                     min={1}
                     max={5}
-                    placeholder="Балл"
+                    placeholder={t("text.132")}
                     defaultValue={row.score ?? ""}
                     onBlur={(e) =>
                       updateRow("ap_exams", row.id, {
@@ -490,7 +503,7 @@ function Portfolio() {
                   />
                   <Input
                     type="number"
-                    placeholder="Год"
+                    placeholder={t("text.147")}
                     defaultValue={row.year ?? ""}
                     onBlur={(e) =>
                       updateRow("ap_exams", row.id, {
@@ -506,15 +519,15 @@ function Portfolio() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="taken">Сдан</SelectItem>
-                      <SelectItem value="planned">Планируется</SelectItem>
+                      <SelectItem value="taken">{t("text.148")}</SelectItem>
+                      <SelectItem value="planned">{t("text.149")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => deleteRow("ap_exams", row.id)}
-                    aria-label="Удалить"
+                    aria-label={t("text.150")}
                   >
                     <Trash2 className="size-4 text-destructive" />
                   </Button>
@@ -528,7 +541,7 @@ function Portfolio() {
         <TabsContent value="honors" className="mt-6">
           <section className="surface-card p-7">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">Олимпиады и награды</h2>
+              <h2 className="text-lg font-bold">{t("text.151")}</h2>
               <Button
                 size="sm"
                 variant="outline"
@@ -543,12 +556,12 @@ function Portfolio() {
                   })
                 }
               >
-                <Plus className="mr-1 size-4" /> Добавить
+                <Plus className="mr-1 size-4" />  {t("text.145")}
               </Button>
             </div>
             <div className="mt-4 grid gap-3">
               {honors.length === 0 && (
-                <p className="text-sm text-muted-foreground">Пока нет достижений.</p>
+                <p className="text-sm text-muted-foreground">{t("text.152")}</p>
               )}
               {honors.map((row) => (
                 <div
@@ -556,13 +569,13 @@ function Portfolio() {
                   className="grid gap-3 rounded-2xl border border-border p-4 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto]"
                 >
                   <Input
-                    placeholder="Название олимпиады"
+                    placeholder={t("text.153")}
                     defaultValue={row.name ?? ""}
                     onBlur={(e) => updateRow("olympiads_honors", row.id, { name: e.target.value })}
                   />
                   <Input
                     type="number"
-                    placeholder="Год"
+                    placeholder={t("text.147")}
                     defaultValue={row.year ?? ""}
                     onBlur={(e) =>
                       updateRow("olympiads_honors", row.id, {
@@ -601,7 +614,7 @@ function Portfolio() {
                     </SelectContent>
                   </Select>
                   <Input
-                    placeholder="Предмет"
+                    placeholder={t("text.154")}
                     defaultValue={row.subject ?? ""}
                     onBlur={(e) =>
                       updateRow("olympiads_honors", row.id, { subject: e.target.value })
@@ -611,7 +624,7 @@ function Portfolio() {
                     variant="ghost"
                     size="icon"
                     onClick={() => deleteRow("olympiads_honors", row.id)}
-                    aria-label="Удалить"
+                    aria-label={t("text.150")}
                   >
                     <Trash2 className="size-4 text-destructive" />
                   </Button>
@@ -625,7 +638,7 @@ function Portfolio() {
         <TabsContent value="ecs" className="mt-6">
           <section className="surface-card p-7">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">Активности и лидерство (до 10)</h2>
+              <h2 className="text-lg font-bold">{t("text.155")}</h2>
               <Button
                 size="sm"
                 variant="outline"
@@ -643,52 +656,53 @@ function Portfolio() {
                   })
                 }
               >
-                <Plus className="mr-1 size-4" /> Добавить
+                <Plus className="mr-1 size-4" />  {t("text.145")}
               </Button>
             </div>
             <div className="mt-4 grid gap-4">
               {ecs.length === 0 && (
-                <p className="text-sm text-muted-foreground">Пока нет активностей.</p>
+                <p className="text-sm text-muted-foreground">{t("text.156")}</p>
               )}
               {ecs.map((row, i) => (
                 <div key={row.id} className="rounded-2xl border border-border p-5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold uppercase text-muted-foreground">
-                      Активность {i + 1}
+                      
+                      {t("text.157")} {i + 1}
                     </span>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => deleteRow("extracurriculars", row.id)}
-                      aria-label="Удалить"
+                      aria-label={t("text.150")}
                     >
                       <Trash2 className="size-4 text-destructive" />
                     </Button>
                   </div>
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
                     <Input
-                      placeholder="Название активности"
+                      placeholder={t("text.158")}
                       defaultValue={row.title ?? ""}
                       onBlur={(e) =>
                         updateRow("extracurriculars", row.id, { title: e.target.value })
                       }
                     />
                     <Input
-                      placeholder="Организация"
+                      placeholder={t("text.159")}
                       defaultValue={row.organization ?? ""}
                       onBlur={(e) =>
                         updateRow("extracurriculars", row.id, { organization: e.target.value })
                       }
                     />
                     <Input
-                      placeholder="Роль (Co-Founder, Lead Coder...)"
+                      placeholder={t("text.160")}
                       defaultValue={row.role ?? ""}
                       onBlur={(e) =>
                         updateRow("extracurriculars", row.id, { role: e.target.value })
                       }
                     />
                     <Input
-                      placeholder="Период (2023–2025)"
+                      placeholder={t("text.161")}
                       defaultValue={row.years_active ?? ""}
                       onBlur={(e) =>
                         updateRow("extracurriculars", row.id, { years_active: e.target.value })
@@ -697,7 +711,7 @@ function Portfolio() {
                     <Input
                       type="number"
                       step="0.5"
-                      placeholder="Часов в неделю"
+                      placeholder={t("text.162")}
                       defaultValue={row.hours_per_week ?? ""}
                       onBlur={(e) =>
                         updateRow("extracurriculars", row.id, {
@@ -709,7 +723,7 @@ function Portfolio() {
                   <Textarea
                     className="mt-3"
                     rows={2}
-                    placeholder="Описание деятельности"
+                    placeholder={t("text.163")}
                     defaultValue={row.description ?? ""}
                     onBlur={(e) =>
                       updateRow("extracurriculars", row.id, { description: e.target.value })
@@ -718,7 +732,7 @@ function Portfolio() {
                   <Textarea
                     className="mt-3"
                     rows={2}
-                    placeholder="Ключевой результат / impact"
+                    placeholder={t("text.164")}
                     defaultValue={row.key_impact ?? ""}
                     onBlur={(e) =>
                       updateRow("extracurriculars", row.id, { key_impact: e.target.value })
@@ -733,10 +747,10 @@ function Portfolio() {
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Button asChild className="rounded-full">
-          <Link to="/evaluator">Перейти к ИИ-оценке</Link>
+          <Link to="/evaluator">{t("text.165")}</Link>
         </Button>
         <Button asChild variant="outline" className="rounded-full">
-          <Link to="/roadmap">Дорожная карта</Link>
+          <Link to="/roadmap">{t("nav.roadmap")}</Link>
         </Button>
       </div>
     </div>

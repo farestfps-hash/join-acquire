@@ -1,31 +1,38 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { Link } from "@tanstack/react-router";
 
 export function SiteFooter() {
+  const { t, lang } = useLanguage();
   return (
     <footer className="mt-24 border-t border-border bg-card/60">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
           <p className="font-display text-lg font-bold">Studymaxxing</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Join&amp;Acquire — ИИ-платформа для поступления в университеты мира.
+            
+            {t("text.250")}
           </p>
         </div>
         <div className="text-sm">
-          <p className="font-semibold">Разделы</p>
+          <p className="font-semibold">{t("text.251")}</p>
           <div className="mt-3 grid gap-2 text-muted-foreground">
             <Link to="/evaluator" className="hover:text-foreground">
-              ИИ-оценка шансов
+              
+              {t("text.252")}
             </Link>
             <Link to="/portfolio" className="hover:text-foreground">
-              Портфолио &amp; AP
+              
+              {t("text.115")}
             </Link>
             <Link to="/roadmap" className="hover:text-foreground">
-              Дорожная карта и календарь
+              
+              {t("text.253")}
             </Link>
           </div>
         </div>
         <div className="text-sm">
-          <p className="font-semibold">Контакты</p>
+          <p className="font-semibold">{t("nav.contacts")}</p>
           <div className="mt-3 grid gap-2 text-muted-foreground">
             <a href="tel:+77780054070" className="hover:text-foreground">
               +7 778 005 40 70
@@ -33,7 +40,7 @@ export function SiteFooter() {
             <a href="mailto:farestfps@gmail.com" className="hover:text-foreground">
               farestfps@gmail.com
             </a>
-            <span>Атырау, Казахстан</span>
+            <span>{t("text.045")}</span>
           </div>
         </div>
       </div>

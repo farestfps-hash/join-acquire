@@ -1,3 +1,5 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -12,13 +14,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Вход и регистрация — Studymaxxing" },
+      { title: translate("en", "text.021") },
       {
         name: "description",
-        content: "Войдите в Studymaxxing, чтобы сохранить портфолио и получить ИИ-оценку профиля.",
+        content: translate("en", "text.022"),
       },
-      { property: "og:title", content: "Вход в Studymaxxing" },
-      { property: "og:description", content: "Аккаунт Studymaxxing: портфолио, ИИ-оценка, дорожная карта." },
+      { property: "og:title", content: translate("en", "text.023") },
+      { property: "og:description", content: translate("en", "text.024") },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -27,6 +29,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [email, setEmail] = useState("");
@@ -47,7 +50,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("С возвращением!");
+    toast.success(t("text.025"));
     navigate({ to: "/portfolio" });
   }
 
@@ -67,7 +70,7 @@ function AuthPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("Аккаунт создан. Проверьте почту, если требуется подтверждение.");
+    toast.success(t("text.026"));
   }
 
   async function google() {
@@ -75,7 +78,7 @@ function AuthPage() {
       redirect_uri: window.location.origin,
     });
     if (result.error) {
-      toast.error("Не удалось войти через Google");
+      toast.error(t("text.027"));
       return;
     }
     if (result.redirected) return;
@@ -87,16 +90,19 @@ function AuthPage() {
       <div className="surface-card p-8">
         <h1 className="text-2xl font-bold">Studymaxxing</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Войдите, чтобы сохранять портфолио и получать ИИ-оценку.
+          
+          {t("text.028")}
         </p>
 
         <Tabs defaultValue="signin" className="mt-6">
           <TabsList className="grid w-full grid-cols-2 rounded-full">
             <TabsTrigger value="signin" className="rounded-full">
-              Вход
+              
+              {t("nav.signIn")}
             </TabsTrigger>
             <TabsTrigger value="signup" className="rounded-full">
-              Регистрация
+              
+              {t("nav.signUp")}
             </TabsTrigger>
           </TabsList>
 
@@ -113,7 +119,7 @@ function AuthPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Пароль</Label>
+                <Label htmlFor="password">{t("text.031")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -123,7 +129,8 @@ function AuthPage() {
                 />
               </div>
               <Button type="submit" className="rounded-full" disabled={busy}>
-                Войти
+                
+                {t("text.032")}
               </Button>
             </form>
           </TabsContent>
@@ -131,7 +138,7 @@ function AuthPage() {
           <TabsContent value="signup">
             <form onSubmit={signUp} className="mt-5 grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="name">Имя и фамилия</Label>
+                <Label htmlFor="name">{t("text.033")}</Label>
                 <Input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
               </div>
               <div className="grid gap-2">
@@ -145,7 +152,7 @@ function AuthPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password2">Пароль</Label>
+                <Label htmlFor="password2">{t("text.031")}</Label>
                 <Input
                   id="password2"
                   type="password"
@@ -156,17 +163,19 @@ function AuthPage() {
                 />
               </div>
               <Button type="submit" className="rounded-full" disabled={busy}>
-                Создать аккаунт
+                
+                {t("text.034")}
               </Button>
             </form>
           </TabsContent>
         </Tabs>
 
         <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="h-px flex-1 bg-border" /> или <span className="h-px flex-1 bg-border" />
+          <span className="h-px flex-1 bg-border" />  {t("text.035")} <span className="h-px flex-1 bg-border" />
         </div>
         <Button variant="outline" className="w-full rounded-full" onClick={google}>
-          Продолжить с Google
+          
+          {t("text.036")}
         </Button>
       </div>
     </div>

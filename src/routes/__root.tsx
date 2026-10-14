@@ -1,3 +1,4 @@
+import { translate } from "@/lib/i18n";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -89,12 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта.",
+          translate("en", "text.000"),
       },
       { property: "og:title", content: "Studymaxxing — Join&Acquire" },
       {
         property: "og:description",
-        content: "ИИ-оценка шансов поступления, портфолио и персональная дорожная карта.",
+        content: translate("en", "text.001"),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

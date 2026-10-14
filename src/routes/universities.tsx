@@ -1,3 +1,5 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -22,16 +24,16 @@ import {
 export const Route = createFileRoute("/universities")({
   head: () => ({
     meta: [
-      { title: "Университеты: подбор и база данных — Studymaxxing" },
+      { title: translate("en", "text.212") },
       {
         name: "description",
         content:
-          "ИИ-подбор университетов США, Гонконга, Казахстана и Европы: рейтинги QS, шансы поступления, требования, дедлайны и стоимость.",
+          translate("en", "text.213"),
       },
       { property: "og:title", content: "University Match & Database — Studymaxxing" },
       {
         property: "og:description",
-        content: "Персональный список вузов с шансами поступления и дедлайнами в один клик.",
+        content: translate("en", "text.214"),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,6 +49,7 @@ const CLS_STYLE: Record<Odds["classification"], string> = {
 };
 
 function UniversitiesPage() {
+  const { t, lang, countryLabel } = useLanguage();
   const { user } = useAuth();
   const run = useServerFn(matchUniversities);
   const [country, setCountry] = useState<Country | "Все">("Все");
@@ -93,9 +96,9 @@ function UniversitiesPage() {
       const catalog = UNIVERSITIES.map((u) => `${u.name} (${u.country}, QS ${u.qs})`);
       const res: any = await run({ data: { catalog } });
       setAi({ matches: res?.matches ?? [], advice: res?.advice ?? "" });
-      toast.success("Персональный список готов");
+      toast.success(t("text.215"));
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Не удалось подобрать вузы");
+      toast.error(err instanceof Error ? err.message : t("text.216"));
     } finally {
       setBusy(false);
     }
@@ -103,13 +106,13 @@ function UniversitiesPage() {
 
   async function addDeadline(uni: University, d: { label: string; date: string }) {
     if (!user) {
-      toast.error("Войдите, чтобы добавить дедлайн в календарь");
+      toast.error(t("text.217"));
       return;
     }
     const { error } = await supabase.from("calendar_events").insert({
       user_id: user.id,
       title: `${uni.name} — ${d.label}`,
-      description: `Дедлайн подачи. ${uni.city}, QS ${uni.qs}.`,
+      description: t("text.218", { city: uni.city, qs: uni.qs }),
       event_date: d.date,
       event_type: "deadline",
       color: "red",
@@ -118,36 +121,36 @@ function UniversitiesPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("Дедлайн добавлен в календарь");
+    toast.success(t("text.219"));
   }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12">
       <h1 className="text-4xl font-extrabold">University Match &amp; Database</h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        ИИ подбирает вузы под ваш профиль, тесты и бюджет, а база данных показывает рейтинг QS,
-        требования, дедлайны и шансы поступления.
+        
+        {t("text.220")}
       </p>
 
       {/* AI match */}
       <section className="surface-card mt-8 p-7">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="flex items-center gap-2 text-lg font-bold">
-            <Sparkles className="size-5 text-primary" /> Персональный подбор
+            <Sparkles className="size-5 text-primary" />  {t("text.221")}
           </h2>
           {user ? (
             <Button className="rounded-full" onClick={generateMatch} disabled={busy}>
               {busy ? (
                 <>
-                  <Loader2 className="mr-2 size-4 animate-spin" /> ИИ подбирает...
+                  <Loader2 className="mr-2 size-4 animate-spin" />  {t("text.222")}
                 </>
               ) : (
-                "Подобрать университеты"
+                t("text.223")
               )}
             </Button>
           ) : (
             <Button asChild className="rounded-full">
-              <Link to="/auth">Войти для подбора</Link>
+              <Link to="/auth">{t("text.224")}</Link>
             </Button>
           )}
         </div>
@@ -180,8 +183,8 @@ function UniversitiesPage() {
         )}
         {!ai && (
           <p className="mt-4 text-sm text-muted-foreground">
-            Заполните портфолио (GPA, AP, тесты, бюджет) — и ИИ соберёт список вузов с наибольшими
-            шансами.
+            
+            {t("text.225")}
           </p>
         )}
       </section>
@@ -199,7 +202,7 @@ function UniversitiesPage() {
                 : "border-border bg-card text-muted-foreground hover:bg-secondary")
             }
           >
-            {c}
+            {c === "Все" ? t("common.all") : countryLabel(c)}
           </button>
         ))}
       </div>
@@ -210,7 +213,7 @@ function UniversitiesPage() {
             <div className="relative h-40">
               <img
                 src={uni.photos[0]}
-                alt={`Кампус ${uni.name}`}
+                alt={t("text.226", { name: uni.name })}
                 loading="lazy"
                 className="size-full object-cover"
               />
@@ -221,11 +224,11 @@ function UniversitiesPage() {
             <div className="p-5">
               <h3 className="text-base font-bold leading-tight">{uni.name}</h3>
               <p className="mt-1 text-xs text-muted-foreground">
-                {uni.city} · {uni.country}
+                {uni.city} · {countryLabel(uni.country)}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className={"rounded-full " + CLS_STYLE[odds.classification]}>
-                  {odds.classification} · {odds.probability}%
+                  {t(`university.${odds.classification.toLowerCase()}` as "university.safety" | "university.match" | "university.reach")} · {odds.probability}%
                 </Badge>
                 <span className="text-xs text-muted-foreground">GPA {uni.gpa}</span>
               </div>
@@ -234,7 +237,8 @@ function UniversitiesPage() {
                 className="mt-4 w-full rounded-full"
                 onClick={() => setActive(uni)}
               >
-                Подробнее
+                
+                {t("text.227")}
               </Button>
             </div>
           </article>
@@ -265,6 +269,7 @@ function UniDetails({
   odds: Odds;
   onAddDeadline: (d: { label: string; date: string }) => void;
 }) {
+  const { t, lang, countryLabel } = useLanguage();
   return (
     <>
       <DialogHeader>
@@ -275,7 +280,7 @@ function UniDetails({
           </Badge>
         </DialogTitle>
         <DialogDescription>
-          {uni.city} · {uni.country}
+          {uni.city} · {countryLabel(uni.country)}
         </DialogDescription>
       </DialogHeader>
 
@@ -284,7 +289,7 @@ function UniDetails({
           <img
             key={i}
             src={src}
-            alt={`${uni.name} — фото кампуса ${i + 1}`}
+            alt={t("text.228", { name: uni.name, number: i + 1 })}
             loading="lazy"
             className="h-28 w-full rounded-xl object-cover"
           />
@@ -293,38 +298,39 @@ function UniDetails({
 
       <div className="rounded-2xl border border-border p-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold">Шансы поступления</span>
+          <span className="text-sm font-semibold">{t("text.229")}</span>
           <Badge variant="outline" className={"rounded-full " + CLS_STYLE[odds.classification]}>
-            {odds.classification} · {odds.probability}%
+            {t(`university.${odds.classification.toLowerCase()}` as "university.safety" | "university.match" | "university.reach")} · {odds.probability}%
           </Badge>
         </div>
         <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
           <div className="h-full rounded-full bg-primary" style={{ width: `${odds.probability}%` }} />
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
-          Расчёт по вашему GPA, тестам, AP, олимпиадам, активностям и бюджету.
+          
+          {t("text.230")}
         </p>
       </div>
 
       <section>
         <h4 className="flex items-center gap-2 text-sm font-bold">
-          <GraduationCap className="size-4 text-primary" /> Требования и средние баллы
+          <GraduationCap className="size-4 text-primary" />  {t("text.231")}
         </h4>
         <dl className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
           <Row k="GPA" v={uni.gpa} />
           <Row k="SAT" v={uni.sat} />
           <Row k="ACT" v={uni.act} />
           <Row k="AP" v={uni.ap} />
-          <Row k="ЕНТ (UNT)" v={uni.unt} />
+          <Row k={t("text.232")} v={uni.unt} />
           <Row k="NUET" v={uni.nuet} />
-          <Row k="Язык" v={uni.english} />
-          <Row k="Стоимость" v={uni.tuition} />
-          <Row k="Финансовая помощь" v={uni.aid} />
+          <Row k={t("text.233")} v={uni.english} />
+          <Row k={t("university.tuition")} v={uni.tuition} />
+          <Row k={t("text.235")} v={uni.aid} />
         </dl>
       </section>
 
       <section>
-        <h4 className="text-sm font-bold">Дедлайны и чек-лист</h4>
+        <h4 className="text-sm font-bold">{t("text.236")}</h4>
         <div className="mt-2 grid gap-2">
           {uni.deadlines.map((d) => (
             <div
@@ -336,7 +342,7 @@ function UniDetails({
                 <p className="text-xs text-muted-foreground">{d.date}</p>
               </div>
               <Button size="sm" variant="ghost" className="rounded-full text-primary" onClick={() => onAddDeadline(d)}>
-                <CalendarPlus className="mr-1 size-4" /> В календарь
+                <CalendarPlus className="mr-1 size-4" />  {t("university.addToCalendar")}
               </Button>
             </div>
           ))}
@@ -344,7 +350,7 @@ function UniDetails({
       </section>
 
       <section>
-        <h4 className="text-sm font-bold">Об университете</h4>
+        <h4 className="text-sm font-bold">{t("text.237")}</h4>
         <p className="mt-2 text-sm text-muted-foreground">{uni.overview}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {uni.programs.map((p) => (
@@ -354,7 +360,7 @@ function UniDetails({
           ))}
         </div>
         <p className="mt-3 text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">Стратегия подачи: </span>
+          <span className="font-semibold text-foreground">{t("text.238")} </span>
           {uni.strategy}
         </p>
       </section>
