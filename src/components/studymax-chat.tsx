@@ -88,7 +88,7 @@ export function StudymaxChat() {
                       : "max-w-[90%] whitespace-pre-wrap text-sm leading-relaxed text-foreground"
                   }
                 >
-                  {m.content}
+                  {i === 0 && m.role === "assistant" ? t("text.254") : m.content}
                 </div>
               </div>
             ))}

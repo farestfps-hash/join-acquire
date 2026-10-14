@@ -269,7 +269,7 @@ function UniDetails({
   odds: Odds;
   onAddDeadline: (d: { label: string; date: string }) => void;
 }) {
-  const { t, lang } = useLanguage();
+  const { t, lang, countryLabel } = useLanguage();
   return (
     <>
       <DialogHeader>
