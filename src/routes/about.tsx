@@ -1,19 +1,21 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { createFileRoute } from "@tanstack/react-router";
 import { Target, ShieldCheck, Globe2, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "О проекте — Studymaxxing" },
+      { title: translate("en", "text.002") },
       {
         name: "description",
         content:
-          "Миссия Studymaxxing: дать каждому школьнику доступ к элитному ИИ-консультированию по поступлению.",
+          translate("en", "text.003"),
       },
-      { property: "og:title", content: "О проекте Studymaxxing" },
+      { property: "og:title", content: translate("en", "text.004") },
       {
         property: "og:description",
-        content: "Элитное ИИ-консультирование по международным поступлениям для школьников.",
+        content: translate("en", "text.005"),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -22,22 +24,22 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-const VALUES = [
-  { icon: Target, title: "Честная оценка", text: "Никакого маркетинга — только реальная позиция на фоне 600+ профилей." },
-  { icon: Globe2, title: "Четыре региона", text: "США, Гонконг, Казахстан и Европа — у каждого своя логика отбора." },
-  { icon: ShieldCheck, title: "Ваши данные ваши", text: "Портфолио видно только вам: доступ защищён на уровне базы данных." },
-  { icon: Rocket, title: "От оценки к действию", text: "Каждый пробел превращается в конкретный шаг с датой в календаре." },
-];
+
 
 function About() {
+  const { t, lang } = useLanguage();
+const VALUES = [
+  { icon: Target, title: t("text.006"), text: t("text.007") },
+  { icon: Globe2, title: t("text.008"), text: t("text.009") },
+  { icon: ShieldCheck, title: t("text.010"), text: t("text.011") },
+  { icon: Rocket, title: t("text.012"), text: t("text.013") },
+];
   return (
     <div className="mx-auto max-w-5xl px-4 py-16">
-      <h1 className="text-4xl font-extrabold">О проекте</h1>
+      <h1 className="text-4xl font-extrabold">{t("text.014")}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-        Studymaxxing создан, чтобы школьник из любого города имел тот же уровень поддержки, что и
-        ученик дорогой международной школы с личным admissions-консультантом. Мы объединяем
-        подробное портфолио, глубокую ИИ-аналитику на базе Gemini и живой календарь дедлайнов в
-        одном инструменте.
+        
+        {t("text.015")}
       </p>
 
       <div className="mt-12 grid gap-5 sm:grid-cols-2">
@@ -53,12 +55,12 @@ function About() {
       </div>
 
       <div className="surface-card mt-12 p-8">
-        <h2 className="text-xl font-bold">Как это работает</h2>
+        <h2 className="text-xl font-bold">{t("text.016")}</h2>
         <ol className="mt-4 grid gap-3 text-sm text-muted-foreground">
-          <li>1. Заполняете портфолио: GPA, целевой мейджор, AP-экзамены, олимпиады, активности.</li>
-          <li>2. Получаете холистический балл и вероятности поступления по каждой стране.</li>
-          <li>3. ИИ строит дорожную карту с датами и добавляет задачи в календарь.</li>
-          <li>4. Studymax AI помогает с эссе и стратегией в любой момент.</li>
+          <li>{t("text.017")}</li>
+          <li>{t("text.018")}</li>
+          <li>{t("text.019")}</li>
+          <li>{t("text.020")}</li>
         </ol>
       </div>
     </div>

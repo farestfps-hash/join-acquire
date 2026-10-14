@@ -1,3 +1,5 @@
+import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -23,16 +25,16 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/evaluator")({
   head: () => ({
     meta: [
-      { title: "ИИ-оценка шансов поступления — Studymaxxing" },
+      { title: translate("en", "text.050") },
       {
         name: "description",
         content:
-          "Холистический балл, вероятности поступления по странам и стратегическая обратная связь от ИИ.",
+          translate("en", "text.051"),
       },
       { property: "og:title", content: "AI Admissions Evaluator — Studymaxxing" },
       {
         property: "og:description",
-        content: "Оценка профиля для США, Гонконга, Казахстана и Европы на базе Gemini.",
+        content: translate("en", "text.052"),
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,6 +69,7 @@ function benchmarkCloud() {
 const CLOUD = benchmarkCloud();
 
 function Evaluator() {
+  const { t, lang } = useLanguage();
   const { user, loading } = useAuth();
   const run = useServerFn(evaluateProfile);
   const [evaluation, setEvaluation] = useState<any>(null);
@@ -98,9 +101,9 @@ function Evaluator() {
     try {
       const result = await run();
       setEvaluation(result);
-      toast.success("Оценка готова");
+      toast.success(t("text.053"));
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Не удалось выполнить оценку");
+      toast.error(err instanceof Error ? err.message : t("text.054"));
     } finally {
       setBusy(false);
     }
@@ -117,9 +120,9 @@ function Evaluator() {
   if (!user) {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold">ИИ-оценка доступна после входа</h1>
+        <h1 className="text-2xl font-bold">{t("text.055")}</h1>
         <Button asChild className="mt-6 rounded-full">
-          <Link to="/auth">Войти / Регистрация</Link>
+          <Link to="/auth">{t("text.056")}</Link>
         </Button>
       </div>
     );
@@ -134,17 +137,18 @@ function Evaluator() {
         <div>
           <h1 className="text-4xl font-extrabold">AI Admissions Evaluator</h1>
           <p className="mt-2 text-muted-foreground">
-            Глубокая оценка вашего профиля под каждую целевую страну.
+            
+            {t("text.057")}
           </p>
         </div>
         <Button className="rounded-full" onClick={evaluate} disabled={busy}>
           {busy ? (
             <>
-              <Loader2 className="mr-2 size-4 animate-spin" /> ИИ анализирует...
+              <Loader2 className="mr-2 size-4 animate-spin" />  {t("text.058")}
             </>
           ) : (
             <>
-              <Sparkles className="mr-2 size-4" /> Запустить ИИ-оценку
+              <Sparkles className="mr-2 size-4" />  {t("text.059")}
             </>
           )}
         </Button>
@@ -153,10 +157,11 @@ function Evaluator() {
       {!evaluation && !busy && (
         <div className="surface-card mt-10 p-10 text-center">
           <p className="text-muted-foreground">
-            Заполните портфолио и нажмите «Запустить ИИ-оценку», чтобы получить холистический балл.
+            
+            {t("text.060")}
           </p>
           <Button asChild variant="outline" className="mt-5 rounded-full">
-            <Link to="/portfolio">Заполнить портфолио</Link>
+            <Link to="/portfolio">{t("text.061")}</Link>
           </Button>
         </div>
       )}
@@ -172,7 +177,7 @@ function Evaluator() {
             </div>
 
             <div className="surface-card p-7">
-              <h2 className="text-lg font-bold">Вероятность поступления по странам</h2>
+              <h2 className="text-lg font-bold">{t("text.062")}</h2>
               <div className="mt-5 grid gap-4">
                 {countries.map((c) => (
                   <div key={c.country}>
@@ -205,29 +210,29 @@ function Evaluator() {
           <div className="grid gap-6 md:grid-cols-3">
             <FeedbackCard
               icon={CheckCircle2}
-              title="Сильные стороны"
+              title={t("text.063")}
               items={evaluation.strengths ?? []}
               tone="text-lime"
             />
             <FeedbackCard
               icon={AlertTriangle}
-              title="Пробелы"
+              title={t("text.064")}
               items={evaluation.gaps ?? []}
               tone="text-destructive"
             />
             <FeedbackCard
               icon={TrendingUp}
-              title="Чего не хватает в профиле"
+              title={t("text.065")}
               items={evaluation.missing_items ?? []}
               tone="text-primary"
             />
           </div>
 
           <div className="surface-card p-7">
-            <h2 className="text-lg font-bold">Сравнение с 600+ кандидатами прошлых лет</h2>
+            <h2 className="text-lg font-bold">{t("text.066")}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               {evaluation.benchmark?.comment ??
-                "Ваша точка (зелёная) на фоне исторических профилей."}
+                t("text.067")}
             </p>
             <div className="mt-6 h-80">
               <ResponsiveContainer width="100%" height="100%">

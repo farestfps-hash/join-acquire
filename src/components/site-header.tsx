@@ -1,3 +1,4 @@
+import { translate } from "@/lib/i18n";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, GraduationCap, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
 import { useState } from "react";
@@ -16,22 +17,23 @@ import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/language";
 
-const NAV = [
-  { to: "/", label: "Главная" },
-  { to: "/evaluator", label: "ИИ-оценка" },
-  { to: "/portfolio", label: "Портфолио & AP" },
-  { to: "/roadmap", label: "Дорожная карта" },
-  { to: "/universities", label: "Университеты" },
-  { to: "/leaderboard", label: "Таблица лидеров" },
-  { to: "/about", label: "О проекте" },
-  { to: "/contacts", label: "Контакты" },
-] as const;
+
 
 export function SiteHeader() {
+const NAV = [
+  { to: "/", label: t("nav.home") },
+  { to: "/evaluator", label: t("nav.evaluator") },
+  { to: "/portfolio", label: t("nav.portfolio") },
+  { to: "/roadmap", label: t("nav.roadmap") },
+  { to: "/universities", label: t("nav.universities") },
+  { to: "/leaderboard", label: t("nav.leaderboard") },
+  { to: "/about", label: t("text.014") },
+  { to: "/contacts", label: t("nav.contacts") },
+] as const;
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const { lang, setLang } = useLanguage();
+  const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
 
   const initials = (user?.email ?? "S").slice(0, 2).toUpperCase();
@@ -79,8 +81,8 @@ export function SiteHeader() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
-            title={theme === "dark" ? "Светлая тема" : "Тёмная тема"}
+            aria-label={theme === "dark" ? t("text.243") : t("text.244")}
+            title={theme === "dark" ? t("text.245") : t("text.246")}
           >
             {theme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
           </Button>
@@ -101,7 +103,7 @@ export function SiteHeader() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate({ to: "/portfolio" })}>
-                  <UserIcon className="mr-2 size-4" /> Моё портфолио
+                  <UserIcon className="mr-2 size-4" />  {t("text.247")}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={async () => {
@@ -109,15 +111,15 @@ export function SiteHeader() {
                     navigate({ to: "/" });
                   }}
                 >
-                  <LogOut className="mr-2 size-4" /> Выйти
+                  <LogOut className="mr-2 size-4" />  {t("nav.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Button asChild className="rounded-full">
               <Link to="/auth">
-                <span className="sm:hidden">Войти</span>
-                <span className="hidden sm:inline">Войти / Регистрация</span>
+                <span className="sm:hidden">{t("text.032")}</span>
+                <span className="hidden sm:inline">{t("text.056")}</span>
               </Link>
             </Button>
           )}
@@ -126,7 +128,7 @@ export function SiteHeader() {
             size="icon"
             className="lg:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Меню"
+            aria-label={t("text.249")}
           >
             <Menu className="size-5" />
           </Button>
