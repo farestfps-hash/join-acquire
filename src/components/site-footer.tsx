@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-border bg-card/60">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
-          <p className="font-display text-lg font-bold">Studymaxxing</p>
+          <p className="font-display text-lg font-bold">Join&amp;Acquire</p>
           <p className="mt-2 text-sm text-muted-foreground">
             
             {t("text.250")}
@@ -45,7 +45,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Studymaxxing. Join&amp;Acquire.
+        © {new Date().getFullYear()} Join&amp;Acquire.
       </div>
     </footer>
   );

@@ -31,7 +31,7 @@ export const Route = createFileRoute("/evaluator")({
         content:
           translate("en", "text.051"),
       },
-      { property: "og:title", content: "AI Admissions Evaluator — Studymaxxing" },
+      { property: "og:title", content: "AI Admissions Evaluator — Join&Acquire" },
       {
         property: "og:description",
         content: translate("en", "text.052"),
