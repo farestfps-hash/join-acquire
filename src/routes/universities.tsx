@@ -87,7 +87,7 @@ function UniversitiesPage() {
       UNIVERSITIES.filter((u) => country === "Все" || u.country === country).map((u) => localizeUniversity(u, lang))
         .map((u) => ({ uni: u, odds: estimateOdds(u, profile, bonus, apCount) }))
         .sort((a, b) => a.uni.qs - b.uni.qs),
-    [country, profile, bonus, apCount],
+    [country, profile, bonus, apCount, lang],
   );
 
   async function generateMatch() {
