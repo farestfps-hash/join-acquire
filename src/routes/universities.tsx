@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { matchUniversities } from "@/lib/ai.functions";
 import { UNIVERSITIES, COUNTRY_LIST, type Country, type University } from "@/lib/universities";
+import { localizeUniversity } from "@/lib/universities.en";
 import { estimateOdds, type Odds } from "@/lib/match";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -83,7 +84,7 @@ function UniversitiesPage() {
 
   const list = useMemo(
     () =>
-      UNIVERSITIES.filter((u) => country === "Все" || u.country === country)
+      UNIVERSITIES.filter((u) => country === "Все" || u.country === country).map((u) => localizeUniversity(u, lang))
         .map((u) => ({ uni: u, odds: estimateOdds(u, profile, bonus, apCount) }))
         .sort((a, b) => a.uni.qs - b.uni.qs),
     [country, profile, bonus, apCount],

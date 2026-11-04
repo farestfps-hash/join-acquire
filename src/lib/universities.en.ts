@@ -563,3 +563,20 @@ export const UNIVERSITY_EN: Record<string, string> = {
  "~KZT 4–6M/год": "~KZT 4–6M/year",
  "Ведущий исследовательский вуз Казахстана с англоязычным обучением и партнёрами (Duke, UCL, Wisconsin).": "Kazakhstan's leading research university with English-medium instruction and international partners (Duke, UCL, Wisconsin)."
 };
+
+import type { University } from "./universities";
+
+const en = (s: string | undefined) => (s ? (UNIVERSITY_EN[s] ?? s) : s);
+
+/** Returns the card with English text when lang is "en"; stored data is never changed. */
+export function localizeUniversity(u: University, lang: "en" | "ru"): University {
+  if (lang !== "en") return u;
+  return {
+    ...u,
+    city: en(u.city)!, gpa: en(u.gpa)!, english: en(u.english)!, aid: en(u.aid)!,
+    tuition: en(u.tuition)!, overview: en(u.overview)!, strategy: en(u.strategy)!,
+    sat: en(u.sat), act: en(u.act), ap: en(u.ap), unt: en(u.unt), nuet: en(u.nuet),
+    programs: u.programs.map((p) => en(p)!),
+    deadlines: u.deadlines.map((d) => ({ ...d, label: en(d.label)! })),
+  };
+}
