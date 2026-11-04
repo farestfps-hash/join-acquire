@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
         content:
           translate("en", "text.069"),
       },
-      { property: "og:title", content: "Studymaxxing — Join&Acquire" },
+      { property: "og:title", content: "Join&Acquire — AI Admissions Platform" },
       {
         property: "og:description",
         content:

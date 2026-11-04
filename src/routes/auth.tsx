@@ -88,7 +88,7 @@ function AuthPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-16">
       <div className="surface-card p-8">
-        <h1 className="text-2xl font-bold">Studymaxxing</h1>
+        <h1 className="text-2xl font-bold">Join&amp;Acquire</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           
           {t("text.028")}

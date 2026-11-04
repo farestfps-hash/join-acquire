@@ -30,7 +30,7 @@ export const Route = createFileRoute("/universities")({
         content:
           translate("en", "text.213"),
       },
-      { property: "og:title", content: "University Match & Database — Studymaxxing" },
+      { property: "og:title", content: "University Match & Database — Join&Acquire" },
       {
         property: "og:description",
         content: translate("en", "text.214"),

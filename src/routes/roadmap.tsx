@@ -25,7 +25,7 @@ export const Route = createFileRoute("/roadmap")({
         content:
           translate("en", "text.168"),
       },
-      { property: "og:title", content: "AI Roadmap & Calendar — Studymaxxing" },
+      { property: "og:title", content: "AI Roadmap & Calendar — Join&Acquire" },
       {
         property: "og:description",
         content: translate("en", "text.169"),
