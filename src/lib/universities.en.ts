@@ -575,7 +575,9 @@ export function localizeUniversity(u: University, lang: "en" | "ru"): University
     ...u,
     city: en(u.city)!, gpa: en(u.gpa)!, english: en(u.english)!, aid: en(u.aid)!,
     tuition: en(u.tuition)!, overview: en(u.overview)!, strategy: en(u.strategy)!,
-    sat: en(u.sat), act: en(u.act), ap: en(u.ap), unt: en(u.unt), nuet: en(u.nuet),
+    ...Object.fromEntries(
+      (["sat", "act", "ap", "unt", "nuet"] as const).filter((k) => u[k]).map((k) => [k, en(u[k])]),
+    ),
     programs: u.programs.map((p) => en(p)!),
     deadlines: u.deadlines.map((d) => ({ ...d, label: en(d.label)! })),
   };
