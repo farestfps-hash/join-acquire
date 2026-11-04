@@ -187,31 +187,43 @@ export type Database = {
       }
       olympiads_honors: {
         Row: {
+          award_date: string | null
+          awarding_institution: string | null
+          country_region: string | null
           created_at: string
           id: string
           level: string | null
           name: string
           placement: string | null
+          role: string | null
           subject: string | null
           user_id: string
           year: number | null
         }
         Insert: {
+          award_date?: string | null
+          awarding_institution?: string | null
+          country_region?: string | null
           created_at?: string
           id?: string
           level?: string | null
           name: string
           placement?: string | null
+          role?: string | null
           subject?: string | null
           user_id: string
           year?: number | null
         }
         Update: {
+          award_date?: string | null
+          awarding_institution?: string | null
+          country_region?: string | null
           created_at?: string
           id?: string
           level?: string | null
           name?: string
           placement?: string | null
+          role?: string | null
           subject?: string | null
           user_id?: string
           year?: number | null
