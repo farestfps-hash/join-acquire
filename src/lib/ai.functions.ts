@@ -97,15 +97,18 @@ export const evaluateProfile = createServerFn({ method: "POST" })
       },
     ]);
 
-    const parsed = parseJson<{
-      holistic_score: number;
-      summary: string;
-      countries: unknown[];
-      strengths: string[];
-      gaps: string[];
-      missing_items: string[];
-      benchmark: Record<string, unknown>;
-    }>(raw);
+    const parsed = z.object({
+      holistic_score: z.number().min(0).max(100),
+      summary: z.string(),
+      countries: z.array(z.object({
+        country: z.string(), probability: z.number().min(0).max(100),
+        classification: z.enum(["Safety", "Match", "Reach"]), comment: z.string(),
+      })),
+      strengths: z.array(z.string()),
+      gaps: z.array(z.string()),
+      missing_items: z.array(z.string()),
+      benchmark: z.object({ comment: z.string().optional() }).default({}),
+    }).parse(parseJson<unknown>(raw));
 
     const row = {
       user_id: userId,
