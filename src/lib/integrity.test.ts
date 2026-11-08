@@ -14,11 +14,11 @@ test("AI context excludes direct identifiers and session secrets while retaining
     extracurriculars: [{ user_id: "Excluded", title: "Robotics", role: "Lead" }],
   });
   assert.equal(JSON.stringify(context).includes("Excluded"), false);
-  assert.equal(context.profile.sat_score, 1510);
-  assert.equal(context.profile.annual_budget, 10000);
-  assert.equal(context.ap_exams[0]?.score, 5);
-  assert.equal(context.olympiads_honors[0]?.placement, "Finalist");
-  assert.equal(context.extracurriculars[0]?.role, "Lead");
+  assert.equal(context.profile["sat_score"], 1510);
+  assert.equal(context.profile["annual_budget"], 10000);
+  assert.equal(context.ap_exams[0]?.["score"], 5);
+  assert.equal(context.olympiads_honors[0]?.["placement"], "Finalist");
+  assert.equal(context.extracurriculars[0]?.["role"], "Lead");
 });
 
 test("all 70 demo profiles are retained, closed and distinguishable from registrations", () => {
@@ -48,7 +48,9 @@ test("existing evaluator algorithm retains 620 deterministic synthetic points", 
   const source = readFileSync(new URL("../routes/evaluator.tsx", import.meta.url), "utf8");
   const body = source.match(/function benchmarkCloud\(\) \{([\s\S]*?)\n\}\n/);
   assert.ok(body);
-  const generate = new Function(body[1]?.replace("const pts: { gpa: number; score: number }[]", "const pts"));
+  const functionBody = body[1];
+  assert.ok(functionBody);
+  const generate = new Function(functionBody.replace("const pts: { gpa: number; score: number }[]", "const pts"));
   const points = generate();
   assert.equal(points.length, 620);
   assert.deepEqual(points, generate());
