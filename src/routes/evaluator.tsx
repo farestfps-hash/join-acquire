@@ -50,7 +50,7 @@ type CountryResult = {
   comment: string;
 };
 
-// Deterministic pseudo-random benchmark cloud of 600+ past applicants.
+// Deterministic synthetic demonstration; these are not historical applicant records.
 function benchmarkCloud() {
   const pts: { gpa: number; score: number }[] = [];
   let seed = 42;
@@ -231,9 +231,9 @@ function Evaluator() {
           <div className="surface-card p-7">
             <h2 className="text-lg font-bold">{t("text.066")}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              {evaluation.benchmark?.comment ??
-                t("text.067")}
+              {t("text.067")}
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">{t("benchmark.disclaimer")}</p>
             <div className="mt-6 h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart margin={{ top: 10, right: 20, bottom: 20, left: 0 }}>

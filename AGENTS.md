@@ -11,3 +11,6 @@
 
 - Use the typed dictionary in src/lib/i18n.ts and useLanguage in React components for interface localization; keep stored country/status values and user/catalogue content separate so language changes never alter data or business logic.
 - Render English in SSR and restore app_language after hydration to keep first-visit content stable without network translation.
+- Keep AI portfolio context behind an explicit field allowlist; exclude account identifiers and metadata to minimize unnecessary disclosure (free text is not anonymous).
+- Create evaluations only within the authenticated server handler with context-derived ownership and a handler-local privileged client; clients have owner-only SELECT access to prevent score tampering.
+- Catalogue reliability flags distinguish imported unverified values from confirmed sources; never invent missing rankings, official deadlines or campus images.

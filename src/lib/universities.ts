@@ -5,7 +5,8 @@ export type University = {
   name: string;
   country: Country;
   city: string;
-  qs: number;
+  qs: number | null;
+  qsVerified?: boolean;
   gpa: string;
   sat?: string;
   act?: string;
@@ -15,34 +16,12 @@ export type University = {
   english: string;
   aid: string;
   tuition: string;
-  deadlines: { label: string; date: string }[];
+  deadlines: { label: string; date: string; estimated?: boolean }[];
   programs: string[];
   overview: string;
   strategy: string;
   photos: string[];
 };
-
-const POOL = [
-  "photo-1562774053-701939374585",
-  "photo-1523050854058-8df90110c9f1",
-  "photo-1498243691581-b145c3f54a5a",
-  "photo-1541339907198-e08756dedf3f",
-  "photo-1592280771190-3e2e4d571952",
-  "photo-1607237138185-eedd9c632b0b",
-  "photo-1580582932707-520aed937b7b",
-  "photo-1519452575417-564c1401ecc0",
-  "photo-1567168544813-cc03465b4fa8",
-  "photo-1568792923760-d70635a89fdc",
-  "photo-1590012314607-cda9d9b699ae",
-  "photo-1591123120675-6f7f1aae0e5b",
-];
-
-function photos(seed: number) {
-  return [0, 1, 2].map(
-    (i) =>
-      `https://images.unsplash.com/${POOL[(seed * 3 + i) % POOL.length]}?auto=format&fit=crop&w=900&q=70`,
-  );
-}
 
 type Raw = Omit<University, "photos" | "id"> & { id?: string };
 
@@ -4670,10 +4649,14 @@ const RAW: Raw[] = [
   }
 ];
 
-export const UNIVERSITIES: University[] = RAW.map((u, i) => ({
+// Imported source has no verified ranking editions, deadline sources or campus photos.
+export const UNIVERSITIES: University[] = RAW.map((u) => ({
   ...u,
+  qs: u.qs === 1200 ? null : u.qs,
+  qsVerified: false,
+  deadlines: u.deadlines.map((d) => ({ ...d, estimated: true })),
   id: u.id ?? u.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-  photos: photos(i),
+  photos: [],
 }));
 
 export const COUNTRY_LIST: Country[] = ["USA", "Hong Kong", "Kazakhstan", "Europe"];

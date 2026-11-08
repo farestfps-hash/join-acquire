@@ -83,7 +83,7 @@ const FEATURES = [
 
           <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              ["600+", t("text.078")],
+              ["620", t("text.078")],
               ["4", t("text.079")],
               ["0-100", t("leaderboard.holisticScore")],
               ["24/7", "Studymax AI"],

@@ -86,7 +86,7 @@ function UniversitiesPage() {
     () =>
       UNIVERSITIES.filter((u) => country === "Все" || u.country === country).map((u) => localizeUniversity(u, lang))
         .map((u) => ({ uni: u, odds: estimateOdds(u, profile, bonus, apCount) }))
-        .sort((a, b) => a.uni.qs - b.uni.qs),
+        .sort((a, b) => (a.uni.qs ?? Infinity) - (b.uni.qs ?? Infinity)),
     [country, profile, bonus, apCount, lang],
   );
 
@@ -94,7 +94,7 @@ function UniversitiesPage() {
     if (!user) return;
     setBusy(true);
     try {
-      const catalog = UNIVERSITIES.map((u) => `${u.name} (${u.country}, QS ${u.qs})`);
+      const catalog = UNIVERSITIES.map((u) => `${u.name} (${u.country})`);
       const res: any = await run({ data: { catalog } });
       setAi({ matches: res?.matches ?? [], advice: res?.advice ?? "" });
       toast.success(t("text.215"));
@@ -112,8 +112,8 @@ function UniversitiesPage() {
     }
     const { error } = await supabase.from("calendar_events").insert({
       user_id: user.id,
-      title: `${uni.name} — ${d.label}`,
-      description: t("text.218", { city: uni.city, qs: uni.qs }),
+      title: `${uni.name} — ${d.label} (${t("university.estimatedDeadline")})`,
+      description: t("text.218", { city: uni.city }),
       event_date: d.date,
       event_type: "deadline",
       color: "red",
@@ -212,14 +212,12 @@ function UniversitiesPage() {
         {list.map(({ uni, odds }) => (
           <article key={uni.id} className="surface-card overflow-hidden">
             <div className="relative h-40">
-              <img
-                src={uni.photos[0]}
-                alt={t("text.226", { name: uni.name })}
-                loading="lazy"
-                className="size-full object-cover"
-              />
+              <div className="flex size-full flex-col items-center justify-center gap-2 bg-secondary text-muted-foreground">
+                <GraduationCap className="size-10" aria-hidden />
+                <span className="text-xs">{t("university.photoUnavailable")}</span>
+              </div>
               <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-bold">
-                QS #{uni.qs}
+                QS · {t("university.notVerified")}
               </span>
             </div>
             <div className="p-5">
@@ -277,7 +275,7 @@ function UniDetails({
         <DialogTitle className="flex flex-wrap items-center gap-3 text-xl">
           {uni.name}
           <Badge variant="outline" className="rounded-full">
-            <Trophy className="mr-1 size-3.5" /> QS #{uni.qs}
+            <Trophy className="mr-1 size-3.5" /> QS · {t("university.notVerified")}
           </Badge>
         </DialogTitle>
         <DialogDescription>
@@ -285,16 +283,9 @@ function UniDetails({
         </DialogDescription>
       </DialogHeader>
 
-      <div className="grid grid-cols-3 gap-2">
-        {uni.photos.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt={t("text.228", { name: uni.name, number: i + 1 })}
-            loading="lazy"
-            className="h-28 w-full rounded-xl object-cover"
-          />
-        ))}
+      <div className="flex h-28 items-center justify-center gap-2 rounded-xl bg-secondary text-sm text-muted-foreground">
+        <GraduationCap className="size-6" aria-hidden />
+        {t("university.photoUnavailable")}
       </div>
 
       <div className="rounded-2xl border border-border p-4">
@@ -340,7 +331,7 @@ function UniDetails({
             >
               <div>
                 <p className="text-sm font-medium">{d.label}</p>
-                <p className="text-xs text-muted-foreground">{d.date}</p>
+                <p className="text-xs text-muted-foreground">{d.date} · {t("university.estimatedDeadline")}</p>
               </div>
               <Button size="sm" variant="ghost" className="rounded-full text-primary" onClick={() => onAddDeadline(d)}>
                 <CalendarPlus className="mr-1 size-4" />  {t("university.addToCalendar")}
