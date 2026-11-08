@@ -31,8 +31,9 @@ export function estimateOdds(
   apCount = 0,
 ): Odds {
   // Selectivity baseline from QS rank: top-10 ≈ 8%, 1000+ ≈ 85%.
-  const rank = Math.max(1, uni.qs);
-  let p = 8 + 77 * Math.min(1, Math.log10(rank) / 3);
+  // Missing rank uses a neutral heuristic baseline, never a fabricated QS value.
+  const rank = uni.qs === null ? null : Math.max(1, uni.qs);
+  let p = rank === null ? 46.5 : 8 + 77 * Math.min(1, Math.log10(rank) / 3);
 
   const gpa = Number(profile.gpa_unweighted ?? profile.gpa_weighted ?? 0);
   const needGpa = firstNumber(uni.gpa) ?? 3.5;

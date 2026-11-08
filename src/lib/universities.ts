@@ -5,7 +5,8 @@ export type University = {
   name: string;
   country: Country;
   city: string;
-  qs: number;
+  qs: number | null;
+  qsVerified?: boolean;
   gpa: string;
   sat?: string;
   act?: string;
@@ -15,34 +16,12 @@ export type University = {
   english: string;
   aid: string;
   tuition: string;
-  deadlines: { label: string; date: string }[];
+  deadlines: { label: string; date: string; estimated?: boolean }[];
   programs: string[];
   overview: string;
   strategy: string;
   photos: string[];
 };
-
-const POOL = [
-  "photo-1562774053-701939374585",
-  "photo-1523050854058-8df90110c9f1",
-  "photo-1498243691581-b145c3f54a5a",
-  "photo-1541339907198-e08756dedf3f",
-  "photo-1592280771190-3e2e4d571952",
-  "photo-1607237138185-eedd9c632b0b",
-  "photo-1580582932707-520aed937b7b",
-  "photo-1519452575417-564c1401ecc0",
-  "photo-1567168544813-cc03465b4fa8",
-  "photo-1568792923760-d70635a89fdc",
-  "photo-1590012314607-cda9d9b699ae",
-  "photo-1591123120675-6f7f1aae0e5b",
-];
-
-function photos(seed: number) {
-  return [0, 1, 2].map(
-    (i) =>
-      `https://images.unsplash.com/${POOL[(seed * 3 + i) % POOL.length]}?auto=format&fit=crop&w=900&q=70`,
-  );
-}
 
 type Raw = Omit<University, "photos" | "id"> & { id?: string };
 
@@ -1279,7 +1258,7 @@ const RAW: Raw[] = [
     "name": "Williams College",
     "country": "USA",
     "city": "Williamstown, MA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.9+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-aware для иностранцев: помощь есть, но запрос помощи снижает шансы",
@@ -1310,7 +1289,7 @@ const RAW: Raw[] = [
     "name": "Amherst College",
     "country": "USA",
     "city": "Amherst, MA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.9+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-blind для иностранцев, покрывают 100% подтверждённой потребности",
@@ -1341,7 +1320,7 @@ const RAW: Raw[] = [
     "name": "Swarthmore College",
     "country": "USA",
     "city": "Swarthmore, PA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.9+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-aware для иностранцев: помощь есть, но запрос помощи снижает шансы",
@@ -1372,7 +1351,7 @@ const RAW: Raw[] = [
     "name": "Pomona College",
     "country": "USA",
     "city": "Claremont, CA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.9+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-aware для иностранцев: помощь есть, но запрос помощи снижает шансы",
@@ -1403,7 +1382,7 @@ const RAW: Raw[] = [
     "name": "Harvey Mudd College",
     "country": "USA",
     "city": "Claremont, CA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.95+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-aware для иностранцев: помощь есть, но запрос помощи снижает шансы",
@@ -1434,7 +1413,7 @@ const RAW: Raw[] = [
     "name": "Wellesley College",
     "country": "USA",
     "city": "Wellesley, MA",
-    "qs": 1200,
+    "qs": null,
     "gpa": "3.9+",
     "english": "TOEFL 100+ / IELTS 7.5",
     "aid": "Need-aware для иностранцев: помощь есть, но запрос помощи снижает шансы",
@@ -1788,7 +1767,7 @@ const RAW: Raw[] = [
     "name": "Hong Kong Metropolitan University (HKMU)",
     "country": "Hong Kong",
     "city": "Hong Kong (Kowloon)",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "IB 24+ / A-level CCC–BBC; IELTS 6.0",
     "aid": "Ограниченные merit-стипендии",
@@ -1816,7 +1795,7 @@ const RAW: Raw[] = [
     "name": "Hong Kong Shue Yan University",
     "country": "Hong Kong",
     "city": "Hong Kong (North Point)",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "IB 24+ / A-level CCC–BBC; IELTS 6.0",
     "aid": "Merit-скидки (проверить)",
@@ -1844,7 +1823,7 @@ const RAW: Raw[] = [
     "name": "The Hang Seng University of Hong Kong (HSUHK)",
     "country": "Hong Kong",
     "city": "Hong Kong (Siu Lek Yuen)",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "IB 24+ / A-level CCC–BBC; IELTS 6.0",
     "aid": "Merit-скидки (проверить)",
@@ -1872,7 +1851,7 @@ const RAW: Raw[] = [
     "name": "Saint Francis University (Hong Kong)",
     "country": "Hong Kong",
     "city": "Hong Kong (Tseung Kwan O)",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "IB 24+ / A-level CCC–BBC; IELTS 6.0",
     "aid": "Merit-скидки (проверить)",
@@ -4058,7 +4037,7 @@ const RAW: Raw[] = [
     "name": "KIMEP University",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "—",
     "aid": "Merit-гранты KIMEP по результатам тестов",
@@ -4084,7 +4063,7 @@ const RAW: Raw[] = [
     "name": "Narxoz University",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4109,7 +4088,7 @@ const RAW: Raw[] = [
     "name": "Astana IT University (AITU)",
     "country": "Kazakhstan",
     "city": "Astana",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4133,7 +4112,7 @@ const RAW: Raw[] = [
     "name": "Suleyman Demirel University (SDU)",
     "country": "Kazakhstan",
     "city": "Kaskelen (Almaty)",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5; IELTS для англ.",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4158,7 +4137,7 @@ const RAW: Raw[] = [
     "name": "Almaty Management University (AlmaU)",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "—",
     "aid": "Merit-гранты AlmaU",
@@ -4184,7 +4163,7 @@ const RAW: Raw[] = [
     "name": "Kazakh-German University (DKU)",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + немецкий/английский (по программе); тест",
     "aid": "DAAD и вузовские стипендии",
@@ -4208,7 +4187,7 @@ const RAW: Raw[] = [
     "name": "Caspian University",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4232,7 +4211,7 @@ const RAW: Raw[] = [
     "name": "Turan University",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4257,7 +4236,7 @@ const RAW: Raw[] = [
     "name": "International Information Technology University (IITU)",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4281,7 +4260,7 @@ const RAW: Raw[] = [
     "name": "Abai Kazakh National Pedagogical University",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4306,7 +4285,7 @@ const RAW: Raw[] = [
     "name": "S. Seifullin Kazakh Agrotechnical Research University",
     "country": "Kazakhstan",
     "city": "Astana",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4330,7 +4309,7 @@ const RAW: Raw[] = [
     "name": "E.A. Buketov Karaganda University",
     "country": "Kazakhstan",
     "city": "Karaganda",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4355,7 +4334,7 @@ const RAW: Raw[] = [
     "name": "Abylkas Saginov Karaganda Technical University",
     "country": "Kazakhstan",
     "city": "Karaganda",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4379,7 +4358,7 @@ const RAW: Raw[] = [
     "name": "D. Serikbayev East Kazakhstan Technical University",
     "country": "Kazakhstan",
     "city": "Ust-Kamenogorsk",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4403,7 +4382,7 @@ const RAW: Raw[] = [
     "name": "Toraighyrov University",
     "country": "Kazakhstan",
     "city": "Pavlodar",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4427,7 +4406,7 @@ const RAW: Raw[] = [
     "name": "K. Zhubanov Aktobe Regional University",
     "country": "Kazakhstan",
     "city": "Aktobe",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4451,7 +4430,7 @@ const RAW: Raw[] = [
     "name": "S. Utebayev Atyrau University of Oil and Gas",
     "country": "Kazakhstan",
     "city": "Atyrau",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4475,7 +4454,7 @@ const RAW: Raw[] = [
     "name": "Sh. Yessenov Caspian University of Technologies and Engineering",
     "country": "Kazakhstan",
     "city": "Aktau",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4499,7 +4478,7 @@ const RAW: Raw[] = [
     "name": "M. Auezov South Kazakhstan University",
     "country": "Kazakhstan",
     "city": "Shymkent",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4523,7 +4502,7 @@ const RAW: Raw[] = [
     "name": "Korkyt Ata Kyzylorda University",
     "country": "Kazakhstan",
     "city": "Kyzylorda",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4547,7 +4526,7 @@ const RAW: Raw[] = [
     "name": "Asfendiyarov Kazakh National Medical University (KazNMU)",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "—",
     "aid": "Гос. гранты (по баллам), образовательный кредит",
@@ -4573,7 +4552,7 @@ const RAW: Raw[] = [
     "name": "Astana Medical University",
     "country": "Kazakhstan",
     "city": "Astana",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "—",
     "aid": "Гос. гранты (по баллам), образовательный кредит",
@@ -4599,7 +4578,7 @@ const RAW: Raw[] = [
     "name": "Maqsut Narikbayev University (MNU)",
     "country": "Kazakhstan",
     "city": "Astana",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "—",
     "aid": "Merit-гранты вуза",
@@ -4624,7 +4603,7 @@ const RAW: Raw[] = [
     "name": "Kozybayev North Kazakhstan University",
     "country": "Kazakhstan",
     "city": "Petropavlovsk",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4648,7 +4627,7 @@ const RAW: Raw[] = [
     "name": "Kazakh National Agrarian Research University (KazNARU)",
     "country": "Kazakhstan",
     "city": "Almaty",
-    "qs": 1200,
+    "qs": null,
     "gpa": "—",
     "english": "Аттестат + ЕНТ (балл не ниже порога специальности); для англ. программ — IELTS 5.5–6.5",
     "aid": "Гос. грант по баллам ЕНТ (бесплатное обучение), образовательный кредит, внутренние скидки",
@@ -4670,10 +4649,14 @@ const RAW: Raw[] = [
   }
 ];
 
-export const UNIVERSITIES: University[] = RAW.map((u, i) => ({
+// Imported source has no verified ranking editions, deadline sources or campus photos.
+export const UNIVERSITIES: University[] = RAW.map((u) => ({
   ...u,
+  qs: u.qs,
+  qsVerified: false,
+  deadlines: u.deadlines.map((d) => ({ ...d, estimated: true })),
   id: u.id ?? u.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-  photos: photos(i),
+  photos: [],
 }));
 
 export const COUNTRY_LIST: Country[] = ["USA", "Hong Kong", "Kazakhstan", "Europe"];

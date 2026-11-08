@@ -26,6 +26,8 @@ export const Route = createFileRoute("/leaderboard")({
           translate("en", "text.086"),
       },
       { property: "og:title", content: translate("en", "text.085") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: translate("en", "text.087"),
@@ -184,11 +186,14 @@ const TABS = [
               >
                 <span className="w-10 shrink-0 text-center text-lg font-bold">{medal(i)}</span>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="truncate font-semibold">
                       {r.full_name ?? t("text.100")}
                     </span>
                     {!r.is_public && <Lock className="size-3.5 text-muted-foreground" />}
+                    {String(r.user_id).startsWith("demo-") && (
+                      <Badge variant="secondary" className="rounded-full text-xs">{t("leaderboard.demoProfile")}</Badge>
+                    )}
                     {mine && <Badge className="rounded-full">{t("text.101")}</Badge>}
                   </div>
                   <p className="truncate text-xs text-muted-foreground">

@@ -1,13 +1,14 @@
-import { createServerFn } from "@tanstack/react-start";
+import { createServerFn, createServerOnlyFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { minimizeAIContext } from "./ai-context";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-3.8-flash";
 
 type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
-async function callGemini(messages: ChatMessage[]): Promise<string> {
+const callGemini = createServerOnlyFn(async (messages: ChatMessage[]): Promise<string> => {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured yet.");
 
@@ -21,17 +22,16 @@ async function callGemini(messages: ChatMessage[]): Promise<string> {
   });
 
   if (!res.ok) {
-    const text = await res.text();
     if (res.status === 429) throw new Error("Слишком много запросов. Попробуйте через минуту.");
     if (res.status === 402) throw new Error("Закончились AI-кредиты рабочего пространства.");
-    throw new Error(`AI error ${res.status}: ${text.slice(0, 300)}`);
+    throw new Error(`AI request failed (${res.status}). Please try again later.`);
   }
 
   const data = (await res.json()) as {
     choices?: Array<{ message?: { content?: string } }>;
   };
   return data.choices?.[0]?.message?.content ?? "";
-}
+});
 
 function parseJson<T>(raw: string): T {
   const cleaned = raw
@@ -48,17 +48,20 @@ type Supa = { from: (t: string) => any };
 
 async function loadBundle(supabase: Supa, userId: string) {
   const [profile, aps, honors, ecs] = await Promise.all([
-    supabase.from("profiles").select("*").eq("id", userId).maybeSingle(),
-    supabase.from("ap_exams").select("*").eq("user_id", userId),
-    supabase.from("olympiads_honors").select("*").eq("user_id", userId),
-    supabase.from("extracurriculars").select("*").eq("user_id", userId),
+    supabase.from("profiles").select("grade_level,gpa_unweighted,gpa_weighted,gpa_scale,target_major,target_countries,english_test,english_score,sat_score,act_score,unt_score,nuet_score,annual_budget,budget_currency,needs_full_aid").eq("id", userId).maybeSingle(),
+    supabase.from("ap_exams").select("subject,score,year,status").eq("user_id", userId),
+    supabase.from("olympiads_honors").select("name,year,level,placement,subject,awarding_institution,award_date,country_region,role").eq("user_id", userId),
+    supabase.from("extracurriculars").select("title,organization,role,years_active,hours_per_week,description,key_impact").eq("user_id", userId),
   ]);
-  return {
+  for (const result of [profile, aps, honors, ecs]) {
+    if (result.error) throw new Error("Could not load academic profile. Please try again later.");
+  }
+  return minimizeAIContext({
     profile: profile.data ?? {},
     ap_exams: aps.data ?? [],
     olympiads_honors: honors.data ?? [],
     extracurriculars: ecs.data ?? [],
-  };
+  });
 }
 
 function bundleText(bundle: Awaited<ReturnType<typeof loadBundle>>) {
@@ -77,7 +80,7 @@ const EVAL_SYSTEM = `Ты — элитный консультант по меж�
  "strengths": ["..."],
  "gaps": ["..."],
  "missing_items": ["..."],
- "benchmark": {"percentile": число 0-100, "comment":"позиция на фоне 600+ кандидатов прошлых лет"}
+ "benchmark": {"comment":"Качественный ориентир, не статистически подтверждённый процентиль"}
 }`;
 
 export const evaluateProfile = createServerFn({ method: "POST" })
@@ -94,15 +97,18 @@ export const evaluateProfile = createServerFn({ method: "POST" })
       },
     ]);
 
-    const parsed = parseJson<{
-      holistic_score: number;
-      summary: string;
-      countries: unknown[];
-      strengths: string[];
-      gaps: string[];
-      missing_items: string[];
-      benchmark: Record<string, unknown>;
-    }>(raw);
+    const parsed = z.object({
+      holistic_score: z.number().min(0).max(100),
+      summary: z.string(),
+      countries: z.array(z.object({
+        country: z.string(), probability: z.number().min(0).max(100),
+        classification: z.enum(["Safety", "Match", "Reach"]), comment: z.string(),
+      })),
+      strengths: z.array(z.string()),
+      gaps: z.array(z.string()),
+      missing_items: z.array(z.string()),
+      benchmark: z.object({ comment: z.string().optional() }).default({}),
+    }).parse(parseJson<unknown>(raw));
 
     const row = {
       user_id: userId,
@@ -115,7 +121,9 @@ export const evaluateProfile = createServerFn({ method: "POST" })
       benchmark: parsed.benchmark ?? {},
     };
 
-    const { data, error } = await (supabase.from("ai_evaluations") as any)
+    // Authentication was verified above. Ownership is derived exclusively from context.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin.from("ai_evaluations")
       .insert(row)
       .select()
       .single();
@@ -188,7 +196,7 @@ export const studymaxChat = createServerFn({ method: "POST" })
 export const matchUniversities = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) =>
-    z.object({ catalog: z.array(z.string()).max(60) }).parse(input),
+    z.object({ catalog: z.array(z.string().max(500)).max(172) }).parse(input),
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context as { supabase: Supa; userId: string };
