@@ -3,6 +3,21 @@ export const LANGUAGE_STORAGE_KEY = "app_language";
 export type Lang = "en" | "ru";
 
 export const en = {
+  "honors.title": "Title",
+  "honors.titlePh": "e.g. International Mathematical Olympiad",
+  "honors.inst": "Awarding Institution",
+  "honors.instPh": "e.g. IMO Foundation",
+  "honors.date": "Date (MM/YYYY)",
+  "honors.country": "Country / Region",
+  "honors.countryPh": "e.g. Kazakhstan",
+  "honors.role": "Role / Placement",
+  "honors.rolePh": "e.g. Silver medal, Finalist, Top 10",
+  "honors.level": "Level",
+  "honors.add": "Add another award",
+  "honors.untitled": "Untitled award",
+  "honors.collapse": "Collapse",
+  "honors.expand": "Expand",
+  "honors.subject": "Subject (optional)",
   "text.000": "AI university admissions platform: profile evaluation, portfolio, AP exams and roadmaps.",
   "text.001": "AI admissions estimates, portfolios and personalized roadmaps.",
   "text.002": "About — Join&Acquire",
@@ -280,6 +295,21 @@ export const en = {
 } as const;
 export type TranslationKey = keyof typeof en;
 export const ru: Record<TranslationKey, string> = {
+  "honors.title": "Название",
+  "honors.titlePh": "напр. Международная математическая олимпиада",
+  "honors.inst": "Организатор / вручившая организация",
+  "honors.instPh": "напр. IMO Foundation",
+  "honors.date": "Дата (ММ/ГГГГ)",
+  "honors.country": "Страна / регион",
+  "honors.countryPh": "напр. Казахстан",
+  "honors.role": "Роль / место",
+  "honors.rolePh": "напр. Серебряная медаль, финалист, топ-10",
+  "honors.level": "Уровень",
+  "honors.add": "Добавить ещё награду",
+  "honors.untitled": "Награда без названия",
+  "honors.collapse": "Свернуть",
+  "honors.expand": "Развернуть",
+  "honors.subject": "Предмет (необязательно)",
   "text.000": "ИИ-платформа для поступления в университеты мира: оценка профиля, портфолио, AP и дорожная карта.",
   "text.001": "ИИ-оценка шансов поступления, портфолио и персональная дорожная карта.",
   "text.002": "О проекте — Join&Acquire",
