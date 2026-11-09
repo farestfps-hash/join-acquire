@@ -11,9 +11,9 @@
 - [ ] Verify authenticated create/edit/collapse/reload/delete and mobile appearance without publishing.
 
 # Prioritized security and integrity fixes
-- [ ] Restrict evaluation writes to trusted server execution; verify owner reads and denied client writes.
-- [ ] Minimize AI context and document stored personal data and infrastructure limitations.
-- [ ] Label all 70 demo profiles, retain top-50 ranking and country filters.
-- [ ] Retain 172 universities and label unverified rankings, imagery and deadlines.
-- [ ] Preserve and correctly label the deterministic 620-point benchmark.
-- [ ] Run focused tests, inspect build signals and verify signed-in flows; record results and blockers.
+- [x] Restrict evaluation writes to trusted server execution; verify owner reads and denied client writes.
+- [x] Minimize AI context and document stored personal data and infrastructure limitations.
+- [x] Label all 70 demo profiles, retain top-50 ranking and country filters.
+- [x] Retain 172 universities and label unverified rankings, imagery and deadlines.
+- [x] Preserve and correctly label the deterministic 620-point benchmark.
+- [x] Run focused tests, inspect build signals and verify signed-in flows; record results and blockers.
