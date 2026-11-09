@@ -12,14 +12,26 @@ import {
 } from "@/components/ui/select";
 import { useLanguage } from "@/lib/language";
 
-type Row = Record<string, any>;
+type Row = {
+  id: string;
+  name?: string | null;
+  year?: number | null;
+  level?: string | null;
+  placement?: string | null;
+  role?: string | null;
+  subject?: string | null;
+  award_date?: string | null;
+  awarding_institution?: string | null;
+  country_region?: string | null;
+  [key: string]: unknown;
+};
 
 const LEVELS = ["School", "Regional", "National", "International"];
 
 interface Props {
   rows: Row[];
-  onAdd: (values: Row) => Promise<Row | void>;
-  onUpdate: (id: string, values: Row) => void;
+  onAdd: (values: Record<string, unknown>) => Promise<Row | void>;
+  onUpdate: (id: string, values: Record<string, unknown>) => void;
   onDelete: (id: string) => void;
 }
 
