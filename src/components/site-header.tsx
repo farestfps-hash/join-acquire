@@ -40,12 +40,12 @@ const NAV = [
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-1 px-3 sm:gap-4 sm:px-4">
+        <Link to="/" className="flex shrink-0 items-center gap-1 sm:gap-2">
           <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
             <GraduationCap className="size-5" />
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">Join&amp;Acquire</span>
+          <span className="font-display text-base font-bold sm:text-lg">Join&amp;Acquire</span>
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 lg:flex">
@@ -62,7 +62,7 @@ const NAV = [
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-0 sm:gap-2">
           <div className="flex rounded-full border border-border p-0.5 text-xs font-semibold" translate="no">
             {(["en", "ru"] as const).map((l) => (
               <Button

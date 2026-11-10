@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { HonorsSection, type HonorsRow } from "@/components/honors-section";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -60,8 +61,6 @@ const AP_SUBJECTS = [
   "AP World History",
   "AP Psychology",
 ];
-const LEVELS = ["School", "Regional", "National", "International"];
-const PLACEMENTS = ["1st place", "2nd place", "3rd place", "Honorable Mention", "Participant"];
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Row = any;
@@ -87,9 +86,10 @@ function Portfolio() {
   const { user, loading } = useAuth();
   const [profile, setProfile] = useState<Row>({ target_countries: [] });
   const [aps, setAps] = useState<Row[]>([]);
-  const [honors, setHonors] = useState<Row[]>([]);
+  const [honors, setHonors] = useState<HonorsRow[]>([]);
   const [ecs, setEcs] = useState<Row[]>([]);
   const [saving, setSaving] = useState(false);
+  const [loadingRows, setLoadingRows] = useState(true);
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -103,6 +103,7 @@ function Portfolio() {
     setAps(a.data ?? []);
     setHonors(h.data ?? []);
     setEcs(e.data ?? []);
+    setLoadingRows(false);
   }, [user]);
 
   useEffect(() => {
@@ -167,6 +168,7 @@ function Portfolio() {
     if (table === "ap_exams") setAps((r) => [...r, data as Row]);
     if (table === "olympiads_honors") setHonors((r) => [...r, data as Row]);
     if (table === "extracurriculars") setEcs((r) => [...r, data as Row]);
+    return data as Row;
   }
 
   async function updateRow(table: string, id: string, values: Row) {
@@ -174,7 +176,13 @@ function Portfolio() {
       .from(table as never)
       .update(values as never)
       .eq("id", id);
-    if (error) toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    if (table === "olympiads_honors") {
+      setHonors((rows) => rows.map((row) => row.id === id ? { ...row, ...values } : row));
+    }
   }
 
   async function deleteRow(table: string, id: string) {
@@ -539,99 +547,12 @@ function Portfolio() {
 
         {/* Honors */}
         <TabsContent value="honors" className="mt-6">
-          <section className="surface-card p-7">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">{t("text.151")}</h2>
-              <Button
-                size="sm"
-                variant="outline"
-                className="rounded-full"
-                onClick={() =>
-                  addRow("olympiads_honors", {
-                    name: "",
-                    year: new Date().getFullYear(),
-                    level: "Regional",
-                    placement: "1st place",
-                    subject: "",
-                  })
-                }
-              >
-                <Plus className="mr-1 size-4" />  {t("text.145")}
-              </Button>
-            </div>
-            <div className="mt-4 grid gap-3">
-              {honors.length === 0 && (
-                <p className="text-sm text-muted-foreground">{t("text.152")}</p>
-              )}
-              {honors.map((row) => (
-                <div
-                  key={row.id}
-                  className="grid gap-3 rounded-2xl border border-border p-4 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto]"
-                >
-                  <Input
-                    placeholder={t("text.153")}
-                    defaultValue={row.name ?? ""}
-                    onBlur={(e) => updateRow("olympiads_honors", row.id, { name: e.target.value })}
-                  />
-                  <Input
-                    type="number"
-                    placeholder={t("text.147")}
-                    defaultValue={row.year ?? ""}
-                    onBlur={(e) =>
-                      updateRow("olympiads_honors", row.id, {
-                        year: e.target.value ? Number(e.target.value) : null,
-                      })
-                    }
-                  />
-                  <Select
-                    defaultValue={row.level ?? "Regional"}
-                    onValueChange={(v) => updateRow("olympiads_honors", row.id, { level: v })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LEVELS.map((l) => (
-                        <SelectItem key={l} value={l}>
-                          {l}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Select
-                    defaultValue={row.placement ?? "1st place"}
-                    onValueChange={(v) => updateRow("olympiads_honors", row.id, { placement: v })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PLACEMENTS.map((p) => (
-                        <SelectItem key={p} value={p}>
-                          {p}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    placeholder={t("text.154")}
-                    defaultValue={row.subject ?? ""}
-                    onBlur={(e) =>
-                      updateRow("olympiads_honors", row.id, { subject: e.target.value })
-                    }
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow("olympiads_honors", row.id)}
-                    aria-label={t("text.150")}
-                  >
-                    <Trash2 className="size-4 text-destructive" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </section>
+          {loadingRows ? <div className="flex justify-center py-12"><Loader2 className="size-6 animate-spin text-primary" /></div> : <HonorsSection
+            rows={honors}
+            onAdd={(values) => addRow("olympiads_honors", values)}
+            onUpdate={(id, values) => { void updateRow("olympiads_honors", id, values); }}
+            onDelete={(id) => { void deleteRow("olympiads_honors", id); }}
+          />}
         </TabsContent>
 
         {/* Extracurriculars */}

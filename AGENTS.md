@@ -14,3 +14,4 @@
 - Keep AI portfolio context behind an explicit field allowlist; exclude account identifiers and metadata to minimize unnecessary disclosure (free text is not anonymous).
 - Create evaluations only within the authenticated server handler with context-derived ownership and a handler-local privileged client; clients have owner-only SELECT access to prevent score tampering.
 - Catalogue reliability flags distinguish imported unverified values from confirmed sources; never invent missing rankings, official deadlines or campus images.
+- Keep the portfolio award editor in HonorsSection and normalize award months through lib/honors; this preserves legacy year-only and MM/YYYY records alongside month inputs.
