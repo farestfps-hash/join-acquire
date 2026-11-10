@@ -6,9 +6,9 @@
 
 # EdUHK-style honors
 - [x] Add compatible organization, award date, country/region and role storage.
-- [ ] Build collapsible EN/RU award cards with bottom-right add control.
-- [ ] Include full award context in AI guidance and test validation/legacy support.
-- [ ] Verify authenticated create/edit/collapse/reload/delete and mobile appearance without publishing.
+- [x] Build collapsible EN/RU award cards with bottom-right add control.
+- [x] Include full award context in AI guidance and test validation/legacy support.
+- [x] Verify authenticated create/edit/collapse/reload/delete and mobile appearance without publishing.
 
 # Prioritized security and integrity fixes
 - [x] Restrict evaluation writes to trusted server execution; verify owner reads and denied client writes.
