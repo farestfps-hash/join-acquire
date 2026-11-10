@@ -89,6 +89,7 @@ function Portfolio() {
   const [honors, setHonors] = useState<HonorsRow[]>([]);
   const [ecs, setEcs] = useState<Row[]>([]);
   const [saving, setSaving] = useState(false);
+  const [loadingRows, setLoadingRows] = useState(true);
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -102,6 +103,7 @@ function Portfolio() {
     setAps(a.data ?? []);
     setHonors(h.data ?? []);
     setEcs(e.data ?? []);
+    setLoadingRows(false);
   }, [user]);
 
   useEffect(() => {
@@ -545,12 +547,12 @@ function Portfolio() {
 
         {/* Honors */}
         <TabsContent value="honors" className="mt-6">
-          <HonorsSection
+          {loadingRows ? <div className="flex justify-center py-12"><Loader2 className="size-6 animate-spin text-primary" /></div> : <HonorsSection
             rows={honors}
             onAdd={(values) => addRow("olympiads_honors", values)}
             onUpdate={(id, values) => { void updateRow("olympiads_honors", id, values); }}
             onDelete={(id) => { void deleteRow("olympiads_honors", id); }}
-          />
+          />}
         </TabsContent>
 
         {/* Extracurriculars */}

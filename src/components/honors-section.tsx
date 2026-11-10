@@ -88,7 +88,7 @@ export function HonorsSection({ rows, onAdd, onUpdate, onDelete }: Props) {
                     {[role, row.awarding_institution, date].filter(Boolean).join(" · ")}
                   </div>
                   </div>
-                  <ChevronDown className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`size-4 transition-transform motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`} />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => onDelete(row.id)} aria-label={t("text.150")}>
                   <Trash2 className="size-4 text-destructive" />
