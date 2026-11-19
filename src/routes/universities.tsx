@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { matchUniversities } from "@/lib/ai.functions";
 import { UNIVERSITIES, COUNTRY_LIST, type Country, type University } from "@/lib/universities";
 import { localizeUniversity } from "@/lib/universities.en";
+import { UniversityVisual } from "@/components/university-visual";
 import { estimateOdds, type Odds } from "@/lib/match";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -193,7 +194,9 @@ function UniversitiesPage() {
       {/* Explorer */}
       <div className="mt-10 flex flex-wrap gap-2">
         {(["Все", ...COUNTRY_LIST] as const).map((c) => (
-          <button
+          <Button
+            variant="outline"
+            aria-pressed={country === c}
             key={c}
             onClick={() => setCountry(c as Country | "Все")}
             className={
@@ -204,18 +207,15 @@ function UniversitiesPage() {
             }
           >
             {c === "Все" ? t("common.all") : countryLabel(c)}
-          </button>
+          </Button>
         ))}
       </div>
 
       <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {list.map(({ uni, odds }) => (
           <article key={uni.id} className="surface-card overflow-hidden">
-            <div className="relative h-40">
-              <div className="flex size-full flex-col items-center justify-center gap-2 bg-secondary text-muted-foreground">
-                <GraduationCap className="size-10" aria-hidden />
-                <span className="text-xs">{t("university.photoUnavailable")}</span>
-              </div>
+            <div className="relative">
+              <UniversityVisual uni={uni} />
               <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-bold">
                 QS · {t("university.notVerified")}
               </span>
@@ -283,10 +283,7 @@ function UniDetails({
         </DialogDescription>
       </DialogHeader>
 
-      <div className="flex h-28 items-center justify-center gap-2 rounded-xl bg-secondary text-sm text-muted-foreground">
-        <GraduationCap className="size-6" aria-hidden />
-        {t("university.photoUnavailable")}
-      </div>
+      <UniversityVisual key={uni.id} uni={uni} detail />
 
       <div className="rounded-2xl border border-border p-4">
         <div className="flex items-center justify-between">

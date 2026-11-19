@@ -17,3 +17,9 @@
 - [x] Retain 172 universities and label unverified rankings, imagery and deadlines.
 - [x] Preserve and correctly label the deterministic 620-point benchmark.
 - [x] Run focused tests, inspect build signals and verify signed-in flows; record results and blockers.
+
+# Presentation catalogue and leaderboard
+- [ ] Simplify demo labels without presenting demonstration rows as registered students.
+- [ ] Hide closed-profile cities and show only existing school/major values; preserve database privacy restrictions.
+- [ ] Add source-verified campus photos and academic monograms with country flags.
+- [ ] Verify EN/RU, filters, images, mobile layout and tests without publishing.

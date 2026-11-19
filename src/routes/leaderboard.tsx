@@ -6,6 +6,7 @@ import { Lock, Loader2, Trophy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { DEMO_LEADERBOARD } from "@/lib/demo-leaderboard";
+import { leaderboardSubtitle } from "@/lib/leaderboard-display";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -121,12 +122,12 @@ const TABS = [
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <span className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Trophy className="size-5" />
         </span>
         <div>
-          <h1 className="text-4xl font-extrabold">{t("nav.leaderboard")}</h1>
+          <h1 className="text-3xl font-extrabold sm:text-4xl">{t("nav.leaderboard")}</h1>
           <p className="text-sm text-muted-foreground">
             
             {t("text.096")}
@@ -146,9 +147,12 @@ const TABS = [
         </div>
       </div>
 
+      <p className="mt-4 text-xs text-muted-foreground">{t("leaderboard.demoNotice")}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {TABS.map((tab) => (
-          <button
+          <Button
+            variant="outline"
+            aria-pressed={country === tab.key}
             key={tab.label}
             onClick={() => setCountry(tab.key)}
             className={
@@ -159,7 +163,7 @@ const TABS = [
             }
           >
             {tab.label}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -180,7 +184,7 @@ const TABS = [
               <li
                 key={r.user_id}
                 className={
-                  "surface-card flex items-center gap-4 p-4 " +
+                   "surface-card flex flex-wrap items-center gap-3 p-4 sm:flex-nowrap sm:gap-4 " +
                   (mine ? "ring-2 ring-primary/40" : "")
                 }
               >
@@ -191,17 +195,10 @@ const TABS = [
                       {r.full_name ?? t("text.100")}
                     </span>
                     {!r.is_public && <Lock className="size-3.5 text-muted-foreground" />}
-                    {String(r.user_id).startsWith("demo-") && (
-                      <Badge variant="secondary" className="rounded-full text-xs">{t("leaderboard.demoProfile")}</Badge>
-                    )}
                     {mine && <Badge className="rounded-full">{t("text.101")}</Badge>}
                   </div>
                   <p className="truncate text-xs text-muted-foreground">
-                    {r.is_public
-                      ? [r.high_school, r.city, r.target_major].filter(Boolean).join(" · ") ||
-                        t("text.102")
-                      : [r.high_school, r.city].filter(Boolean).join(" · ") ||
-                        t("text.103")}
+                    {leaderboardSubtitle(r) || t(r.is_public ? "text.102" : "text.103")}
                   </p>
                 </div>
                 <span className="text-2xl font-extrabold text-primary">
