@@ -19,7 +19,8 @@
 - [x] Run focused tests, inspect build signals and verify signed-in flows; record results and blockers.
 
 # Presentation catalogue and leaderboard
-- [ ] Simplify demo labels without presenting demonstration rows as registered students.
-- [ ] Hide closed-profile cities and show only existing school/major values; preserve database privacy restrictions.
-- [ ] Add source-verified campus photos and academic monograms with country flags.
+- [x] Temporarily open the 70 example profiles and show school/major without city; keep a concise source disclosure and real-account privacy unchanged.
+- [x] Simplify demo labels without presenting demonstration rows as registered students.
+- [x] Hide closed-profile cities and show only existing school/major values; preserve database privacy restrictions.
+- [x] Add source-verified campus photos and academic monograms with country flags.
 - [ ] Verify EN/RU, filters, images, mobile layout and tests without publishing.

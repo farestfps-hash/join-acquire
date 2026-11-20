@@ -226,9 +226,7 @@ const TABS = [
               <DialogHeader>
                 <DialogTitle>{active.full_name ?? t("text.100")}</DialogTitle>
                 <DialogDescription>
-                  {[active.high_school, active.grade_level, active.target_major]
-                    .filter(Boolean)
-                    .join(" · ")}
+                  {leaderboardSubtitle(active)}
                 </DialogDescription>
               </DialogHeader>
               <div className="flex items-baseline gap-2">

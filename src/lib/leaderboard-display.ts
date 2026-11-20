@@ -6,8 +6,6 @@ type DisplayProfile = {
 };
 
 export function leaderboardSubtitle(profile: DisplayProfile): string {
-  const fields = profile.is_public
-    ? [profile.high_school, profile.city, profile.target_major]
-    : [profile.high_school, profile.target_major];
+  const fields = [profile.high_school, profile.target_major];
   return fields.filter((value) => typeof value === "string" && value.trim()).join(" · ");
 }

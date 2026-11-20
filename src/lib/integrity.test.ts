@@ -21,10 +21,10 @@ test("AI context excludes direct identifiers and session secrets while retaining
   assert.equal(context.extracurriculars[0]?.["role"], "Lead");
 });
 
-test("all 70 demo profiles are retained, closed and distinguishable from registrations", () => {
+test("all 70 example profiles are retained, temporarily open and distinguishable from registrations", () => {
   assert.equal(DEMO_LEADERBOARD.length, 70);
   assert.equal(new Set(DEMO_LEADERBOARD.map((r) => r.user_id)).size, 70);
-  assert.ok(DEMO_LEADERBOARD.every((r) => r.user_id.startsWith("demo-") && r.is_public === false));
+  assert.ok(DEMO_LEADERBOARD.every((r) => r.user_id.startsWith("demo-") && r.is_public === true));
 });
 
 test("172 universities retain identity without fabricated QS placeholders", () => {
