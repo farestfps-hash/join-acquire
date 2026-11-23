@@ -22,6 +22,13 @@
       "when": 1794491597980,
       "tag": "0002_harden_leaderboard_and_contact",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795432664174,
+      "tag": "0003_leaderboard_closed_show_name_school_major",
+      "breakpoints": true
     }
   ]
 }

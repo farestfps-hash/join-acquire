@@ -147,7 +147,6 @@ const TABS = [
         </div>
       </div>
 
-      <p className="mt-4 text-xs text-muted-foreground">{t("leaderboard.demoNotice")}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {TABS.map((tab) => (
           <Button

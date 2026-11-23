@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// Демонстрационные профили временно открыты для просмотра; реальные аккаунты не изменяются.
+// Профили таблицы лидеров.
 export const DEMO_LEADERBOARD: any[] = [
   { user_id: "demo-1", is_public: true, full_name: "Daniyar Amirov", high_school: "NIS", city: "Almaty", holistic_score: 97, target_countries: ["USA", "Europe", "Hong Kong"] },
   { user_id: "demo-2", is_public: true, full_name: "Sofia Kim", high_school: "Haileybury Almaty", city: null, holistic_score: 94, target_countries: ["USA", "Hong Kong"] },
