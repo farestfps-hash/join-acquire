@@ -28,6 +28,20 @@ import kz15 from "@/assets/campuses/m-auezov-south-kazakhstan-university.jpg.ass
 import kz16 from "@/assets/campuses/asfendiyarov-kazakh-national-medical-university.jpg.asset.json";
 import kz17 from "@/assets/campuses/maqsut-narikbayev-university.jpg.asset.json";
 import kz18 from "@/assets/campuses/kazakh-national-agrarian-research-university.jpg.asset.json";
+import top0 from "@/assets/campuses/the-chinese-university-of-hong-kong.jpg.asset.json";
+import top1 from "@/assets/campuses/the-hong-kong-polytechnic-university.jpg.asset.json";
+import top2 from "@/assets/campuses/city-university-of-hong-kong.jpg.asset.json";
+import top3 from "@/assets/campuses/hong-kong-baptist-university.jpg.asset.json";
+import top4 from "@/assets/campuses/lingnan-university.jpg.asset.json";
+import top5 from "@/assets/campuses/the-education-university-of-hong-kong.jpg.asset.json";
+import top7 from "@/assets/campuses/hong-kong-shue-yan-university.jpg.asset.json";
+import top8 from "@/assets/campuses/princeton-university.jpg.asset.json";
+import top9 from "@/assets/campuses/california-institute-of-technology.jpg.asset.json";
+import top10 from "@/assets/campuses/university-of-california-berkeley.jpg.asset.json";
+import top11 from "@/assets/campuses/imperial-college-london.jpg.asset.json";
+import top12 from "@/assets/campuses/university-college-london.jpg.asset.json";
+import top13 from "@/assets/campuses/technical-university-of-munich.jpg.asset.json";
+import top14 from "@/assets/campuses/saint-francis-university.jpg.asset.json";
 
 export type CampusPhoto = { url: string; caption: string; source: string; author: string; license: string; licenseUrl: string };
 export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
@@ -61,6 +75,20 @@ export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
   "asfendiyarov-kazakh-national-medical-university": { url: kz16.url, caption: "KazNMU main building", source: "https://commons.wikimedia.org/wiki/File:Main_building,_Kazak_National_Medical_University.jpg", author: "kaznmu.kz", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
   "maqsut-narikbayev-university": { url: kz17.url, caption: "Maqsut Narikbayev University main building", source: "https://commons.wikimedia.org/wiki/File:Maqsut_Narikbayev_University.jpg", author: "Graphique38", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
   "kazakh-national-agrarian-research-university": { url: kz18.url, caption: "KazNARU main building", source: "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D0%BA%D0%B8%D0%B9_%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%B0%D0%B3%D1%80%D0%B0%D1%80%D0%BD%D1%8B%D0%B9_%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_(%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B)_-_panoramio.jpg", author: "Николай Максимович", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0" },
+  "the-chinese-university-of-hong-kong": { url: top0.url, caption: "CUHK campus lake", source: "https://commons.wikimedia.org/wiki/File:Chinese_University_of_Hong_Kong_Lake_05-06-2018.jpg", author: "LN9267", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "the-hong-kong-polytechnic-university": { url: top1.url, caption: "PolyU Kowloon Tong campus", source: "https://commons.wikimedia.org/wiki/File:Kowloon_Tong_Campus_of_The_Hong_Kong_Polytechnic_University.JPG", author: "Exploringlife", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "city-university-of-hong-kong": { url: top2.url, caption: "CityU Academic 3 building", source: "https://commons.wikimedia.org/wiki/File:Campus_stairs_to_the_City_University_of_Hong_Kong_Academic_3_building_closed.jpg", author: "Exploringlife", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "hong-kong-baptist-university": { url: top3.url, caption: "HKBU Academic and Administration Building", source: "https://commons.wikimedia.org/wiki/File:Academic_and_Administration_Building_of_Hong_Kong_Baptist_University.JPG", author: "Exploringlife", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "lingnan-university": { url: top4.url, caption: "Lingnan University campus overview", source: "https://commons.wikimedia.org/wiki/File:Lingnan_University_Campus_Overview_201410.jpg", author: "Wing1990hk", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0" },
+  "the-education-university-of-hong-kong": { url: top5.url, caption: "EdUHK Tai Po campus", source: "https://commons.wikimedia.org/wiki/File:202502_Education_University_of_Hong_Kong_campus_in_Tai_Po_02.jpg", author: "Jonashtand", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "hong-kong-shue-yan-university": { url: top7.url, caption: "Shue Yan University campus", source: "https://commons.wikimedia.org/wiki/File:Hong_Kong_Shue_Yan_University.jpg", author: "Exploringlife", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "princeton-university": { url: top8.url, caption: "Nassau Hall", source: "https://commons.wikimedia.org/wiki/File:Nassau_Hall,_Princeton_University,_Princeton_NJ.jpg", author: "John Phelan", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "california-institute-of-technology": { url: top9.url, caption: "Beckman Auditorium", source: "https://commons.wikimedia.org/wiki/File:Caltech_Beckman_Auditorium.jpg", author: "BorderlineRebel", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-california-berkeley": { url: top10.url, caption: "Sather Tower and campus", source: "https://commons.wikimedia.org/wiki/File:Berkeley_Campus_Sather_Tower.jpg", author: "Unknown (uploaded by User:Urban)", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  "imperial-college-london": { url: top11.url, caption: "Queen's Tower", source: "https://commons.wikimedia.org/wiki/File:Queen%27s_Tower_above_Imperial_College_Central_Library_in_Late_Autumn.jpg", author: "Shadowssettle", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-college-london": { url: top12.url, caption: "UCL Portico, Wilkins Building", source: "https://commons.wikimedia.org/wiki/File:UCL_Portico_Building.jpg", author: "LordHarris at English Wikipedia", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  "technical-university-of-munich": { url: top13.url, caption: "TUM main building, Arcisstraße", source: "https://commons.wikimedia.org/wiki/File:Arcisstr._21_TUM_Muenchen-1.jpg", author: "Rufus46", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "saint-francis-university": { url: top14.url, caption: "Saint Francis University (former Caritas Institute) campus", source: "https://commons.wikimedia.org/wiki/File:Caritas_Institute_of_Higher_Education_2020_10_part1.jpg", author: "Qwer132477", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
 };
 
 export function universityMonogram(name: string): string {

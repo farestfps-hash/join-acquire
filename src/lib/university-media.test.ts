@@ -5,7 +5,7 @@ import { UNIVERSITIES } from "./universities";
 
 test("campus photos resolve to existing universities and include sources and licenses", () => {
   const ids = new Set(UNIVERSITIES.map((uni) => uni.id));
-  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 30);
+  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 44);
   for (const [id, photo] of Object.entries(CAMPUS_PHOTOS)) {
     assert.ok(ids.has(id), id);
     assert.ok(photo.url.startsWith("/__l5e/assets-v1/"));
@@ -27,4 +27,8 @@ test("flags retain country identity in both catalogue languages", () => {
   assert.equal(universityFlag("Hong Kong", "Hong Kong"), "🇭🇰");
 });test("20 of 30 Kazakhstan universities have verified campus photos", () => {
   assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Kazakhstan").length, 20);
+});
+test("10 of 12 Hong Kong universities and the requested top US/UK/German universities have photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Hong Kong").length, 10);
+  for (const id of ["princeton-university", "california-institute-of-technology", "university-of-california-berkeley", "imperial-college-london", "university-college-london", "technical-university-of-munich"]) assert.ok(CAMPUS_PHOTOS[id], id);
 });
