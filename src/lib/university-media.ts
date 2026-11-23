@@ -42,6 +42,47 @@ import top11 from "@/assets/campuses/imperial-college-london.jpg.asset.json";
 import top12 from "@/assets/campuses/university-college-london.jpg.asset.json";
 import top13 from "@/assets/campuses/technical-university-of-munich.jpg.asset.json";
 import top14 from "@/assets/campuses/saint-francis-university.jpg.asset.json";
+import us0 from "@/assets/campuses/university-of-chicago.jpg.asset.json";
+import us1 from "@/assets/campuses/university-of-pennsylvania.jpg.asset.json";
+import us2 from "@/assets/campuses/cornell-university.jpg.asset.json";
+import us3 from "@/assets/campuses/johns-hopkins-university.jpg.asset.json";
+import us4 from "@/assets/campuses/university-of-california-los-angeles.jpg.asset.json";
+import us5 from "@/assets/campuses/carnegie-mellon-university.jpg.asset.json";
+import us6 from "@/assets/campuses/university-of-michigan.jpg.asset.json";
+import us7 from "@/assets/campuses/new-york-university.jpg.asset.json";
+import us8 from "@/assets/campuses/duke-university.jpg.asset.json";
+import us9 from "@/assets/campuses/northwestern-university.jpg.asset.json";
+import us10 from "@/assets/campuses/brown-university.jpg.asset.json";
+import us11 from "@/assets/campuses/georgia-institute-of-technology.jpg.asset.json";
+import us12 from "@/assets/campuses/university-of-illinois-urbana-champaign.jpg.asset.json";
+import us13 from "@/assets/campuses/university-of-california-san-diego.jpg.asset.json";
+import us14 from "@/assets/campuses/university-of-washington.jpg.asset.json";
+import us15 from "@/assets/campuses/university-of-wisconsin-madison.jpg.asset.json";
+import us16 from "@/assets/campuses/university-of-texas-at-austin.jpg.asset.json";
+import us17 from "@/assets/campuses/rice-university.jpg.asset.json";
+import us18 from "@/assets/campuses/university-of-notre-dame.jpg.asset.json";
+import us19 from "@/assets/campuses/washington-university-in-st-louis.jpg.asset.json";
+import us20 from "@/assets/campuses/emory-university.jpg.asset.json";
+import us21 from "@/assets/campuses/university-of-north-carolina-at-chapel-hill.jpg.asset.json";
+import us22 from "@/assets/campuses/university-of-southern-california.jpg.asset.json";
+import us23 from "@/assets/campuses/boston-university.jpg.asset.json";
+import us24 from "@/assets/campuses/northeastern-university.jpg.asset.json";
+import us25 from "@/assets/campuses/purdue-university.jpg.asset.json";
+import us26 from "@/assets/campuses/university-of-california-davis.jpg.asset.json";
+import us27 from "@/assets/campuses/university-of-california-santa-barbara.jpg.asset.json";
+import us28 from "@/assets/campuses/university-of-california-irvine.jpg.asset.json";
+import us29 from "@/assets/campuses/tufts-university.jpg.asset.json";
+import us30 from "@/assets/campuses/georgetown-university.jpg.asset.json";
+import us31 from "@/assets/campuses/williams-college.jpg.asset.json";
+import us32 from "@/assets/campuses/swarthmore-college.jpg.asset.json";
+import us33 from "@/assets/campuses/pomona-college.jpg.asset.json";
+import us34 from "@/assets/campuses/harvey-mudd-college.jpg.asset.json";
+import us35 from "@/assets/campuses/wellesley-college.jpg.asset.json";
+import us36 from "@/assets/campuses/university-of-virginia.jpg.asset.json";
+import us37 from "@/assets/campuses/boston-college.jpg.asset.json";
+import us38 from "@/assets/campuses/case-western-reserve-university.jpg.asset.json";
+import us39 from "@/assets/campuses/dartmouth-college.jpg.asset.json";
+import us40 from "@/assets/campuses/amherst-college.jpg.asset.json";
 
 export type CampusPhoto = { url: string; caption: string; source: string; author: string; license: string; licenseUrl: string };
 export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
@@ -89,6 +130,47 @@ export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
   "university-college-london": { url: top12.url, caption: "UCL Portico, Wilkins Building", source: "https://commons.wikimedia.org/wiki/File:UCL_Portico_Building.jpg", author: "LordHarris at English Wikipedia", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   "technical-university-of-munich": { url: top13.url, caption: "TUM main building, Arcisstraße", source: "https://commons.wikimedia.org/wiki/File:Arcisstr._21_TUM_Muenchen-1.jpg", author: "Rufus46", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
   "saint-francis-university": { url: top14.url, caption: "Saint Francis University (former Caritas Institute) campus", source: "https://commons.wikimedia.org/wiki/File:Caritas_Institute_of_Higher_Education_2020_10_part1.jpg", author: "Qwer132477", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-chicago": { url: us0.url, caption: "University of Chicago campus", source: "https://commons.wikimedia.org/wiki/File:Harper_Memorial_Library,_University_of_Chicago,_59th_Street,_Hyde_Park,_Chicago,_IL_(54516185125).jpg", author: "Warren LeMay from Chicago, IL, United States", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-pennsylvania": { url: us1.url, caption: "University of Pennsylvania campus", source: "https://commons.wikimedia.org/wiki/File:College_Hall_(University_of_Pennsylvania)_-_IMG_6601.JPG", author: "Daderot", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "cornell-university": { url: us2.url, caption: "Cornell University campus", source: "https://commons.wikimedia.org/wiki/File:Cornell_University_-_Towers.jpg", author: "P. Hughes", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "johns-hopkins-university": { url: us3.url, caption: "Johns Hopkins University campus", source: "https://commons.wikimedia.org/wiki/File:Gilman_Hall,_Johns_Hopkins_University,_Baltimore,_MD.jpg", author: "Daderot", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "university-of-california-los-angeles": { url: us4.url, caption: "University of California, Los Angeles campus", source: "https://commons.wikimedia.org/wiki/File:2019_UCLA_Royce_Hall_2.jpg", author: "Beyond My Ken", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "carnegie-mellon-university": { url: us5.url, caption: "Carnegie Mellon University campus", source: "https://commons.wikimedia.org/wiki/File:Hamerschlag_Hall,_Carnegie_Mellon_University,_2021-05-10,_02.jpg", author: "Cbaile19", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "university-of-michigan": { url: us6.url, caption: "University of Michigan campus", source: "https://commons.wikimedia.org/wiki/File:Law_Quadrangle,_University_of_Michigan,_University_Avenue_and_State_Street,_Ann_Arbor,_MI_-_54381402138.jpg", author: "w_lemay", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "new-york-university": { url: us7.url, caption: "New York University campus", source: "https://commons.wikimedia.org/wiki/File:Bobst,_Kimmel.jpg", author: "EgyetemInfó at Hungarian Wikipedia", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "duke-university": { url: us8.url, caption: "Duke University campus", source: "https://commons.wikimedia.org/wiki/File:Duke_Chapel_side.jpg", author: "self", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "northwestern-university": { url: us9.url, caption: "Northwestern University campus", source: "https://commons.wikimedia.org/wiki/File:Deering_Library_Northwestern.jpg", author: "Madcoverboy at English Wikipedia", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "brown-university": { url: us10.url, caption: "Brown University campus", source: "https://commons.wikimedia.org/wiki/File:University_Hall_(Brown_University).JPG", author: "Nandaro", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "georgia-institute-of-technology": { url: us11.url, caption: "Georgia Institute of Technology campus", source: "https://commons.wikimedia.org/wiki/File:Lettie_Pate_Whitehead_Evans_Administration_Building_6284.jpg", author: "James Emery", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "university-of-illinois-urbana-champaign": { url: us12.url, caption: "University of Illinois Urbana-Champaign campus", source: "https://commons.wikimedia.org/wiki/File:Altgeld_Hall,_University_of_Illinois_-_Winter.jpg", author: "Killivalavan Solai", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-california-san-diego": { url: us13.url, caption: "University of California, San Diego campus", source: "https://commons.wikimedia.org/wiki/File:Geisel_Library,_UCSD,_October_2016.jpg", author: "Jami (Wiki Ed)", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-washington": { url: us14.url, caption: "University of Washington campus", source: "https://commons.wikimedia.org/wiki/File:MK03214_University_of_Washington_Suzzallo_Library.jpg", author: "Martin Kraft", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "university-of-wisconsin-madison": { url: us15.url, caption: "University of Wisconsin–Madison campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Wisconsin%E2%80%93Madison_August_2022_09_(Bascom_Hall).jpg", author: "Michael Barera", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-texas-at-austin": { url: us16.url, caption: "University of Texas at Austin campus", source: "https://commons.wikimedia.org/wiki/File:University_of_texas_at_austin_main_building_2014.jpg", author: "Larry D. Moore", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "rice-university": { url: us17.url, caption: "Rice University campus", source: "https://commons.wikimedia.org/wiki/File:Rice_University_Sally_Port.jpg", author: "Claudia Paine22", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-notre-dame": { url: us18.url, caption: "University of Notre Dame campus", source: "https://commons.wikimedia.org/wiki/File:Golden_Dome_frontal.jpg", author: "Eccekevin", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "washington-university-in-st-louis": { url: us19.url, caption: "Washington University in St. Louis campus", source: "https://commons.wikimedia.org/wiki/File:Brookings.jpg", author: "Unknown", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "emory-university": { url: us20.url, caption: "Emory University campus", source: "https://commons.wikimedia.org/wiki/File:Old_Theology_School_Building_on_the_Quad_at_Emory_University.jpg", author: "Marc Merlin", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-north-carolina-at-chapel-hill": { url: us21.url, caption: "University of North Carolina at Chapel Hill campus", source: "https://commons.wikimedia.org/wiki/File:UNC_Chapel_Hill_-_Old_Well_with_flowers.jpg", author: "Jack a lanier", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-southern-california": { url: us22.url, caption: "University of Southern California campus", source: "https://commons.wikimedia.org/wiki/File:Doheny_Memorial_Library_of_USC.jpg", author: "EEJCC", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "boston-university": { url: us23.url, caption: "Boston University campus", source: "https://commons.wikimedia.org/wiki/File:Boston_University_Marsh_Chapel,_Boston_MA.jpg", author: "John Phelan", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0" },
+  "northeastern-university": { url: us24.url, caption: "Northeastern University campus", source: "https://commons.wikimedia.org/wiki/File:Northeastern_University.jpg", author: "Edward Orde", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "purdue-university": { url: us25.url, caption: "Purdue University campus", source: "https://commons.wikimedia.org/wiki/File:Engineering_Fountain_Purdue_University_2016_03.jpg", author: "Julian Herzog (Website)", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "university-of-california-davis": { url: us26.url, caption: "University of California, Davis campus", source: "https://commons.wikimedia.org/wiki/File:Mrak_Hall_(UC_Davis)_Across_Lake_Spafford.jpg", author: "KMashian", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "university-of-california-santa-barbara": { url: us27.url, caption: "University of California, Santa Barbara campus", source: "https://commons.wikimedia.org/wiki/File:Storke_Tower,_northwest_view,_UCSB,_June_2021.jpg", author: "Mys 721tx", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "university-of-california-irvine": { url: us28.url, caption: "University of California, Irvine campus", source: "https://commons.wikimedia.org/wiki/File:UC_Irvine,_Aldrich_Park_-_Humanities.JPG", author: "Mikejuinwind123", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "tufts-university": { url: us29.url, caption: "Tufts University campus", source: "https://commons.wikimedia.org/wiki/File:Ballou_Hall_at_Tufts_University_in_Medford_Massachusetts_USA_built_in_1852_by_Gridley_JF_Bryant.jpg", author: "Swampyank", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "georgetown-university": { url: us30.url, caption: "Georgetown University campus", source: "https://commons.wikimedia.org/wiki/File:Healy_Hall,_Georgetown_University,_Georgetown,_Washington,_DC_(39641791973).jpg", author: "Warren LeMay from Cincinnati, OH, United States", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "williams-college": { url: us31.url, caption: "Williams College campus", source: "https://commons.wikimedia.org/wiki/File:Williams_College_-_Thompson_Memorial_Chapel_exterior_view.JPG", author: "Daderot", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "swarthmore-college": { url: us32.url, caption: "Swarthmore College campus", source: "https://commons.wikimedia.org/wiki/File:Parrish_Hall_(cropped).jpg", author: "Ugen64 at English Wikipedia", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "pomona-college": { url: us33.url, caption: "Pomona College campus", source: "https://commons.wikimedia.org/wiki/File:Bridges_Hall_of_Music,_Pomona_College_in_November_2021.jpg", author: "Adam Jones", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "harvey-mudd-college": { url: us34.url, caption: "Harvey Mudd College campus", source: "https://commons.wikimedia.org/wiki/File:Harvey_mudd_campus_photo.jpg", author: "Hmc5555", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "wellesley-college": { url: us35.url, caption: "Wellesley College campus", source: "https://commons.wikimedia.org/wiki/File:Green_Hall,_Wellesley_College,_Wellesley_MA.jpg", author: "John Phelan", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "university-of-virginia": { url: us36.url, caption: "University of Virginia campus", source: "https://commons.wikimedia.org/wiki/File:Rotunda_UVa_from_the_south_east.jpg", author: "terren in Virginia", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "boston-college": { url: us37.url, caption: "Boston College campus", source: "https://commons.wikimedia.org/wiki/File:Gasson_Hall_in_Boston_College.jpg", author: "Amandajunyue", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "case-western-reserve-university": { url: us38.url, caption: "Case Western Reserve University campus", source: "https://commons.wikimedia.org/wiki/File:Adelbert_Hall_-_Case_Western_Reserve_University.jpg", author: "Daderot", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "dartmouth-college": { url: us39.url, caption: "Dartmouth College campus", source: "https://commons.wikimedia.org/wiki/File:Dartmouth_Hall_at_Dartmouth_College.jpg", author: "Kenneth C. Zirkel", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "amherst-college": { url: us40.url, caption: "Amherst College campus", source: "https://commons.wikimedia.org/wiki/File:Frost_Library,_Amherst_College.jpg", author: "Kenneth C. Zirkel", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
 };
 
 export function universityMonogram(name: string): string {
