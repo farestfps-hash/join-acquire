@@ -5,7 +5,7 @@ import { UNIVERSITIES } from "./universities";
 
 test("campus photos resolve to existing universities and include sources and licenses", () => {
   const ids = new Set(UNIVERSITIES.map((uni) => uni.id));
-  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 85);
+  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 151);
   for (const [id, photo] of Object.entries(CAMPUS_PHOTOS)) {
     assert.ok(ids.has(id), id);
     assert.ok(photo.url.startsWith("/__l5e/assets-v1/"));
@@ -35,4 +35,7 @@ test("10 of 12 Hong Kong universities and the requested top US/UK/German univers
 test("49 of 50 US universities have campus photos; Vanderbilt waits for a current photo", () => {
   assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "USA").length, 49);
   assert.equal(CAMPUS_PHOTOS["vanderbilt-university"], undefined);
+});
+test("72 of 80 European universities have campus photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Europe").length, 72);
 });

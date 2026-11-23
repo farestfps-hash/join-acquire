@@ -83,6 +83,72 @@ import us37 from "@/assets/campuses/boston-college.jpg.asset.json";
 import us38 from "@/assets/campuses/case-western-reserve-university.jpg.asset.json";
 import us39 from "@/assets/campuses/dartmouth-college.jpg.asset.json";
 import us40 from "@/assets/campuses/amherst-college.jpg.asset.json";
+import eu0 from "@/assets/campuses/the-university-of-manchester.jpg.asset.json";
+import eu1 from "@/assets/campuses/university-of-zurich.jpg.asset.json";
+import eu2 from "@/assets/campuses/university-of-geneva.jpg.asset.json";
+import eu3 from "@/assets/campuses/lmu-munich.jpg.asset.json";
+import eu4 from "@/assets/campuses/heidelberg-university.jpg.asset.json";
+import eu5 from "@/assets/campuses/humboldt-university-of-berlin.jpg.asset.json";
+import eu6 from "@/assets/campuses/technische-universit-t-berlin.jpg.asset.json";
+import eu7 from "@/assets/campuses/rwth-aachen-university.jpg.asset.json";
+import eu8 from "@/assets/campuses/university-of-freiburg.jpg.asset.json";
+import eu9 from "@/assets/campuses/tu-dresden.jpg.asset.json";
+import eu10 from "@/assets/campuses/university-of-t-bingen.jpg.asset.json";
+import eu11 from "@/assets/campuses/sorbonne-university.jpg.asset.json";
+import eu12 from "@/assets/campuses/kth-royal-institute-of-technology.jpg.asset.json";
+import eu13 from "@/assets/campuses/lund-university.jpg.asset.json";
+import eu14 from "@/assets/campuses/uppsala-university.jpg.asset.json";
+import eu15 from "@/assets/campuses/chalmers-university-of-technology.jpg.asset.json";
+import eu16 from "@/assets/campuses/university-of-helsinki.jpg.asset.json";
+import eu17 from "@/assets/campuses/ku-leuven.jpg.asset.json";
+import eu18 from "@/assets/campuses/vrije-universiteit-brussel.jpg.asset.json";
+import eu19 from "@/assets/campuses/tu-wien.jpg.asset.json";
+import eu20 from "@/assets/campuses/politecnico-di-milano.jpg.asset.json";
+import eu21 from "@/assets/campuses/university-of-barcelona.jpg.asset.json";
+import eu22 from "@/assets/campuses/universitat-pompeu-fabra.jpg.asset.json";
+import eu23 from "@/assets/campuses/trinity-college-dublin.jpg.asset.json";
+import eu24 from "@/assets/campuses/university-college-cork.jpg.asset.json";
+import eu25 from "@/assets/campuses/charles-university.jpg.asset.json";
+import eu26 from "@/assets/campuses/university-of-lisbon.jpg.asset.json";
+import eu27 from "@/assets/campuses/university-of-tartu.jpg.asset.json";
+import eu28 from "@/assets/campuses/the-university-of-edinburgh.jpg.asset.json";
+import eu29 from "@/assets/campuses/king-s-college-london.jpg.asset.json";
+import eu30 from "@/assets/campuses/london-school-of-economics.jpg.asset.json";
+import eu31 from "@/assets/campuses/university-of-warwick.jpg.asset.json";
+import eu32 from "@/assets/campuses/university-of-glasgow.jpg.asset.json";
+import eu33 from "@/assets/campuses/durham-university.jpg.asset.json";
+import eu34 from "@/assets/campuses/university-of-southampton.jpg.asset.json";
+import eu35 from "@/assets/campuses/university-of-st-andrews.jpg.asset.json";
+import eu36 from "@/assets/campuses/university-of-birmingham.jpg.asset.json";
+import eu37 from "@/assets/campuses/university-of-leeds.jpg.asset.json";
+import eu38 from "@/assets/campuses/university-of-sheffield.jpg.asset.json";
+import eu39 from "@/assets/campuses/queen-mary-university-of-london.jpg.asset.json";
+import eu40 from "@/assets/campuses/university-of-exeter.jpg.asset.json";
+import eu41 from "@/assets/campuses/university-of-bath.jpg.asset.json";
+import eu42 from "@/assets/campuses/epfl.jpg.asset.json";
+import eu43 from "@/assets/campuses/freie-universit-t-berlin.jpg.asset.json";
+import eu44 from "@/assets/campuses/karlsruhe-institute-of-technology.jpg.asset.json";
+import eu45 from "@/assets/campuses/university-of-hamburg.jpg.asset.json";
+import eu46 from "@/assets/campuses/delft-university-of-technology.jpg.asset.json";
+import eu47 from "@/assets/campuses/leiden-university.jpg.asset.json";
+import eu48 from "@/assets/campuses/utrecht-university.jpg.asset.json";
+import eu49 from "@/assets/campuses/university-of-groningen.jpg.asset.json";
+import eu50 from "@/assets/campuses/wageningen-university.jpg.asset.json";
+import eu51 from "@/assets/campuses/erasmus-university-rotterdam.jpg.asset.json";
+import eu52 from "@/assets/campuses/universit-psl.jpg.asset.json";
+import eu53 from "@/assets/campuses/institut-polytechnique-de-paris.jpg.asset.json";
+import eu54 from "@/assets/campuses/universit-paris-saclay.jpg.asset.json";
+import eu55 from "@/assets/campuses/sciences-po.jpg.asset.json";
+import eu56 from "@/assets/campuses/universit-grenoble-alpes.jpg.asset.json";
+import eu57 from "@/assets/campuses/aarhus-university.jpg.asset.json";
+import eu58 from "@/assets/campuses/aalto-university.jpg.asset.json";
+import eu59 from "@/assets/campuses/university-of-oslo.jpg.asset.json";
+import eu60 from "@/assets/campuses/uclouvain.jpg.asset.json";
+import eu61 from "@/assets/campuses/university-of-bologna.jpg.asset.json";
+import eu62 from "@/assets/campuses/universitat-aut-noma-de-barcelona.jpg.asset.json";
+import eu63 from "@/assets/campuses/university-college-dublin.jpg.asset.json";
+import eu64 from "@/assets/campuses/university-of-warsaw.jpg.asset.json";
+import eu65 from "@/assets/campuses/politecnico-di-torino.jpg.asset.json";
 
 export type CampusPhoto = { url: string; caption: string; source: string; author: string; license: string; licenseUrl: string };
 export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
@@ -171,6 +237,72 @@ export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
   "case-western-reserve-university": { url: us38.url, caption: "Case Western Reserve University campus", source: "https://commons.wikimedia.org/wiki/File:Adelbert_Hall_-_Case_Western_Reserve_University.jpg", author: "Daderot", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
   "dartmouth-college": { url: us39.url, caption: "Dartmouth College campus", source: "https://commons.wikimedia.org/wiki/File:Dartmouth_Hall_at_Dartmouth_College.jpg", author: "Kenneth C. Zirkel", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
   "amherst-college": { url: us40.url, caption: "Amherst College campus", source: "https://commons.wikimedia.org/wiki/File:Frost_Library,_Amherst_College.jpg", author: "Kenneth C. Zirkel", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "the-university-of-manchester": { url: eu0.url, caption: "The University of Manchester campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Manchester_Brunswick_Park_Building_-_50140148308.jpg", author: "citysuitesimages", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "university-of-zurich": { url: eu1.url, caption: "University of Zurich campus", source: "https://commons.wikimedia.org/wiki/File:University_Zurich_Main_Building.JPG", author: "Guérin Nicolas (messages)", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "university-of-geneva": { url: eu2.url, caption: "University of Geneva campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Geneva_2015.jpg", author: "Dmitry A. Mottl", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "lmu-munich": { url: eu3.url, caption: "LMU Munich campus", source: "https://commons.wikimedia.org/wiki/File:Edificio_principal_de_la_Universidad_Ludwig-Maximilian,_M%C3%BAnich,_Alemania,_2012-04-30,_DD_03.JPG", author: "Diego Delso", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "heidelberg-university": { url: eu4.url, caption: "Heidelberg University campus", source: "https://commons.wikimedia.org/wiki/File:Library_building_of_Heidelberg_university.JPG", author: "Avi1111 dr. avishai teicher", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "humboldt-university-of-berlin": { url: eu5.url, caption: "Humboldt University of Berlin campus", source: "https://commons.wikimedia.org/wiki/File:Frontansicht_des_Hauptgeb%C3%A4udes_der_Humboldt-Universit%C3%A4t_in_Berlin.jpg", author: "Christian Wolf (www.c-w-design.de)", license: "CC BY-SA 3.0 de", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en" },
+  "technische-universit-t-berlin": { url: eu6.url, caption: "Technische Universität Berlin campus", source: "https://commons.wikimedia.org/wiki/File:TU_Berlin_chemistry_building_overall.jpg", author: "RobbieIanMorrison", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "rwth-aachen-university": { url: eu7.url, caption: "RWTH Aachen University campus", source: "https://commons.wikimedia.org/wiki/File:Templergraben_Aachen_August_2020_RWTH_Aachen_Hauptgeb%C3%A4ude.jpg", author: "Qwertzu111111", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-freiburg": { url: eu8.url, caption: "University of Freiburg campus", source: "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Universit%C3%A4tsbibliothek_--_2025_--_8072.jpg", author: "Dietmar Rabich", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "tu-dresden": { url: eu9.url, caption: "TU Dresden campus", source: "https://commons.wikimedia.org/wiki/File:Alte_Mensa_1.jpg", author: "Kilian Koeltzsch", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "university-of-t-bingen": { url: eu10.url, caption: "University of Tübingen campus", source: "https://commons.wikimedia.org/wiki/File:Institut_f%C3%BCr_Pathologie_der_Universit%C3%A4t_T%C3%BCbingen.jpg", author: "Laphroaig1991", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "sorbonne-university": { url: eu11.url, caption: "Sorbonne University campus", source: "https://commons.wikimedia.org/wiki/File:Sorbonne_university_main_building_entrance.jpg", author: "NonOmnisMoriar", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "kth-royal-institute-of-technology": { url: eu12.url, caption: "KTH Royal Institute of Technology campus", source: "https://commons.wikimedia.org/wiki/File:Building_D_and_E_Kungliga_Tekniska_h%C3%B6gskolan_Stockholm_2022-09-20_05.jpg", author: "Leonhard Lenz", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "lund-university": { url: eu13.url, caption: "Lund University campus", source: "https://commons.wikimedia.org/wiki/File:Lund_University_Main_Building_(1882)_(51327099435).jpg", author: "Jens Cederskjold from København S, Danmark", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "uppsala-university": { url: eu14.url, caption: "Uppsala University campus", source: "https://commons.wikimedia.org/wiki/File:Universitas_Regia_Upsaliensis.jpg", author: "This image was produced by me, David Castor (user:dcastor). The pictures I submi", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "chalmers-university-of-technology": { url: eu15.url, caption: "Chalmers University of Technology campus", source: "https://commons.wikimedia.org/wiki/File:Chalmers_and_GU,_Lindholmen,_Gothenburg.JPG", author: "Mats Kristoffersen", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "university-of-helsinki": { url: eu16.url, caption: "University of Helsinki campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Helsinki,_Main_Building_(52890135967).jpg", author: "Marty B", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "ku-leuven": { url: eu17.url, caption: "KU Leuven campus", source: "https://commons.wikimedia.org/wiki/File:Central_library_of_the_Catholic_University_of_Leuven_(DSCF4528).jpg", author: "Trougnouf (Benoit Brummer)", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "vrije-universiteit-brussel": { url: eu18.url, caption: "Vrije Universiteit Brussel campus", source: "https://commons.wikimedia.org/wiki/File:Belgi%C3%AB_-_Brussel_-_VUB_-_Rectoraat_-_02.jpg", author: "EmDee", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "tu-wien": { url: eu19.url, caption: "TU Wien campus", source: "https://commons.wikimedia.org/wiki/File:Technische_Universit%C3%A4t_Wien_mainbuilding_mainentrance_northview.jpg", author: "Peter Haas", license: "CC BY-SA 3.0 at", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/at/deed.en" },
+  "politecnico-di-milano": { url: eu20.url, caption: "Politecnico di Milano campus", source: "https://commons.wikimedia.org/wiki/File:Polimi_Leonardo_campus_main_building.jpg", author: "NuclearNiranjan", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-barcelona": { url: eu21.url, caption: "University of Barcelona campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Barcelona_-_main_buildings_10.jpg", author: "Joe Mabel", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "universitat-pompeu-fabra": { url: eu22.url, caption: "Universitat Pompeu Fabra campus", source: "https://commons.wikimedia.org/wiki/File:Inside_part_of_Jaume_I%27s_building_(UPF).jpg", author: "Jove", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "trinity-college-dublin": { url: eu23.url, caption: "Trinity College Dublin campus", source: "https://commons.wikimedia.org/wiki/File:The_ornate_Museum_Building_from_the_East_-_geograph.org.uk_-_1738538.jpg", author: "Eric Jones", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-college-cork": { url: eu24.url, caption: "University College Cork campus", source: "https://commons.wikimedia.org/wiki/File:UCC_Quad_2017.jpg", author: "Charlesolivercork", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "charles-university": { url: eu25.url, caption: "Charles University campus", source: "https://commons.wikimedia.org/wiki/File:Vini%C4%8Dn%C3%A1_7_building_Prague.jpg", author: "Vojtěch Dostál", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-lisbon": { url: eu26.url, caption: "University of Lisbon campus", source: "https://commons.wikimedia.org/wiki/File:Faculdade_de_Medicina_Veterin%C3%A1ria_-_ULisboa.jpg", author: "Comunicacaofmv", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-tartu": { url: eu27.url, caption: "University of Tartu campus", source: "https://commons.wikimedia.org/wiki/File:Flickr_-_blind.willow_-_Tartu,_the_Main_Building_of_the_University_of_Tartu.jpg", author: "blind.willow from Warszawa, Polska", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "the-university-of-edinburgh": { url: eu28.url, caption: "The University of Edinburgh campus", source: "https://commons.wikimedia.org/wiki/File:Old_College,_Edinburgh_University.jpg", author: "Chrysi Chrysochou", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "king-s-college-london": { url: eu29.url, caption: "King's College London campus", source: "https://commons.wikimedia.org/wiki/File:King%27s_Building_and_Strand_quad.jpg", author: "KiloCharlieLima", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "london-school-of-economics": { url: eu30.url, caption: "London School of Economics campus", source: "https://commons.wikimedia.org/wiki/File:LSE_Old_Building_Entrance,_Houghton_Street.jpg", author: "Shadowssettle", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-warwick": { url: eu31.url, caption: "University of Warwick campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Warwick_Campus_-_geograph.org.uk_-_3281772.jpg", author: "David P Howard", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-glasgow": { url: eu32.url, caption: "University of Glasgow campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Glasgow_Main_Building_01.JPG", author: "MSeses", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "durham-university": { url: eu33.url, caption: "Durham University campus", source: "https://commons.wikimedia.org/wiki/File:Durham_Cathedral_from_Palace_Green.jpg", author: "TSP", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-southampton": { url: eu34.url, caption: "University of Southampton campus", source: "https://commons.wikimedia.org/wiki/File:Southern_end_of_the_Hartley_Library,_University_of_Southampton_-_geograph.org.uk_-_8007301.jpg", author: "David Martin", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-st-andrews": { url: eu35.url, caption: "University of St Andrews campus", source: "https://commons.wikimedia.org/wiki/File:St_Salvator%27s_College,_St_Andrews,_north_wing.jpg", author: "Stephencdickson", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-birmingham": { url: eu36.url, caption: "University of Birmingham campus", source: "https://commons.wikimedia.org/wiki/File:Chancellor%27s_Court,_University_of_Birmingham_-_geograph.org.uk_-_3377190.jpg", author: "Christopher Hilton", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-leeds": { url: eu37.url, caption: "University of Leeds campus", source: "https://commons.wikimedia.org/wiki/File:Parkinson_Building,_Leeds_University,_England-12Sept2010.jpg", author: "Tim Green from Bradford", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "university-of-sheffield": { url: eu38.url, caption: "University of Sheffield campus", source: "https://commons.wikimedia.org/wiki/File:Firth_Court_070416.jpg", author: "Paolo Margari from Sheffield, United Kingdom / Italy", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "queen-mary-university-of-london": { url: eu39.url, caption: "Queen Mary University of London campus", source: "https://commons.wikimedia.org/wiki/File:Queens%27_Building_(2899476115).jpg", author: "Ewan Munro from London, UK", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-exeter": { url: eu40.url, caption: "University of Exeter campus", source: "https://commons.wikimedia.org/wiki/File:Reed_Hall,_University_of_Exeter_-_geograph.org.uk_-_3561139.jpg", author: "David Smith", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-bath": { url: eu41.url, caption: "University of Bath campus", source: "https://commons.wikimedia.org/wiki/File:University_of_Bath.jpg", author: "Unknown", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  "epfl": { url: eu42.url, caption: "EPFL campus", source: "https://commons.wikimedia.org/wiki/File:EPFL_Rolex_Learning_Center_@_EPFL_@_Lausanne_(36749824932).jpg", author: "Guilhem Vellut from Annecy, France", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "freie-universit-t-berlin": { url: eu43.url, caption: "Freie Universität Berlin campus", source: "https://commons.wikimedia.org/wiki/File:Dahlem_Boltzmannstra%C3%9Fe_Henry-Ford-Bau-3.JPG", author: "Fridolin freudenfett (Peter Kuley)", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "karlsruhe-institute-of-technology": { url: eu44.url, caption: "Karlsruhe Institute of Technology campus", source: "https://commons.wikimedia.org/wiki/File:Karlsruhe_KIT_Kollegiengeb%C3%A4ude_Maschinenbau_II_LAZ_2025-02-06.jpg", author: "Entbert", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0" },
+  "university-of-hamburg": { url: eu45.url, caption: "University of Hamburg campus", source: "https://commons.wikimedia.org/wiki/File:Uni_Hamburg_Edmund-Siemers-Allee_1_Hauptgeb%C3%A4ude.jpg", author: "Pauli-Pirat", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "delft-university-of-technology": { url: eu46.url, caption: "Delft University of Technology campus", source: "https://commons.wikimedia.org/wiki/File:05031936_Aula_TU_Delft_2.jpg", author: "Johan Bakker", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "leiden-university": { url: eu47.url, caption: "Leiden University campus", source: "https://commons.wikimedia.org/wiki/File:Leiden_-_Rapenburg_73.jpg", author: "Rudolphous", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0" },
+  "utrecht-university": { url: eu48.url, caption: "Utrecht University campus", source: "https://commons.wikimedia.org/wiki/File:The_Academiegebouw_in_Utrecht.jpg", author: "Robert von Oliva (naruciakk)", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "university-of-groningen": { url: eu49.url, caption: "University of Groningen campus", source: "https://commons.wikimedia.org/wiki/File:20090529_Academiegebouw_Groningen_NL.jpg", author: "Wutsje", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "wageningen-university": { url: eu50.url, caption: "Wageningen University campus", source: "https://commons.wikimedia.org/wiki/File:Forum_students.jpg", author: "Van Gooien", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "erasmus-university-rotterdam": { url: eu51.url, caption: "Erasmus University Rotterdam campus", source: "https://commons.wikimedia.org/wiki/File:FRAMES_2012.jpg", author: "WikiGÉÈF", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "universit-psl": { url: eu52.url, caption: "Université PSL campus", source: "https://commons.wikimedia.org/wiki/File:Entr%C3%A9e_ENS_45_rue_d%27ulm.JPG", author: "LPLT", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "institut-polytechnique-de-paris": { url: eu53.url, caption: "Institut Polytechnique de Paris campus", source: "https://commons.wikimedia.org/wiki/File:Campus_Ecole_polytechnique_de_palaiseau.jpg", author: "Jérémy Barande", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0" },
+  "universit-paris-saclay": { url: eu54.url, caption: "Université Paris-Saclay campus", source: "https://commons.wikimedia.org/wiki/File:Campus_Vall%C3%A9e_Universit%C3%A9_Paris_Saclay_-_Orsay_(FR91)_-_2026-01-17_-_1.jpg", author: "Chabe01", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "sciences-po": { url: eu55.url, caption: "Sciences Po campus", source: "https://commons.wikimedia.org/wiki/File:IEP_de_Paris,_27_rue_Saint-Guillaume,_Paris_7e.jpg", author: "Celette", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "universit-grenoble-alpes": { url: eu56.url, caption: "Université Grenoble Alpes campus", source: "https://commons.wikimedia.org/wiki/File:UGA_Facult%C3%A9_d%27Economie_de_Grenoble.jpg", author: "Agenomp", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "aarhus-university": { url: eu57.url, caption: "Aarhus University campus", source: "https://commons.wikimedia.org/wiki/File:Aarhus_Universitet_-_hovedbygnings_bagside.jpg", author: "No machine-readable author provided. Heelgrasper assumed (based on copyright cla", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  "aalto-university": { url: eu58.url, caption: "Aalto University campus", source: "https://commons.wikimedia.org/wiki/File:View_of_Otaniemi_outside_the_metro_station.jpg", author: "JIP", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-oslo": { url: eu59.url, caption: "University of Oslo campus", source: "https://commons.wikimedia.org/wiki/File:Universitetet_i_Oslo_Blindern_plassen_foran_Frederikke.jpg", author: "Helge Høifødt", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "uclouvain": { url: eu60.url, caption: "UCLouvain campus", source: "https://commons.wikimedia.org/wiki/File:01-louvain-la-neuve-17-01-2002.jpg", author: "user:Katsoura", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  "university-of-bologna": { url: eu61.url, caption: "University of Bologna campus", source: "https://commons.wikimedia.org/wiki/File:Palazzo_Poggi_Bologna.jpg", author: "Vlach Pavel", license: "CC0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+  "universitat-aut-noma-de-barcelona": { url: eu62.url, caption: "Universitat Autònoma de Barcelona campus", source: "https://commons.wikimedia.org/wiki/File:Universitat_Aut%C3%B2noma_de_Barcelona_-_pla%C3%A7a_c%C3%ADvica_vista_general.jpg", author: "ESM", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-college-dublin": { url: eu63.url, caption: "University College Dublin campus", source: "https://commons.wikimedia.org/wiki/File:Belfield_1414w.JPG", author: "Sarah777 at English Wikipedia", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "university-of-warsaw": { url: eu64.url, caption: "University of Warsaw campus", source: "https://commons.wikimedia.org/wiki/File:Warsaw_2023_109_University_Main_Gate.jpg", author: "Scotch Mist", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "politecnico-di-torino": { url: eu65.url, caption: "Politecnico di Torino campus", source: "https://commons.wikimedia.org/wiki/File:Politecnico_di_Torino,_sede_di_corso_Duca_degli_Abruzzi,_Torino.jpg", author: "Neq00", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
 };
 
 export function universityMonogram(name: string): string {
