@@ -17,3 +17,4 @@
 - Keep the portfolio award editor in HonorsSection and normalize award months through lib/honors; this preserves legacy year-only and MM/YYYY records alongside month inputs.
 - Keep source-verified campus assets and license credits in university-media and render them through UniversityVisual; monograms are placeholders, not official university crests.
 - Format leaderboard subtitles through leaderboardSubtitle without fetching hidden profile fields; database privacy restrictions remain authoritative.
+- Show university QS ranks only from the official QS table in src/lib/qs-rankings.ts with the edition and check date; universities QS does not rank keep qs = null, why: never present invented rankings as facts.

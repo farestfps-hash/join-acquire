@@ -1,3 +1,4 @@
+import { QS_2027, qsRankNumber } from "./qs-rankings";
 export type Country = "USA" | "Hong Kong" | "Kazakhstan" | "Europe";
 
 export type University = {
@@ -7,6 +8,7 @@ export type University = {
   city: string;
   qs: number | null;
   qsVerified?: boolean;
+  qsLabel?: string;
   gpa: string;
   sat?: string;
   act?: string;
@@ -4649,14 +4651,20 @@ const RAW: Raw[] = [
   }
 ];
 
-// Imported source has no verified ranking editions, deadline sources or campus photos.
-export const UNIVERSITIES: University[] = RAW.map((u) => ({
+// Ranks come only from the official QS table in qs-rankings; unranked universities keep qs = null.
+// Imported deadlines remain unverified estimates.
+export const UNIVERSITIES: University[] = RAW.map((u) => {
+  const id = u.id ?? u.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const label = QS_2027[id];
+  return {
   ...u,
-  qs: u.qs,
-  qsVerified: false,
+  qs: label ? qsRankNumber(label) : null,
+  qsVerified: Boolean(label),
+  ...(label ? { qsLabel: label } : {}),
   deadlines: u.deadlines.map((d) => ({ ...d, estimated: true })),
-  id: u.id ?? u.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+  id,
   photos: [],
-}));
+  };
+});
 
 export const COUNTRY_LIST: Country[] = ["USA", "Hong Kong", "Kazakhstan", "Europe"];

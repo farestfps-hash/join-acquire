@@ -30,7 +30,7 @@ test("all 70 example profiles are retained, temporarily open and distinguishable
 test("172 universities retain identity without fabricated QS placeholders", () => {
   assert.equal(UNIVERSITIES.length, 172);
   assert.equal(new Set(UNIVERSITIES.map((u) => u.id)).size, 172);
-  assert.ok(UNIVERSITIES.every((u) => u.qs !== 1200 && u.qsVerified === false));
+  assert.ok(UNIVERSITIES.every((u) => (u.qsVerified ? u.qs !== null && Boolean(u.qsLabel) : u.qs === null)));
 });
 
 test("unverified deadlines are estimates and random campus images are removed", () => {

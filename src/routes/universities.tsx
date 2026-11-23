@@ -217,7 +217,7 @@ function UniversitiesPage() {
             <div className="relative">
               <UniversityVisual uni={uni} />
               <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-bold">
-                QS · {t("university.notVerified")}
+                {uni.qsLabel ? `QS 2027 · #${uni.qsLabel}` : t("university.qsUnranked")}
               </span>
             </div>
             <div className="p-5">
@@ -275,7 +275,7 @@ function UniDetails({
         <DialogTitle className="flex flex-wrap items-center gap-3 text-xl">
           {uni.name}
           <Badge variant="outline" className="rounded-full">
-            <Trophy className="mr-1 size-3.5" /> QS · {t("university.notVerified")}
+            <Trophy className="mr-1 size-3.5" /> {uni.qsLabel ? `QS 2027 · #${uni.qsLabel}` : t("university.qsUnranked")}
           </Badge>
         </DialogTitle>
         <DialogDescription>
