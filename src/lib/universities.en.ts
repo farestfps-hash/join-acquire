@@ -565,20 +565,23 @@ export const UNIVERSITY_EN: Record<string, string> = {
 };
 
 import type { University } from "./universities";
+import type { Lang } from "./i18n";
+import { UNIVERSITY_KZ } from "./universities.kz";
 
-const en = (s: string | undefined) => (s ? (UNIVERSITY_EN[s] ?? s) : s);
+const pick = (dict: Record<string, string>) => (s: string | undefined) => (s ? (dict[s] ?? s) : s);
 
-/** Returns the card with English text when lang is "en"; stored data is never changed. */
-export function localizeUniversity(u: University, lang: "en" | "ru"): University {
-  if (lang !== "en") return u;
+/** Returns the card with localized text for EN/KZ; stored data is never changed. */
+export function localizeUniversity(u: University, lang: Lang): University {
+  if (lang === "ru") return u;
+  const tr = pick(lang === "kz" ? UNIVERSITY_KZ : UNIVERSITY_EN);
   return {
     ...u,
-    city: en(u.city)!, gpa: en(u.gpa)!, english: en(u.english)!, aid: en(u.aid)!,
-    tuition: en(u.tuition)!, overview: en(u.overview)!, strategy: en(u.strategy)!,
+    city: tr(u.city)!, gpa: tr(u.gpa)!, english: tr(u.english)!, aid: tr(u.aid)!,
+    tuition: tr(u.tuition)!, overview: tr(u.overview)!, strategy: tr(u.strategy)!,
     ...Object.fromEntries(
-      (["sat", "act", "ap", "unt", "nuet"] as const).filter((k) => u[k]).map((k) => [k, en(u[k])]),
+      (["sat", "act", "ap", "unt", "nuet"] as const).filter((k) => u[k]).map((k) => [k, tr(u[k])]),
     ),
-    programs: u.programs.map((p) => en(p)!),
-    deadlines: u.deadlines.map((d) => ({ ...d, label: en(d.label)! })),
+    programs: u.programs.map((p) => tr(p)!),
+    deadlines: u.deadlines.map((d) => ({ ...d, label: tr(d.label)! })),
   };
 }
