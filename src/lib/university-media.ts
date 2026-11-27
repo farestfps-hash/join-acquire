@@ -149,6 +149,18 @@ import eu62 from "@/assets/campuses/universitat-aut-noma-de-barcelona.jpg.asset.
 import eu63 from "@/assets/campuses/university-college-dublin.jpg.asset.json";
 import eu64 from "@/assets/campuses/university-of-warsaw.jpg.asset.json";
 import eu65 from "@/assets/campuses/politecnico-di-torino.jpg.asset.json";
+import rem0 from "@/assets/campuses/vanderbilt-university.jpg.asset.json";
+import rem1 from "@/assets/campuses/hong-kong-metropolitan-university.jpg.asset.json";
+import rem2 from "@/assets/campuses/the-hang-seng-university-of-hong-kong.jpg.asset.json";
+import rem3 from "@/assets/campuses/university-of-bristol.jpg.asset.json";
+import rem4 from "@/assets/campuses/university-of-amsterdam.jpg.asset.json";
+import rem5 from "@/assets/campuses/eindhoven-university-of-technology.jpg.asset.json";
+import rem6 from "@/assets/campuses/university-of-copenhagen.jpg.asset.json";
+import rem7 from "@/assets/campuses/technical-university-of-denmark.jpg.asset.json";
+import rem8 from "@/assets/campuses/ghent-university.jpg.asset.json";
+import rem9 from "@/assets/campuses/university-of-vienna.jpg.asset.json";
+import rem10 from "@/assets/campuses/sapienza-university-of-rome.jpg.asset.json";
+import rem11 from "@/assets/campuses/international-information-technology-university.jpg.asset.json";
 
 export type CampusPhoto = { url: string; caption: string; source: string; author: string; license: string; licenseUrl: string };
 export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
@@ -303,6 +315,18 @@ export const CAMPUS_PHOTOS: Record<string, CampusPhoto> = {
   "university-college-dublin": { url: eu63.url, caption: "University College Dublin campus", source: "https://commons.wikimedia.org/wiki/File:Belfield_1414w.JPG", author: "Sarah777 at English Wikipedia", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
   "university-of-warsaw": { url: eu64.url, caption: "University of Warsaw campus", source: "https://commons.wikimedia.org/wiki/File:Warsaw_2023_109_University_Main_Gate.jpg", author: "Scotch Mist", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
   "politecnico-di-torino": { url: eu65.url, caption: "Politecnico di Torino campus", source: "https://commons.wikimedia.org/wiki/File:Politecnico_di_Torino,_sede_di_corso_Duca_degli_Abruzzi,_Torino.jpg", author: "Neq00", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "vanderbilt-university": { url: rem0.url, caption: "Vanderbilt University campus", source: "https://commons.wikimedia.org/wiki/File:Benson_Science_Hall,_Vanderbilt_University_(2009).jpg", author: "Jbaker08 (talk)", license: "Public domain", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
+  "hong-kong-metropolitan-university": { url: rem1.url, caption: "Hong Kong Metropolitan University campus", source: "https://commons.wikimedia.org/wiki/File:HKMU_Jockey_Club_Campus_entry_11-12-2021.jpg", author: "LN9267", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "the-hang-seng-university-of-hong-kong": { url: rem2.url, caption: "The Hang Seng University of Hong Kong campus", source: "https://commons.wikimedia.org/wiki/File:Hang_Seng_Management_College_2015.jpg", author: "Wing1990hk", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0" },
+  "university-of-bristol": { url: rem3.url, caption: "University of Bristol Wills Memorial Building", source: "https://commons.wikimedia.org/wiki/File:The_Wills_Building_-_Bristol_University_-_geograph.org.uk_-_2229764.jpg", author: "Anthony O'Neil", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0" },
+  "university-of-amsterdam": { url: rem4.url, caption: "University of Amsterdam Maagdenhuis", source: "https://commons.wikimedia.org/wiki/File:Maagdenhuis_(Amsterdam).jpg", author: "Marcelmulder68", license: "CC BY-SA 3.0 nl", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en" },
+  "eindhoven-university-of-technology": { url: rem5.url, caption: "Eindhoven University of Technology Atlas building", source: "https://commons.wikimedia.org/wiki/File:Gebouw_Atlas_TU_Eindhoven.jpg", author: "Choinowski", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-copenhagen": { url: rem6.url, caption: "University of Copenhagen main building at Frue Plads", source: "https://commons.wikimedia.org/wiki/File:20180921_Kobenhavns_universitet_001_(45153757081).jpg", author: "Johan Wessman / News Oresund", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0" },
+  "technical-university-of-denmark": { url: rem7.url, caption: "Technical University of Denmark Lyngby campus", source: "https://commons.wikimedia.org/wiki/File:Building_321,_Technical_University_of_Denmark,_2016-07-20.jpg", author: "Finn Årup Nielsen", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "ghent-university": { url: rem8.url, caption: "Ghent University Aula Academica", source: "https://commons.wikimedia.org/wiki/File:Aula_UGent.jpg", author: "© UGent, foto Christophe Vander Eecken", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "university-of-vienna": { url: rem9.url, caption: "University of Vienna main building", source: "https://commons.wikimedia.org/wiki/File:Wien_-_Universit%C3%A4t_(2).JPG", author: "C.Stadler/Bwag", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "sapienza-university-of-rome": { url: rem10.url, caption: "Sapienza University of Rome main entrance", source: "https://commons.wikimedia.org/wiki/File:Sapienza_Universit%C3%A0_di_Roma.jpg", author: "Carlo Dani", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
+  "international-information-technology-university": { url: rem11.url, caption: "International Information Technology University (IITU) Almaty", source: "https://commons.wikimedia.org/wiki/File:International_Information_Technology_University_in_Almaty.jpg", author: "МаратД", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0" },
 };
 
 export function universityMonogram(name: string): string {

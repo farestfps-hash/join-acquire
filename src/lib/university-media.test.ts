@@ -5,7 +5,7 @@ import { UNIVERSITIES } from "./universities";
 
 test("campus photos resolve to existing universities and include sources and licenses", () => {
   const ids = new Set(UNIVERSITIES.map((uni) => uni.id));
-  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 151);
+  assert.equal(Object.keys(CAMPUS_PHOTOS).length, 163);
   for (const [id, photo] of Object.entries(CAMPUS_PHOTOS)) {
     assert.ok(ids.has(id), id);
     assert.ok(photo.url.startsWith("/__l5e/assets-v1/"));
@@ -25,17 +25,17 @@ test("flags retain country identity in both catalogue languages", () => {
   assert.equal(universityFlag("Europe", "Zurich, Швейцария"), "🇨🇭");
   assert.equal(universityFlag("Europe", "Zurich, Switzerland"), "🇨🇭");
   assert.equal(universityFlag("Hong Kong", "Hong Kong"), "🇭🇰");
-});test("20 of 30 Kazakhstan universities have verified campus photos", () => {
-  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Kazakhstan").length, 20);
 });
-test("10 of 12 Hong Kong universities and the requested top US/UK/German universities have photos", () => {
-  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Hong Kong").length, 10);
+test("21 of 30 Kazakhstan universities have verified campus photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Kazakhstan").length, 21);
+});
+test("all 12 Hong Kong universities and the requested top US/UK/German universities have photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Hong Kong").length, 12);
   for (const id of ["princeton-university", "california-institute-of-technology", "university-of-california-berkeley", "imperial-college-london", "university-college-london", "technical-university-of-munich"]) assert.ok(CAMPUS_PHOTOS[id], id);
 });
-test("49 of 50 US universities have campus photos; Vanderbilt waits for a current photo", () => {
-  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "USA").length, 49);
-  assert.equal(CAMPUS_PHOTOS["vanderbilt-university"], undefined);
+test("all 50 US universities have verified campus photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "USA").length, 50);
 });
-test("72 of 80 European universities have campus photos", () => {
-  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Europe").length, 72);
+test("all 80 European universities have verified campus photos", () => {
+  assert.equal(Object.keys(CAMPUS_PHOTOS).filter((id) => UNIVERSITIES.find((u) => u.id === id)?.country === "Europe").length, 80);
 });
